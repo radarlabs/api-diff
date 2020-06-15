@@ -1,12 +1,11 @@
-import axios from 'axios';
-import * as fs from 'fs';
+import axios from "axios";
+import * as fs from "fs";
 import * as _ from "lodash";
-import * as queryString from 'query-string';
+import * as queryString from "query-string";
 import * as Bluebird from "bluebird";
 
 const c = require("ansi-colors");
 const parseCsvSync = require("csv-parse/lib/sync");
-const jsondiffpatch = require("jsondiffpatch");
 
 export type Change = {
   quality: "good" | "bad" | "neutral";
@@ -25,22 +24,28 @@ const NEW_KEY = "new";
 
 export const globalCommandLineOptions = {
   method: {
-    choices: ['GET', 'POST', 'PUT'],
-    default: 'GET',
-    description: 'what http method to use',
+    choices: ["GET", "POST", "PUT"],
+    default: "GET",
+    description: "what http method to use",
   },
+  color: {
+    type: "boolean",
+    default: true,
+    description: "turns on/off colorized output"
+  }
 };
 
 export const apiEnvCommandLineOptions: Record<string, any> = {
   host: {
-    type: 'string',
-    description: 'Host/port',
+    type: "string",
+    description: "Host/port",
     // required: true,
   },
   protocol: {
-    choices: ['http', 'https'],
-    default: 'http',
-    description: 'What protocol to use (if not specified in url), defaults to http for local, https otherwise',
+    choices: ["http", "https"],
+    default: "http",
+    description:
+      "What protocol to use (if not specified in url), defaults to http for local, https otherwise",
   },
   // key: {
   //   type: 'string',
@@ -84,6 +89,11 @@ function parseArgv() {
     description: "A file containing url encoded query params, requires --endpoint",
   });
 
+  yargs.option("extra_params", {
+    type: "string",
+    description: "Extra static parameters that will be added to each query, maybe something like limit=2 to make diffs less noisy",
+  });
+
   yargs.option("input_csv", {
     type: "array",
     description: "A file containingquery params in a csv, first line is , requires --endpoint",
@@ -99,14 +109,15 @@ function parseArgv() {
 
   yargs.option("ignored_fields", {
     type: "array",
-    description: "field names to ignore when diffing responses. geometry latitude longitude are common for geocode compare runs",
+    description:
+      "field names to ignore when diffing responses. geometry latitude longitude are common for geocode compare runs",
   });
 
   yargs.group(["input_params", "endpoint", "input_queries", "input_csv"], "Query options:");
   yargs.group(oldParams, 'Options for "old" server to compare:');
   yargs.group(newParams, 'Options for "new" server to compare:');
-  yargs.implies('input_csv', 'endpoint');
-  yargs.implies('input_params', 'endpoint');
+  yargs.implies("input_csv", "endpoint");
+  yargs.implies("input_params", "endpoint");
 
   yargs.usage(`This tool takes in a set of queries to compare against two radar api servers. 
 It has a bunch of options, here are some examples:
@@ -126,20 +137,25 @@ There are other ways to configure old and new, look in the help for more. These 
   return yargs.argv;
 }
 
-
 export interface ApiEnv {
-  protocol: string,
-  host: string,
+  protocol: string;
+  host: string;
 }
 
 export function argvToApiEnv(argv: any): ApiEnv {
   const apiEnv: Partial<ApiEnv> = _.clone(argv);
 
+  if (argv.host.startsWith("http")) {
+    const url = new URL(argv.host);
+    argv.host = url.host;
+    argv.protocol = url.protocol;
+  }
+
   if (!apiEnv.protocol) {
-    if (apiEnv.host.includes('localhost') || apiEnv.host.includes('127.0.0.1')) {
-      apiEnv.protocol = 'http';
+    if (apiEnv.host.includes("localhost") || apiEnv.host.includes("127.0.0.1")) {
+      apiEnv.protocol = "http";
     } else {
-      apiEnv.protocol = 'https';
+      apiEnv.protocol = "https";
     }
   }
 
@@ -192,17 +208,20 @@ const generateQueries = () => {
   }
 };
 
-export async function runQuery(apiEnv: ApiEnv, {
-  params,
-  endpoint,
-  method,
-  verbose,
-}: {
-  params: Record<string, any>
-  method: string,
-  endpoint: string
-  verbose?: boolean,
-}) {
+export async function runQuery(
+  apiEnv: ApiEnv,
+  {
+    params,
+    endpoint,
+    method,
+    verbose,
+  }: {
+    params: Record<string, any>;
+    method: string;
+    endpoint: string;
+    verbose?: boolean;
+  }
+) {
   const log = (...args) => {
     if (verbose) {
       console.error.apply(this, args);
@@ -210,38 +229,38 @@ export async function runQuery(apiEnv: ApiEnv, {
   };
 
   // v1/xxxx ... maybe someone was lazy and didn't start with an opening slash
-  if (endpoint[0] !== '/' && !endpoint.startsWith('http:')) {
+  if (endpoint[0] !== "/" && !endpoint.startsWith("http:")) {
     endpoint = `/${endpoint}`;
   }
 
   // someone was lazy and didn't specify /v1
-  if (!endpoint.startsWith('/v1')) {
+  if (!endpoint.startsWith("/v1")) {
     endpoint = `/v1${endpoint}`;
   }
 
-  let url = '';
+  let url = "";
 
   // /xxx/api.... so we need to add host
-  if (endpoint[0] === '/') {
+  if (endpoint[0] === "/") {
     url = apiEnv.host + endpoint;
   }
 
   // don't yet have a protocol in the url
-  if (!url.startsWith('http:')) {
+  if (!url.startsWith("http:")) {
     url = `${apiEnv.protocol}://${url}`;
   }
 
   log(`Fetching ${url}`);
 
-  const headers = { 
-    'User-Agent': 'radar-compare-tool/unknown'
+  const headers = {
+    "User-Agent": "radar-compare-tool/unknown",
   };
 
   try {
     const response = await axios(url, {
       headers,
-      params: method === 'GET' ? params : undefined,
-      data: method === 'POST' ? params : undefined,
+      params: method === "GET" ? params : undefined,
+      data: method === "POST" ? params : undefined,
       method: method.toLowerCase() as any,
     });
     return response;
@@ -253,7 +272,6 @@ export async function runQuery(apiEnv: ApiEnv, {
   }
 }
 
-
 async function compareQuery({
   oldApiEnv,
   newApiEnv,
@@ -264,7 +282,7 @@ async function compareQuery({
   query: string;
 }) {
   const [endpoint, paramsString] = query.split("?");
-  const params = queryString.parse(paramsString);
+  const params = queryString.parse(paramsString + '&' + argv.extra_params);
   const oldResponse = await runQuery(oldApiEnv, {
     endpoint,
     params,
@@ -349,6 +367,8 @@ async function compareQueries({
 }
 
 const argv = parseArgv();
+
+const jsondiffpatch = require("jsondiffpatch");
 
 const oldApiEnv = argvToApiEnv(argv[OLD_KEY]);
 const newApiEnv = argvToApiEnv(argv[NEW_KEY]);
