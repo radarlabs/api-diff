@@ -104,3 +104,10 @@ dist
 
 # TernJS port file
 .tern-port
+
+
+*.txt
+*.log
+*.csv
+*.tsv
+config.hjson
