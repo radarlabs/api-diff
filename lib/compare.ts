@@ -1,35 +1,37 @@
-import * as fs from "fs";
-import * as _ from "lodash";
-import * as queryString from "query-string";
-import * as Bluebird from "bluebird";
-import { getApiEnvCommandLineOptions, ApiEnv, argvToApiEnv } from "./apiEnv";
-import { runQuery } from "./run-query";
+/* eslint-disable no-console */
+/* eslint-disable camelcase */
+import * as fs from 'fs';
+import * as _ from 'lodash';
+import * as queryString from 'query-string';
+import * as Bluebird from 'bluebird';
+import c from 'ansi-colors';
+import parseCsvSync from 'csv-parse/lib/sync';
+import jsondiffpatch from 'jsondiffpatch';
+import { getApiEnvCommandLineOptions, ApiEnv, argvToApiEnv } from './apiEnv';
+import runQuery from './run-query';
+import { globalCommandLineOptions } from './cli-utils';
 
-const c = require("ansi-colors");
-const parseCsvSync = require("csv-parse/lib/sync");
+const OLD_KEY = 'old';
+const NEW_KEY = 'new';
 
-const OLD_KEY = "old";
-const NEW_KEY = "new";
-
-export const globalCommandLineOptions = {
-  method: {
-    choices: ["GET", "POST", "PUT"],
-    default: "GET",
-    description: "what http method to use",
-  },
-  color: {
-    type: "boolean",
-    description: "turns on/off colorized output, defaults to true for stdin, false for redirected output"
-  },
-  concurrency: {
-    type: "number",
-    description: "query concurrency",
-    default: 10,
-  }
+type ParsedArgs = {
+  input_params?: string;
+  input_csv?: string;
+  input_queries?: string;
+  endpoint: string;
+  extra_params: string,
+  method: string;
+  ignored_fields: string[],
+  concurrency: number,
+  unchanged: boolean,
 };
 
+/**
+ *
+ */
 function parseArgv() {
-  const yargs = require("yargs").strict();
+  // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
+  const yargs = require('yargs').strict();
 
   _.forEach(globalCommandLineOptions, (val, key) => {
     yargs.option(key, val);
@@ -55,41 +57,42 @@ function parseArgv() {
     newParams.push(`${NEW_KEY}.${key}`);
   });
 
-  yargs.option("input_params", {
-    type: "array",
-    description: "A file containing url encoded query params, requires --endpoint",
+  yargs.option('input_params', {
+    type: 'array',
+    description: 'A file containing url encoded query params, requires --endpoint',
   });
 
-  yargs.option("extra_params", {
-    type: "string",
-    description: "Extra static parameters that will be added to each query, maybe something like limit=2 to make diffs less noisy",
+  yargs.option('extra_params', {
+    type: 'string',
+    description:
+      'Extra static parameters that will be added to each query, maybe something like limit=2 to make diffs less noisy',
   });
 
-  yargs.option("input_csv", {
-    type: "array",
-    description: "A file containingquery params in a csv, first line is , requires --endpoint",
+  yargs.option('input_csv', {
+    type: 'array',
+    description: 'A file containingquery params in a csv, first line is , requires --endpoint',
   });
 
-  yargs.option("endpoint", {
-    description: "Endpoint to query using query param strings from --input_params",
+  yargs.option('endpoint', {
+    description: 'Endpoint to query using query param strings from --input_params',
   });
 
-  yargs.option("input_queries", {
-    description: "A file containing endpoints + queries, one per line",
+  yargs.option('input_queries', {
+    description: 'A file containing endpoints + queries, one per line',
   });
 
-  yargs.option("ignored_fields", {
-    type: "array",
+  yargs.option('ignored_fields', {
+    type: 'array',
     default: [],
     description:
-      "field names to ignore when diffing responses. geometry latitude longitude are common for geocode compare runs",
+      'field names to ignore when diffing responses. geometry latitude longitude are common for geocode compare runs',
   });
 
-  yargs.group(["input_params", "endpoint", "input_queries", "input_csv"], "Query options:");
+  yargs.group(['input_params', 'endpoint', 'input_queries', 'input_csv'], 'Query options:');
   yargs.group(oldParams, 'Options for "old" server to compare:');
   yargs.group(newParams, 'Options for "new" server to compare:');
-  yargs.implies("input_csv", "endpoint");
-  yargs.implies("input_params", "endpoint");
+  yargs.implies('input_csv', 'endpoint');
+  yargs.implies('input_params', 'endpoint');
 
   yargs.usage(`This tool takes in a set of queries to compare against two radar api servers. 
 It has a bunch of options, here are some examples:
@@ -106,29 +109,30 @@ There are other ways to configure old and new, look in the help for more. These 
   return yargs.argv;
 }
 
-
-const generateQueries = () => {
+/**
+ * @param argv
+ */
+function generateQueries(argv: ParsedArgs) {
   const hasInputFile = argv.input_params || argv.input_csv;
   if ((argv.endpoint && !hasInputFile) || (!argv.endpoint && hasInputFile)) {
     console.error(
       c.red(
-        "Must specify both --endpoint and (--input_params or --input_csv) , perhaps you wanted --input_queries?"
-      )
+        'Must specify both --endpoint and (--input_params or --input_csv) , perhaps you wanted --input_queries?',
+      ),
     );
   }
 
   if (argv.endpoint && argv.input_params) {
-    const endpoint = argv.endpoint;
-    return _.flatMap(argv.input_params, (input_param_file: string) =>
-      fs
-        .readFileSync(input_param_file)
-        .toString()
-        .split("\n")
-        .filter((line) => !!line)
-        .map((line) => `${endpoint}?${line}`)
-    );
-  } else if (argv.endpoint && argv.input_csv) {
-    const endpoint = argv.endpoint;
+    const { endpoint } = argv;
+    return _.flatMap(argv.input_params, (input_param_file: string) => fs
+      .readFileSync(input_param_file)
+      .toString()
+      .split('\n')
+      .filter((line) => !!line)
+      .map((line) => `${endpoint}?${line}`));
+  }
+  if (argv.endpoint && argv.input_csv) {
+    const { endpoint } = argv;
     return _.flatMap(argv.input_csv, (input_csv_file: string) => {
       const fileLines = fs.readFileSync(input_csv_file).toString();
 
@@ -138,32 +142,43 @@ const generateQueries = () => {
       });
 
       return records.map((record) => {
-        delete record[""];
+        // eslint-disable-next-line no-param-reassign
+        delete record[''];
         return `${endpoint}?${queryString.stringify(record)}`;
       });
     });
-  } else if (argv.input_queries) {
-    return _.flatMap(argv.input_queries, (input_queries_file: string) => {
-      return fs
-        .readFileSync(input_queries_file)
-        .toString()
-        .split("\n")
-        .filter((line) => !!line);
-    });
   }
-};
+  if (argv.input_queries) {
+    return _.flatMap(argv.input_queries, (input_queries_file: string) => fs
+      .readFileSync(input_queries_file)
+      .toString()
+      .split('\n')
+      .filter((line) => !!line));
+  }
 
+  return [];
+}
+
+/**
+ * @param root0
+ * @param root0.oldApiEnv
+ * @param root0.newApiEnv
+ * @param root0.query
+ * @param root0.argv
+ */
 async function compareQuery({
   oldApiEnv,
   newApiEnv,
   query,
+  argv,
 }: {
   oldApiEnv: ApiEnv;
   newApiEnv: ApiEnv;
   query: string;
+  argv: ParsedArgs
 }) {
-  const [endpoint, paramsString] = query.split("?");
-  const params = queryString.parse(paramsString + '&' + argv.extra_params);
+  const [endpoint, paramsString] = query.split('?');
+  const params = queryString.parse(`${paramsString}&${argv.extra_params}`);
   const oldResponse = await runQuery(oldApiEnv, {
     endpoint,
     params,
@@ -175,9 +190,9 @@ async function compareQuery({
     method: argv.method,
   });
 
-  var differ = jsondiffpatch.create({
-    propertyFilter: function (name, _context) {
-      return !["buildInfo", "debug", ...(argv.ignored_fields || [])].includes(name);
+  const differ = jsondiffpatch.create({
+    propertyFilter(name, _context) {
+      return !['buildInfo', 'debug', ...(argv.ignored_fields || [])].includes(name);
     },
   });
 
@@ -186,7 +201,7 @@ async function compareQuery({
   const outputLines = `${JSON.stringify(params)}
   ./api.sh --keyEnv ${oldApiEnv.keyEnv} ${oldResponse.url}
   ./api.sh api --keyEnv ${newApiEnv.keyEnv} ${newResponse.url}`;
-  
+
   if (!delta) {
     if (argv.unchanged) {
       console.log(c.cyan(`Unchanged: ${outputLines}`));
@@ -195,19 +210,28 @@ async function compareQuery({
   }
 
   console.log(c.yellow(`Changed: ${outputLines}`));
-  jsondiffpatch.console.log(delta);
+  (jsondiffpatch.console as any).log(delta);
 
   return { didChange: true, specificChange: undefined };
 }
 
+/**
+ * @param root0
+ * @param root0.oldApiEnv
+ * @param root0.newApiEnv
+ * @param root0.queries
+ * @param root0.argv
+ */
 async function compareQueries({
   oldApiEnv,
   newApiEnv,
   queries,
+  argv,
 }: {
   oldApiEnv: ApiEnv;
   newApiEnv: ApiEnv;
   queries: string[];
+  argv: ParsedArgs
 }) {
   let numQueriesRun = 0;
   let numQueriesChanged = 0;
@@ -219,31 +243,32 @@ async function compareQueries({
         console.log(`IN PROGRESS. ${numQueriesRun}/${queries.length} run`);
       }
       numQueriesRun += 1;
-      const { didChange } = await compareQuery({ oldApiEnv, newApiEnv, query });
+      const { didChange } = await compareQuery({
+        oldApiEnv, newApiEnv, query, argv,
+      });
       if (didChange) {
         numQueriesChanged += 1;
       }
     },
-    { concurrency: argv.concurrency }
+    { concurrency: argv.concurrency },
   );
   console.log(`DONE. ${numQueriesChanged}/${numQueriesRun} changed`);
 }
 
-const argv = parseArgv();
-
-const jsondiffpatch = require("jsondiffpatch");
+const argv = parseArgv() as ParsedArgs;
 
 const oldApiEnv = argvToApiEnv(argv[OLD_KEY]);
 const newApiEnv = argvToApiEnv(argv[NEW_KEY]);
 
-const queries = generateQueries();
+const queries = generateQueries(argv);
 
 if (!queries || queries.length === 0) {
-  console.error(c.red("No queries found"));
+  console.error(c.red('No queries found'));
 }
 
 compareQueries({
   oldApiEnv,
   newApiEnv,
   queries,
+  argv,
 });

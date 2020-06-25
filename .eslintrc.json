@@ -1,0 +1,12 @@
+{
+  "env": {
+    "commonjs": true,
+    "es6": true
+  },
+  "extends": ["airbnb-base",     "plugin:import/typescript",    "plugin:@typescript-eslint/recommended", "plugin:jsdoc/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["jsdoc"],
+  "rules": {
+    "import/extensions": 0
+  }
+}
