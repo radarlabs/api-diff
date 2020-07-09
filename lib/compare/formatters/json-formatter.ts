@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
+import * as md5 from 'md5';
 import { Change } from '../change';
 import { CompareFormatter } from './compare-formatter';
 
-type JsonChange = { old: unknown; new: unknown, oldUrl: string, newUrl: string } & Pick<Change, 'delta' | 'params'>;
+type JsonChange = { id: string, old: unknown; new: unknown, oldUrl: string, newUrl: string } & Pick<Change, 'delta' | 'params'>;
 
 export default class JsonFormatter extends CompareFormatter {
   numQueriesRun = 0;
@@ -14,6 +15,7 @@ export default class JsonFormatter extends CompareFormatter {
   logChange(change: Change): void {
     this.numQueriesChanged += 1;
     this.changes.push({
+      id: md5(JSON.stringify({ delta: change.delta, params: change.params })),
       delta: change.delta,
       params: change.params,
       old: change.oldResponse.data,
@@ -30,13 +32,18 @@ export default class JsonFormatter extends CompareFormatter {
     }
   }
 
+  finishedDict(): any {
+    return {
+      command: process.argv.join(' '),
+      changes: this.changes,
+      oldApiEnv: this.oldApiEnv,
+      newApiEnv: this.newApiEnv,
+    };
+  }
+
   finished(): void {
     console.log(
-      JSON.stringify({
-        changes: this.changes,
-        oldApiEnv: this.oldApiEnv,
-        newApiEnv: this.newApiEnv,
-      }),
+      JSON.stringify(this.finishedDict()),
     );
   }
 }

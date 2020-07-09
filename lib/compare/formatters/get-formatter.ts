@@ -2,18 +2,21 @@ import { CompareFormatter, FormatterConstructorParams } from './compare-formatte
 import { failedExit } from '../../cli-utils';
 import ConsoleFormatter from './console-formatter';
 import JsonFormatter from './json-formatter';
+import HtmlFormatter from './html-formatter';
+import { OutputMode } from '../argv';
 
 /**
- * @param outputMode
- * @param params
+ * @param outputMode the output mode specified on the commandlin
+ * @param params data required to construct a compare formater
+ * @returns {CompareFormatter} the compare formatter
  */
 export default function getFormatter(
-  outputMode: string,
+  outputMode: OutputMode,
   params: FormatterConstructorParams,
 ): CompareFormatter {
   switch (outputMode) {
     case 'html':
-      throw failedExit('HTML Not Implemented');
+      return new HtmlFormatter(params);
     case 'text':
       return new ConsoleFormatter(params);
     case 'json':

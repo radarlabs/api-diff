@@ -1,8 +1,6 @@
 - html viewer mode
---- make voting work
 --- add in some info about the run
---- pretty it up a bit
---- actually add html output mode
+--- summary mode
 
 - overall add performance characteristics
 

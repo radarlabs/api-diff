@@ -106,6 +106,7 @@ export function parseArgv() {
 
   yargs.option('output_mode', {
     choices: ['html', 'text', 'json'],
+    default: 'text',
     description: 'what kind of output to generate',
   });
 
