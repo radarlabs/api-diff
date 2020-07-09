@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Compare</title>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/jsondiffpatch/dist/jsondiffpatch.umd.min.js"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.19/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      .buttons {
+        position: sticky;
+        bottom: 0;
+        background: white;
+        display: flex;
+      }
+
+      .buttons .btn {
+        flex-grow: 1;
+      }
+
+      .change {
+        padding: 10px;
+        margin: 10px;
+        border: solid black 2px;
+      }
+
+      .change[data-quality="unscored"],
+      div.unscored, tr.unscored {
+        background: beige;
+      }
+
+      .change[data-quality="better"],
+      div.better, tr.better {
+        background: lightgreen;
+      }
+
+      .change[data-quality="worse"],
+      div.worse, tr.worse{
+        background: lightcoral;
+      }
+
+      .change[data-quality="neutral"],
+      div.neutral, tr.neutral {
+        background: lightgrey;
+      }
+
+      .request-card {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      #scoreboard {
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 10000;
+      }
+
+      /* https://benjamine.github.io/jsondiffpatch/formatters-styles/html.css */
+
+      .jsondiffpatch-delta {
+        font-family: "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, Courier, monospace;
+        font-size: 12px;
+        margin: 0;
+        padding: 0 0 0 12px;
+        display: inline-block;
+      }
+      .jsondiffpatch-delta pre {
+        font-family: "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, Courier, monospace;
+        font-size: 12px;
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+      }
+      ul.jsondiffpatch-delta {
+        list-style-type: none;
+        padding: 0 0 0 20px;
+        margin: 0;
+      }
+      .jsondiffpatch-delta ul {
+        list-style-type: none;
+        padding: 0 0 0 20px;
+        margin: 0;
+      }
+      .jsondiffpatch-added .jsondiffpatch-property-name,
+      .jsondiffpatch-added .jsondiffpatch-value pre,
+      .jsondiffpatch-modified .jsondiffpatch-right-value pre,
+      .jsondiffpatch-textdiff-added {
+        background: #bbffbb;
+      }
+      .jsondiffpatch-deleted .jsondiffpatch-property-name,
+      .jsondiffpatch-deleted pre,
+      .jsondiffpatch-modified .jsondiffpatch-left-value pre,
+      .jsondiffpatch-textdiff-deleted {
+        background: #ffbbbb;
+        text-decoration: line-through;
+      }
+      .jsondiffpatch-unchanged,
+      .jsondiffpatch-movedestination {
+        color: gray;
+      }
+      .jsondiffpatch-unchanged,
+      .jsondiffpatch-movedestination > .jsondiffpatch-value {
+        transition: all 0.5s;
+        -webkit-transition: all 0.5s;
+        overflow-y: hidden;
+      }
+      .jsondiffpatch-unchanged-showing .jsondiffpatch-unchanged,
+      .jsondiffpatch-unchanged-showing .jsondiffpatch-movedestination > .jsondiffpatch-value {
+        max-height: 100px;
+      }
+      .jsondiffpatch-unchanged-hidden .jsondiffpatch-unchanged,
+      .jsondiffpatch-unchanged-hidden .jsondiffpatch-movedestination > .jsondiffpatch-value {
+        max-height: 0;
+      }
+      .jsondiffpatch-unchanged-hiding .jsondiffpatch-movedestination > .jsondiffpatch-value,
+      .jsondiffpatch-unchanged-hidden .jsondiffpatch-movedestination > .jsondiffpatch-value {
+        display: block;
+      }
+      .jsondiffpatch-unchanged-visible .jsondiffpatch-unchanged,
+      .jsondiffpatch-unchanged-visible .jsondiffpatch-movedestination > .jsondiffpatch-value {
+        max-height: 100px;
+      }
+      .jsondiffpatch-unchanged-hiding .jsondiffpatch-unchanged,
+      .jsondiffpatch-unchanged-hiding .jsondiffpatch-movedestination > .jsondiffpatch-value {
+        max-height: 0;
+      }
+      .jsondiffpatch-unchanged-showing .jsondiffpatch-arrow,
+      .jsondiffpatch-unchanged-hiding .jsondiffpatch-arrow {
+        display: none;
+      }
+      .jsondiffpatch-value {
+        display: inline-block;
+      }
+      .jsondiffpatch-property-name {
+        display: inline-block;
+        padding-right: 5px;
+        vertical-align: top;
+      }
+      .jsondiffpatch-property-name:after {
+        content: ": ";
+      }
+      .jsondiffpatch-child-node-type-array > .jsondiffpatch-property-name:after {
+        content: ": [";
+      }
+      .jsondiffpatch-child-node-type-array:after {
+        content: "],";
+      }
+      div.jsondiffpatch-child-node-type-array:before {
+        content: "[";
+      }
+      div.jsondiffpatch-child-node-type-array:after {
+        content: "]";
+      }
+      .jsondiffpatch-child-node-type-object > .jsondiffpatch-property-name:after {
+        content: ": {";
+      }
+      .jsondiffpatch-child-node-type-object:after {
+        content: "},";
+      }
+      div.jsondiffpatch-child-node-type-object:before {
+        content: "{";
+      }
+      div.jsondiffpatch-child-node-type-object:after {
+        content: "}";
+      }
+      .jsondiffpatch-value pre:after {
+        content: ",";
+      }
+      li:last-child > .jsondiffpatch-value pre:after,
+      .jsondiffpatch-modified > .jsondiffpatch-left-value pre:after {
+        content: "";
+      }
+      .jsondiffpatch-modified .jsondiffpatch-value {
+        display: inline-block;
+      }
+      .jsondiffpatch-modified .jsondiffpatch-right-value {
+        margin-left: 5px;
+      }
+      .jsondiffpatch-moved .jsondiffpatch-value {
+        display: none;
+      }
+      .jsondiffpatch-moved .jsondiffpatch-moved-destination {
+        display: inline-block;
+        background: #ffffbb;
+        color: #888;
+      }
+      .jsondiffpatch-moved .jsondiffpatch-moved-destination:before {
+        content: " => ";
+      }
+      ul.jsondiffpatch-textdiff {
+        padding: 0;
+      }
+      .jsondiffpatch-textdiff-location {
+        color: #bbb;
+        display: inline-block;
+        min-width: 60px;
+      }
+      .jsondiffpatch-textdiff-line {
+        display: inline-block;
+      }
+      .jsondiffpatch-textdiff-line-number:after {
+        content: ",";
+      }
+      .jsondiffpatch-error {
+        background: red;
+        color: white;
+        font-weight: bold;
+      }
+
+      /* https://benjamine.github.io/jsondiffpatch/formatters-styles/annotated.css */
+      .jsondiffpatch-annotated-delta {
+        font-family: "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, Courier, monospace;
+        font-size: 12px;
+        margin: 0;
+        padding: 0 0 0 12px;
+        display: inline-block;
+      }
+      .jsondiffpatch-annotated-delta pre {
+        font-family: "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, Courier, monospace;
+        font-size: 12px;
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+      }
+      .jsondiffpatch-annotated-delta td {
+        margin: 0;
+        padding: 0;
+      }
+      .jsondiffpatch-annotated-delta td pre:hover {
+        font-weight: bold;
+      }
+      td.jsondiffpatch-delta-note {
+        font-style: italic;
+        padding-left: 10px;
+      }
+      .jsondiffpatch-delta-note > div {
+        margin: 0;
+        padding: 0;
+      }
+      .jsondiffpatch-delta-note pre {
+        font-style: normal;
+      }
+      .jsondiffpatch-annotated-delta .jsondiffpatch-delta-note {
+        color: #777;
+      }
+      .jsondiffpatch-annotated-delta tr:hover {
+        background: #ffc;
+      }
+      .jsondiffpatch-annotated-delta tr:hover > td.jsondiffpatch-delta-note {
+        color: black;
+      }
+      .jsondiffpatch-error {
+        background: red;
+        color: white;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="header"><</div>
+    <div id="scoreboard"></div>
+    <div id="change-list"></div>
+    <div id="summary"></div>
+
+    <template id="header-template">
+      <div class="jumbotron">
+        <h1 class="display-4">Compare</h1>
+        <p class="lead">
+          <b>{{old.apiEnv.host}} (old)</b><br />vs<br /><b>{{new.apiEnv.host}} (new)</b>
+        </p>
+        <hr class="my-4" />
+        <p>Started <b>{{startTime}}</b>, ran <b>{{numQueriesRun}} queries</b> in <b>{{elapsed}}s</b></p>
+        <table class="table">
+          <tr>
+            <th></th>
+            <th>old</th>
+            <th>new</th>
+          </tr>
+          <tr>
+            <td>p99</td>
+            <td>{{old.responseTimes.p99}}</td>
+            <td>{{new.responseTimes.p99}}</td>
+          </tr>
+          <tr>
+            <td>p95</td>
+            <td>{{old.responseTimes.p95}}</td>
+            <td>{{new.responseTimes.p95}}</td>
+          </tr>
+          <tr>
+            <td>p90</td>
+            <td>{{old.responseTimes.p90}}</td>
+            <td>{{new.responseTimes.p90}}</td>
+          </tr>
+          <tr>
+            <td>p50</td>
+            <td>{{old.responseTimes.p50}}</td>
+            <td>{{new.responseTimes.p50}}</td>
+          </tr>
+          <tr>
+            <td>median</td>
+            <td>{{old.responseTimes.median}}</td>
+            <td>{{new.responseTimes.median}}</td>
+          </tr>
+        </table>
+        <!-- <p class="lead">
+          <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+        </p> -->
+      </div>
+    </template>
+
+    <template id="scoreboard-template">
+      <table class="scoreboard">
+        <tr class="better">
+          <td>Better</td>
+          <td>{{better}}</td>
+        </tr>
+        <tr class="worse">
+          <td>Worse</td>
+          <td>{{worse}}</td>
+        </tr>
+        <tr class="neutral">
+          <td>Neutral</td>
+          <td>{{neutral}}</td>
+        </tr>
+        <tr class="unscored">
+          <td>Unscored</td>
+          <td>{{unscored}}</td>
+        </tr>
+      </table>
+    </template>
+
+    <template id="change-template">
+      <div class="change card">
+        <div class="card-text">
+          <div class="card request-card">
+            <div class="card-header">
+              Change {{index}}/{{total}} -
+              <a class="btn btn-outline-primary" href="{{oldUrl}}">old: {{oldHost}}</a> -
+              <a class="btn btn-outline-primary" href="{{newUrl}}">new: {{newHost}}</a>
+            </div>
+            <div class="card-text p-2">
+              <b><pre>{{params}}</pre></b>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              Delta
+            </div>
+            <div class="card-text p-2"><div class="delta-visual"></div></div>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-stretch buttons">
+          <button class="btn btn-danger worse">Worse</button>
+          <button class="btn btn-secondary neutral">Neutral</button>
+          <button class="btn btn-success better">Better</button>
+        </div>
+      </div>
+    </template>
+
+    <template id="summary-template">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title">Summary</h2>
+          <div class="summary">
+            {{#each summary as |values key|}}
+            <div class="card {{key}}">
+              <div class="card-body">
+                <h5 class="card-title">{{key}}</h5>
+                <ul class="list-group">
+                  {{#each values as |value|}}
+                  <li class="list-group-item">{{value}}</li>
+                  {{/each}}
+                </ul>
+              </div>
+            </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <script>
+      // prettier-ignore
+      const json = JSON_GO_HERE;
+
+      const changes = json.changes;
+
+      function renderScoreboardAndSummary() {
+        const scoreboardValues = {
+          neutral: 0,
+          better: 0,
+          worse: 0,
+          unscored: 0,
+        };
+
+        document
+          .querySelectorAll(".change")
+          .forEach((node) => (scoreboardValues[node.dataset.quality] += 1));
+
+        var template = document.getElementById("scoreboard-template").innerHTML;
+        var renderScoreboardTemplate = Handlebars.compile(template);
+
+        document.getElementById("scoreboard").innerHTML = renderScoreboardTemplate(
+          scoreboardValues
+        );
+
+        // summary
+
+        const summarySections = {
+          neutral: [],
+          better: [],
+          worse: [],
+          unscored: [],
+        };
+        document
+          .querySelectorAll(".change")
+          .forEach((node) => summarySections[node.dataset.quality].push(node.dataset.params));
+
+        const summaryTemplate = document.getElementById("summary-template").innerHTML;
+        const renderSummaryTemplate = Handlebars.compile(summaryTemplate);
+
+        console.log(summarySections);
+        document.getElementById("summary").innerHTML = renderSummaryTemplate({
+          summary: summarySections,
+        });
+      }
+
+      function renderHeader() {
+        var template = document.getElementById("header-template").innerHTML;
+        var renderHeaderTemplate = Handlebars.compile(template);
+
+        document.getElementById("header").innerHTML = renderHeaderTemplate({
+          old: json.old,
+          new: json.new,
+          startTime: new Date(json.startTime).toString(),
+          elapsed: (new Date(json.endTime).getTime() - new Date(json.startTime).getTime()) / 1000,
+          numQueriesRun: json.numQueriesRun,
+        });
+      }
+
+      function createElementFromHTML(htmlString) {
+        var div = document.createElement("div");
+        div.innerHTML = htmlString.trim();
+
+        // Change this to div.childNodes to support multiple top-level nodes
+        return div.firstChild;
+      }
+
+      const changeList = document.getElementById("change-list");
+
+      var template = document.getElementById("change-template").innerHTML;
+      var renderChangeTemplate = Handlebars.compile(template);
+      changes.forEach((change, index) => {
+        const changeNode = createElementFromHTML(
+          renderChangeTemplate({
+            index: index + 1,
+            total: changes.length,
+            params: JSON.stringify(change.params, null, 2),
+            oldUrl: change.oldUrl,
+            newUrl: change.newUrl,
+            oldHost: json.old.apiEnv.host,
+            newHost: json.new.apiEnv.host,
+          })
+        );
+
+        changeNode.querySelector(".delta-visual").innerHTML = jsondiffpatch.formatters.html.format(
+          change.delta,
+          change.old
+        );
+
+        changeList.append(changeNode);
+
+        function scoreResult(score) {
+          changeNode.dataset.quality = score;
+
+          localStorage.setItem(change.id, score);
+
+          renderScoreboardAndSummary();
+        }
+
+        changeNode.dataset.quality = localStorage.getItem(change.id) || "unscored";
+        changeNode.dataset.params = JSON.stringify(change.params);
+
+        changeNode.querySelector(".better").addEventListener("click", () => scoreResult("better"));
+        changeNode.querySelector(".worse").addEventListener("click", () => scoreResult("worse"));
+        changeNode
+          .querySelector(".neutral")
+          .addEventListener("click", () => scoreResult("neutral"));
+      });
+
+      renderScoreboardAndSummary();
+      renderHeader();
+
+      // document.addEventListener("keypress", function onEvent(event) {
+      //   console.log(event.key);
+
+      //   const currentElem =
+      //   // if (event.key === "Enter") {
+      //   //     // Do something better
+      //   // }
+      // });
+    </script>
+  </body>
+</html>

@@ -127,7 +127,11 @@ export function argvToApiEnv(argv: any): ApiEnv {
     apiEnv.protocol = url.protocol.replace(':', '');
   }
 
-  fixApiEnvKey(apiEnv);
+  apiEnv.protocol = apiEnv.protocol || 'http';
+
+  if (config.authStyle) {
+    fixApiEnvKey(apiEnv);
+  }
 
   return apiEnv as ApiEnv;
 }

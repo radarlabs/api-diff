@@ -111,3 +111,4 @@ dist
 *.csv
 *.tsv
 config.hjson
+*.json

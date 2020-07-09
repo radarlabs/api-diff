@@ -61,7 +61,7 @@ let apiEnv: ApiEnv;
 let params: Record<string, string> = {};
 
 if (argv._.length === 1 && argv._[0].startsWith('http')) {
-  // The user just specified a radar url, they probably just want to run it with the
+  // The user specified a full url, they probably just want to run it with the
   // right api key. So infer all the params from the passed url
   const url = new URL(argv._[0]);
   apiEnv = {
@@ -97,5 +97,5 @@ if (argv._.length === 1 && argv._[0].startsWith('http')) {
 }
 
 runQuery(apiEnv, {
-  params, method: argv.method, endpoint, verbose: true,
+  params, method: argv.method, endpoint,
 }).then(({ data }) => console.dir(data, { depth: null, colors: chalk.level > 0 }));
