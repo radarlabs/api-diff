@@ -7,7 +7,7 @@ import {
   argvToApiEnv, getApiEnvCommandLineOptions, ApiEnv, fixApiEnvKey,
 } from './apiEnv';
 import runQuery from './run-query';
-import config from './config';
+import { config } from './config';
 
 const makeUsageString = (toolName: string) => `This tool has a lot of options, here are some examples:
 
@@ -61,7 +61,7 @@ let apiEnv: ApiEnv;
 let params: Record<string, string> = {};
 
 if (argv._.length === 1 && argv._[0].startsWith('http')) {
-  // The user just specified a radar url, they probably just want to run it with the
+  // The user specified a full url, they probably just want to run it with the
   // right api key. So infer all the params from the passed url
   const url = new URL(argv._[0]);
   apiEnv = {

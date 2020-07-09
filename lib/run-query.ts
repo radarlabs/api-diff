@@ -1,8 +1,8 @@
+/* eslint-disable no-console */
 /* eslint-disable no-param-reassign */
-import axios from 'axios';
+import axios, { Method, AxiosResponse } from 'axios';
 import { ApiEnv } from './apiEnv';
 import config from './config';
-import logger from './logger';
 
 /**
  * @param apiEnv
@@ -10,7 +10,6 @@ import logger from './logger';
  * @param root0.params
  * @param root0.method
  * @param root0.endpoint
- * @param root0.verbose
  */
 export default async function runQuery(
   apiEnv: ApiEnv,
@@ -18,14 +17,12 @@ export default async function runQuery(
     params,
     endpoint,
     method,
-    verbose,
   }: {
-    params: Record<string, any>;
+    params: Record<string, unknown>;
     method: string;
     endpoint: string;
-    verbose?: boolean;
   },
-) {
+): Promise<AxiosResponse> {
   // v1/xxxx ... maybe someone was lazy and didn't start with an opening slash
   if (endpoint[0] !== '/' && !endpoint.startsWith('http:')) {
     endpoint = `/${endpoint}`;
@@ -48,9 +45,9 @@ export default async function runQuery(
     url = `${apiEnv.protocol}://${url}`;
   }
 
-  logger.info(`Fetching ${url}`);
+  // logger.info(`Fetching ${url}`);
 
-  const headers: any = {
+  const headers: Record<string, string> = {
     'User-Agent': 'radar-compare-tool/unknown',
   };
 
@@ -65,7 +62,7 @@ export default async function runQuery(
       headers,
       params: method === 'GET' ? params : undefined,
       data: method === 'POST' ? params : undefined,
-      method: method.toLowerCase() as any,
+      method: method.toLowerCase() as Method,
     });
     return response;
   } catch (error) {
