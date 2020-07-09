@@ -7,7 +7,7 @@ import {
   argvToApiEnv, getApiEnvCommandLineOptions, ApiEnv, fixApiEnvKey,
 } from './apiEnv';
 import runQuery from './run-query';
-import { config } from './config';
+import config from './config';
 
 const makeUsageString = (toolName: string) => `This tool has a lot of options, here are some examples:
 
@@ -97,5 +97,5 @@ if (argv._.length === 1 && argv._[0].startsWith('http')) {
 }
 
 runQuery(apiEnv, {
-  params, method: argv.method, endpoint, verbose: true,
+  params, method: argv.method, endpoint,
 }).then(({ data }) => console.dir(data, { depth: null, colors: chalk.level > 0 }));

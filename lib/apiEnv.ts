@@ -135,13 +135,3 @@ export function argvToApiEnv(argv: any): ApiEnv {
 
   return apiEnv as ApiEnv;
 }
-
-/**
- * @param apiEnv
- */
-export function apiEnvToApiSh(apiEnv: ApiEnv): string {
-  if (apiEnv.keyEnv) {
-    return `./api.sh --keyEnv ${apiEnv.keyEnv}`;
-  }
-  return './api.sh';
-}
