@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Compare</title>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/jsondiffpatch/dist/jsondiffpatch.umd.min.js"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.19/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+
+    `
+    <style>
+      .change {
+        padding: 10px;
+        margin: 10px;
+        background: beige;
+        border: solid black 2px;
+      }
+
+      /* https://benjamine.github.io/jsondiffpatch/formatters-styles/html.css */
+
+      .jsondiffpatch-delta {
+        font-family: "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, Courier, monospace;
+        font-size: 12px;
+        margin: 0;
+        padding: 0 0 0 12px;
+        display: inline-block;
+      }
+      .jsondiffpatch-delta pre {
+        font-family: "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, Courier, monospace;
+        font-size: 12px;
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+      }
+      ul.jsondiffpatch-delta {
+        list-style-type: none;
+        padding: 0 0 0 20px;
+        margin: 0;
+      }
+      .jsondiffpatch-delta ul {
+        list-style-type: none;
+        padding: 0 0 0 20px;
+        margin: 0;
+      }
+      .jsondiffpatch-added .jsondiffpatch-property-name,
+      .jsondiffpatch-added .jsondiffpatch-value pre,
+      .jsondiffpatch-modified .jsondiffpatch-right-value pre,
+      .jsondiffpatch-textdiff-added {
+        background: #bbffbb;
+      }
+      .jsondiffpatch-deleted .jsondiffpatch-property-name,
+      .jsondiffpatch-deleted pre,
+      .jsondiffpatch-modified .jsondiffpatch-left-value pre,
+      .jsondiffpatch-textdiff-deleted {
+        background: #ffbbbb;
+        text-decoration: line-through;
+      }
+      .jsondiffpatch-unchanged,
+      .jsondiffpatch-movedestination {
+        color: gray;
+      }
+      .jsondiffpatch-unchanged,
+      .jsondiffpatch-movedestination > .jsondiffpatch-value {
+        transition: all 0.5s;
+        -webkit-transition: all 0.5s;
+        overflow-y: hidden;
+      }
+      .jsondiffpatch-unchanged-showing .jsondiffpatch-unchanged,
+      .jsondiffpatch-unchanged-showing .jsondiffpatch-movedestination > .jsondiffpatch-value {
+        max-height: 100px;
+      }
+      .jsondiffpatch-unchanged-hidden .jsondiffpatch-unchanged,
+      .jsondiffpatch-unchanged-hidden .jsondiffpatch-movedestination > .jsondiffpatch-value {
+        max-height: 0;
+      }
+      .jsondiffpatch-unchanged-hiding .jsondiffpatch-movedestination > .jsondiffpatch-value,
+      .jsondiffpatch-unchanged-hidden .jsondiffpatch-movedestination > .jsondiffpatch-value {
+        display: block;
+      }
+      .jsondiffpatch-unchanged-visible .jsondiffpatch-unchanged,
+      .jsondiffpatch-unchanged-visible .jsondiffpatch-movedestination > .jsondiffpatch-value {
+        max-height: 100px;
+      }
+      .jsondiffpatch-unchanged-hiding .jsondiffpatch-unchanged,
+      .jsondiffpatch-unchanged-hiding .jsondiffpatch-movedestination > .jsondiffpatch-value {
+        max-height: 0;
+      }
+      .jsondiffpatch-unchanged-showing .jsondiffpatch-arrow,
+      .jsondiffpatch-unchanged-hiding .jsondiffpatch-arrow {
+        display: none;
+      }
+      .jsondiffpatch-value {
+        display: inline-block;
+      }
+      .jsondiffpatch-property-name {
+        display: inline-block;
+        padding-right: 5px;
+        vertical-align: top;
+      }
+      .jsondiffpatch-property-name:after {
+        content: ": ";
+      }
+      .jsondiffpatch-child-node-type-array > .jsondiffpatch-property-name:after {
+        content: ": [";
+      }
+      .jsondiffpatch-child-node-type-array:after {
+        content: "],";
+      }
+      div.jsondiffpatch-child-node-type-array:before {
+        content: "[";
+      }
+      div.jsondiffpatch-child-node-type-array:after {
+        content: "]";
+      }
+      .jsondiffpatch-child-node-type-object > .jsondiffpatch-property-name:after {
+        content: ": {";
+      }
+      .jsondiffpatch-child-node-type-object:after {
+        content: "},";
+      }
+      div.jsondiffpatch-child-node-type-object:before {
+        content: "{";
+      }
+      div.jsondiffpatch-child-node-type-object:after {
+        content: "}";
+      }
+      .jsondiffpatch-value pre:after {
+        content: ",";
+      }
+      li:last-child > .jsondiffpatch-value pre:after,
+      .jsondiffpatch-modified > .jsondiffpatch-left-value pre:after {
+        content: "";
+      }
+      .jsondiffpatch-modified .jsondiffpatch-value {
+        display: inline-block;
+      }
+      .jsondiffpatch-modified .jsondiffpatch-right-value {
+        margin-left: 5px;
+      }
+      .jsondiffpatch-moved .jsondiffpatch-value {
+        display: none;
+      }
+      .jsondiffpatch-moved .jsondiffpatch-moved-destination {
+        display: inline-block;
+        background: #ffffbb;
+        color: #888;
+      }
+      .jsondiffpatch-moved .jsondiffpatch-moved-destination:before {
+        content: " => ";
+      }
+      ul.jsondiffpatch-textdiff {
+        padding: 0;
+      }
+      .jsondiffpatch-textdiff-location {
+        color: #bbb;
+        display: inline-block;
+        min-width: 60px;
+      }
+      .jsondiffpatch-textdiff-line {
+        display: inline-block;
+      }
+      .jsondiffpatch-textdiff-line-number:after {
+        content: ",";
+      }
+      .jsondiffpatch-error {
+        background: red;
+        color: white;
+        font-weight: bold;
+      }
+
+      /* https://benjamine.github.io/jsondiffpatch/formatters-styles/annotated.css */
+      .jsondiffpatch-annotated-delta {
+        font-family: "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, Courier, monospace;
+        font-size: 12px;
+        margin: 0;
+        padding: 0 0 0 12px;
+        display: inline-block;
+      }
+      .jsondiffpatch-annotated-delta pre {
+        font-family: "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, Courier, monospace;
+        font-size: 12px;
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+      }
+      .jsondiffpatch-annotated-delta td {
+        margin: 0;
+        padding: 0;
+      }
+      .jsondiffpatch-annotated-delta td pre:hover {
+        font-weight: bold;
+      }
+      td.jsondiffpatch-delta-note {
+        font-style: italic;
+        padding-left: 10px;
+      }
+      .jsondiffpatch-delta-note > div {
+        margin: 0;
+        padding: 0;
+      }
+      .jsondiffpatch-delta-note pre {
+        font-style: normal;
+      }
+      .jsondiffpatch-annotated-delta .jsondiffpatch-delta-note {
+        color: #777;
+      }
+      .jsondiffpatch-annotated-delta tr:hover {
+        background: #ffc;
+      }
+      .jsondiffpatch-annotated-delta tr:hover > td.jsondiffpatch-delta-note {
+        color: black;
+      }
+      .jsondiffpatch-error {
+        background: red;
+        color: white;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="change-list"></div>
+
+    <template id="change-template">
+      <div class="change card">
+        <div class="card-header">
+          Change {{index}}/{{total}}
+        </div>
+
+        <div class="card-text">
+          <div class="card">
+            <div class="card-header">
+              Request
+            </div>
+            <div class="card-text p-2">
+              <pre>{{params}}</pre>
+              <br/>
+              Old: <a href="{{oldUrl}}">{{oldUrl}}</a><br/>
+              New: <a href="{{newUrl}}">{{newUrl}}</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              Delta
+            </div>
+            <div class="card-text p-2"><div class="delta-visual"></div></div>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-stretch">
+          <a href="#" class="btn btn-danger worse">Worse</a>
+          <a href="#" class="btn btn-secondary neutral">Neutral</a>
+          <a href="#" class="btn btn-success better">Better</a>
+        </div>
+      </div>
+    </template>
+
+    <script>
+      // prettier-ignore
+      const { changes } = {"changes":[{"delta":{"geocoding":{"query":{"parser":["libpostal","pelias"],"parsed_text":{"street":["denning way","Denning Way"],"city":["san rafael",0,0],"state":["ca",0,0],"postalcode":["94903",0,0],"country":["USA","US"],"subject":["12 Denning Way"],"locality":["San Rafael"],"region":["CA"],"postcode":["94903"],"admin":["San Rafael, CA , US"]}}},"features":{"0":{"geometry":{"coordinates":{"0":[-122.559054],"1":[37.998872],"_t":"a","_0":[-122.488299,0,0],"_1":[37.963147,0,0]}},"properties":{"id":["85922003","P00002T2M6WD"],"gid":["whosonfirst:locality:85922003","pitneybowes:address:P00002T2M6WD"],"layer":["locality","address"],"source":["whosonfirst","pitneybowes"],"source_id":["85922003","P00002T2M6WD"],"name":["San Rafael","12 Denning Ave"],"confidence":[0.6,1],"match_type":["fallback","exact"],"accuracy":["centroid","point"],"label":["San Rafael, CA, USA","12 Denning Ave, San Rafael, CA, USA"],"housenumber":["12"],"street":["Denning Ave"],"postalcode":["94903"],"addendum":[{"radar":{"city":"San Rafael"}}]},"bbox":[[-122.589714,37.936824,-122.434983,38.028836],0,0]},"_t":"a"},"bbox":{"0":[-122.559054],"1":[37.998872],"2":[-122.559054],"3":[37.998872],"_t":"a","_0":[-122.589714,0,0],"_1":[37.936824,0,0],"_2":[-122.434983,0,0],"_3":[38.028836,0,0]}},"params":{"size":"1","text":"12 Denning Way, San Rafael, CA 94903, US"},"old":{"geocoding":{"version":"0.2","attribution":"http://pelias-api-staging.us-east-1.elasticbeanstalk.com/attribution","query":{"text":"12 Denning Way, San Rafael, CA 94903, US","size":1,"private":false,"lang":{"name":"English","iso6391":"en","iso6393":"eng","via":"default","defaulted":true},"querySize":20,"parser":"libpostal","parsed_text":{"housenumber":"12","street":"denning way","city":"san rafael","state":"ca","postalcode":"94903","country":"USA"}},"engine":{"name":"Pelias","author":"Mapzen","version":"1.0"},"timestamp":1594320837125},"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[-122.488299,37.963147]},"properties":{"id":"85922003","gid":"whosonfirst:locality:85922003","layer":"locality","source":"whosonfirst","source_id":"85922003","name":"San Rafael","confidence":0.6,"match_type":"fallback","accuracy":"centroid","country":"United States","country_gid":"whosonfirst:country:85633793","country_a":"USA","region":"California","region_gid":"whosonfirst:region:85688637","region_a":"CA","county":"Marin County","county_gid":"whosonfirst:county:102084353","county_a":"MN","locality":"San Rafael","locality_gid":"whosonfirst:locality:85922003","continent":"North America","continent_gid":"whosonfirst:continent:102191575","label":"San Rafael, CA, USA"},"bbox":[-122.589714,37.936824,-122.434983,38.028836]}],"bbox":[-122.589714,37.936824,-122.434983,38.028836]},"new":{"geocoding":{"version":"0.2","attribution":"http://localhost:3100/attribution","query":{"text":"12 Denning Way, San Rafael, CA 94903, US","size":1,"private":false,"lang":{"name":"English","iso6391":"en","iso6393":"eng","via":"default","defaulted":true},"querySize":20,"parser":"pelias","parsed_text":{"subject":"12 Denning Way","housenumber":"12","street":"Denning Way","locality":"San Rafael","region":"CA","postcode":"94903","country":"US","admin":"San Rafael, CA , US"}},"engine":{"name":"Pelias","author":"Mapzen","version":"1.0"},"timestamp":1594320837958},"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[-122.559054,37.998872]},"properties":{"id":"P00002T2M6WD","gid":"pitneybowes:address:P00002T2M6WD","layer":"address","source":"pitneybowes","source_id":"P00002T2M6WD","name":"12 Denning Ave","housenumber":"12","street":"Denning Ave","postalcode":"94903","confidence":1,"match_type":"exact","accuracy":"point","country":"United States","country_gid":"whosonfirst:country:85633793","country_a":"USA","region":"California","region_gid":"whosonfirst:region:85688637","region_a":"CA","county":"Marin County","county_gid":"whosonfirst:county:102084353","county_a":"MN","locality":"San Rafael","locality_gid":"whosonfirst:locality:85922003","continent":"North America","continent_gid":"whosonfirst:continent:102191575","label":"12 Denning Ave, San Rafael, CA, USA","addendum":{"radar":{"city":"San Rafael"}}}}],"bbox":[-122.559054,37.998872,-122.559054,37.998872]},"oldUrl":"http://pelias-api-staging.us-east-1.elasticbeanstalk.com/v1/search?size=1&text=12+Denning+Way,+San+Rafael,+CA+94903,+US","newUrl":"http://localhost:3100/v1/search?size=1&text=12+Denning+Way,+San+Rafael,+CA+94903,+US"},{"delta":{"geocoding":{"query":{"parser":["libpostal","pelias"],"parsed_text":{"street":["tony bennett way","Tony Bennett Way"],"city":["san francisco",0,0],"state":["ca",0,0],"postalcode":["94108",0,0],"country":["usa","USA"],"subject":["950 Tony Bennett Way"],"locality":["San Francisco"],"region":["CA"],"postcode":["94108"],"admin":["San Francisco, CA , USA"]}}},"features":{"0":{"geometry":{"coordinates":{"0":[-76.633701],"1":[39.295131],"_t":"a","_0":[-122.431272,0,0],"_1":[37.778008,0,0]}},"properties":{"id":["85922583","P0000B2LKR3G"],"gid":["whosonfirst:locality:85922583","pitneybowes:address:P0000B2LKR3G"],"layer":["locality","address"],"source":["whosonfirst","pitneybowes"],"source_id":["85922583","P0000B2LKR3G"],"name":["San Francisco","950 Bennett Pl"],"confidence":[0.6,1],"match_type":["fallback","exact"],"accuracy":["centroid","point"],"region":["California","Maryland"],"region_gid":["whosonfirst:region:85688637","whosonfirst:region:85688501"],"region_a":["CA","MD"],"county":["San Francisco County","City of Baltimore"],"county_gid":["whosonfirst:county:102087579","whosonfirst:county:102081589"],"county_a":["SF","BA"],"locality":["San Francisco","Baltimore"],"locality_gid":["whosonfirst:locality:85922583","whosonfirst:locality:85949461"],"locality_a":["SF",0,0],"label":["San Francisco, CA, USA","950 Bennett Pl, Baltimore, MD, USA"],"housenumber":["950"],"street":["Bennett Pl"],"postalcode":["21223"],"neighbourhood":["Harlem Park"],"neighbourhood_gid":["whosonfirst:neighbourhood:1108795153"],"addendum":[{"radar":{"city":"Baltimore"}}]},"bbox":[[-122.51489,37.70808,-122.35698,37.83239],0,0]},"_t":"a"},"bbox":{"0":[-76.633701],"1":[39.295131],"2":[-76.633701],"3":[39.295131],"_t":"a","_0":[-122.51489,0,0],"_1":[37.70808,0,0],"_2":[-122.35698,0,0],"_3":[37.83239,0,0]}},"params":{"size":"1","text":"950 Tony Bennett Way, San Francisco, CA 94108, USA"},"old":{"geocoding":{"version":"0.2","attribution":"http://pelias-api-staging.us-east-1.elasticbeanstalk.com/attribution","query":{"text":"950 Tony Bennett Way, San Francisco, CA 94108, USA","size":1,"private":false,"lang":{"name":"English","iso6391":"en","iso6393":"eng","via":"default","defaulted":true},"querySize":20,"parser":"libpostal","parsed_text":{"housenumber":"950","street":"tony bennett way","city":"san francisco","state":"ca","postalcode":"94108","country":"usa"}},"engine":{"name":"Pelias","author":"Mapzen","version":"1.0"},"timestamp":1594320837145},"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[-122.431272,37.778008]},"properties":{"id":"85922583","gid":"whosonfirst:locality:85922583","layer":"locality","source":"whosonfirst","source_id":"85922583","name":"San Francisco","confidence":0.6,"match_type":"fallback","accuracy":"centroid","country":"United States","country_gid":"whosonfirst:country:85633793","country_a":"USA","region":"California","region_gid":"whosonfirst:region:85688637","region_a":"CA","county":"San Francisco County","county_gid":"whosonfirst:county:102087579","county_a":"SF","locality":"San Francisco","locality_gid":"whosonfirst:locality:85922583","locality_a":"SF","continent":"North America","continent_gid":"whosonfirst:continent:102191575","label":"San Francisco, CA, USA"},"bbox":[-122.51489,37.70808,-122.35698,37.83239]}],"bbox":[-122.51489,37.70808,-122.35698,37.83239]},"new":{"geocoding":{"version":"0.2","attribution":"http://localhost:3100/attribution","query":{"text":"950 Tony Bennett Way, San Francisco, CA 94108, USA","size":1,"private":false,"lang":{"name":"English","iso6391":"en","iso6393":"eng","via":"default","defaulted":true},"querySize":20,"parser":"pelias","parsed_text":{"subject":"950 Tony Bennett Way","housenumber":"950","street":"Tony Bennett Way","locality":"San Francisco","region":"CA","postcode":"94108","country":"USA","admin":"San Francisco, CA , USA"}},"engine":{"name":"Pelias","author":"Mapzen","version":"1.0"},"timestamp":1594320838158},"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[-76.633701,39.295131]},"properties":{"id":"P0000B2LKR3G","gid":"pitneybowes:address:P0000B2LKR3G","layer":"address","source":"pitneybowes","source_id":"P0000B2LKR3G","name":"950 Bennett Pl","housenumber":"950","street":"Bennett Pl","postalcode":"21223","confidence":1,"match_type":"exact","accuracy":"point","country":"United States","country_gid":"whosonfirst:country:85633793","country_a":"USA","region":"Maryland","region_gid":"whosonfirst:region:85688501","region_a":"MD","county":"City of Baltimore","county_gid":"whosonfirst:county:102081589","county_a":"BA","locality":"Baltimore","locality_gid":"whosonfirst:locality:85949461","neighbourhood":"Harlem Park","neighbourhood_gid":"whosonfirst:neighbourhood:1108795153","continent":"North America","continent_gid":"whosonfirst:continent:102191575","label":"950 Bennett Pl, Baltimore, MD, USA","addendum":{"radar":{"city":"Baltimore"}}}}],"bbox":[-76.633701,39.295131,-76.633701,39.295131]},"oldUrl":"http://pelias-api-staging.us-east-1.elasticbeanstalk.com/v1/search?size=1&text=950+Tony+Bennett+Way,+San+Francisco,+CA+94108,+USA","newUrl":"http://localhost:3100/v1/search?size=1&text=950+Tony+Bennett+Way,+San+Francisco,+CA+94108,+USA"},{"delta":{"geocoding":{"query":{"parser":["libpostal","pelias"],"parsed_text":{"street":["california way","California Way"],"city":["emerald hills",0,0],"state":["ca",0,0],"postalcode":["94062",0,0],"country":["usa","USA"],"subject":["823 California Way"],"locality":["Hills"],"region":["CA"],"postcode":["94062"],"admin":["Emerald Hills, CA , USA"]}}},"features":{"0":{"geometry":{"coordinates":{"0":[-122.269232],"1":[37.458237],"_t":"a","_0":[-122.283624,0,0],"_1":[37.463259,0,0]}},"properties":{"id":["85865155","P00002T1GVT9"],"gid":["whosonfirst:neighbourhood:85865155","pitneybowes:address:P00002T1GVT9"],"layer":["neighbourhood","address"],"source":["whosonfirst","pitneybowes"],"source_id":["85865155","P00002T1GVT9"],"name":["Emerald Hills","823 California Way"],"confidence":[0.6,1],"match_type":["fallback","exact"],"accuracy":["centroid","point"],"neighbourhood":["Emerald Hills",0,0],"neighbourhood_gid":["whosonfirst:neighbourhood:85865155",0,0],"label":["Emerald Hills, San Mateo County, CA, USA","823 California Way, Redwood City, CA, USA"],"housenumber":["823"],"street":["California Way"],"postalcode":["94062"],"locality":["Redwood City"],"locality_gid":["whosonfirst:locality:85922447"],"addendum":[{"radar":{"city":"Redwood City"}}]},"bbox":[[-122.283624,37.463259,-122.283624,37.463259],0,0]},"_t":"a"},"bbox":{"0":[-122.269232],"1":[37.458237],"2":[-122.269232],"3":[37.458237],"_t":"a","_0":[-122.283624,0,0],"_1":[37.463259,0,0],"_2":[-122.283624,0,0],"_3":[37.463259,0,0]}},"params":{"size":"1","text":"823 California Way, Emerald Hills, CA 94062, USA"},"old":{"geocoding":{"version":"0.2","attribution":"http://pelias-api-staging.us-east-1.elasticbeanstalk.com/attribution","query":{"text":"823 California Way, Emerald Hills, CA 94062, USA","size":1,"private":false,"lang":{"name":"English","iso6391":"en","iso6393":"eng","via":"default","defaulted":true},"querySize":20,"parser":"libpostal","parsed_text":{"housenumber":"823","street":"california way","city":"emerald hills","state":"ca","postalcode":"94062","country":"usa"}},"engine":{"name":"Pelias","author":"Mapzen","version":"1.0"},"timestamp":1594320837990},"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[-122.283624,37.463259]},"properties":{"id":"85865155","gid":"whosonfirst:neighbourhood:85865155","layer":"neighbourhood","source":"whosonfirst","source_id":"85865155","name":"Emerald Hills","confidence":0.6,"match_type":"fallback","accuracy":"centroid","country":"United States","country_gid":"whosonfirst:country:85633793","country_a":"USA","region":"California","region_gid":"whosonfirst:region:85688637","region_a":"CA","county":"San Mateo County","county_gid":"whosonfirst:county:102085387","county_a":"SM","neighbourhood":"Emerald Hills","neighbourhood_gid":"whosonfirst:neighbourhood:85865155","continent":"North America","continent_gid":"whosonfirst:continent:102191575","label":"Emerald Hills, San Mateo County, CA, USA"},"bbox":[-122.283624,37.463259,-122.283624,37.463259]}],"bbox":[-122.283624,37.463259,-122.283624,37.463259]},"new":{"geocoding":{"version":"0.2","attribution":"http://localhost:3100/attribution","query":{"text":"823 California Way, Emerald Hills, CA 94062, USA","size":1,"private":false,"lang":{"name":"English","iso6391":"en","iso6393":"eng","via":"default","defaulted":true},"querySize":20,"parser":"pelias","parsed_text":{"subject":"823 California Way","housenumber":"823","street":"California Way","locality":"Hills","region":"CA","postcode":"94062","country":"USA","admin":"Emerald Hills, CA , USA"}},"engine":{"name":"Pelias","author":"Mapzen","version":"1.0"},"timestamp":1594320838576},"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[-122.269232,37.458237]},"properties":{"id":"P00002T1GVT9","gid":"pitneybowes:address:P00002T1GVT9","layer":"address","source":"pitneybowes","source_id":"P00002T1GVT9","name":"823 California Way","housenumber":"823","street":"California Way","postalcode":"94062","confidence":1,"match_type":"exact","accuracy":"point","country":"United States","country_gid":"whosonfirst:country:85633793","country_a":"USA","region":"California","region_gid":"whosonfirst:region:85688637","region_a":"CA","county":"San Mateo County","county_gid":"whosonfirst:county:102085387","county_a":"SM","locality":"Redwood City","locality_gid":"whosonfirst:locality:85922447","continent":"North America","continent_gid":"whosonfirst:continent:102191575","label":"823 California Way, Redwood City, CA, USA","addendum":{"radar":{"city":"Redwood City"}}}}],"bbox":[-122.269232,37.458237,-122.269232,37.458237]},"oldUrl":"http://pelias-api-staging.us-east-1.elasticbeanstalk.com/v1/search?size=1&text=823+California+Way,+Emerald+Hills,+CA+94062,+USA","newUrl":"http://localhost:3100/v1/search?size=1&text=823+California+Way,+Emerald+Hills,+CA+94062,+USA"},{"delta":{"geocoding":{"query":{"parsed_text":{"unit":["41",0,0]}}}},"params":{"size":"1","text":"45 Sausalito - San Francisco Pier 41, San Francisco, CA 94133, USA"},"old":{"geocoding":{"version":"0.2","attribution":"http://pelias-api-staging.us-east-1.elasticbeanstalk.com/attribution","query":{"text":"45 Sausalito - San Francisco Pier 41, San Francisco, CA 94133, USA","size":1,"private":false,"lang":{"name":"English","iso6391":"en","iso6393":"eng","via":"default","defaulted":true},"querySize":20,"parser":"pelias","parsed_text":{"subject":"45 Sausalito - San Francisco Pier","housenumber":"45","street":"Sausalito - San Francisco Pier","unit":"41","locality":"San Francisco","region":"CA","postcode":"94133","country":"USA","admin":"41, San Francisco, CA , USA"}},"engine":{"name":"Pelias","author":"Mapzen","version":"1.0"},"timestamp":1594320838274},"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[-49.102122,-26.485254]},"properties":{"id":"br/sc/statewide:894d1c1636bea072","gid":"openaddresses:address:br/sc/statewide:894d1c1636bea072","layer":"address","source":"openaddresses","source_id":"br/sc/statewide:894d1c1636bea072","name":"Rua Francisco Piermann 455","housenumber":"455","street":"Rua Francisco Piermann","postalcode":"89252-500","confidence":1,"match_type":"exact","accuracy":"point","country":"Brazil","country_gid":"whosonfirst:country:85633009","country_a":"BRA","region":"Santa Catarina","region_gid":"whosonfirst:region:85682021","region_a":"SC","county":"Jaragua do Sul","county_gid":"whosonfirst:county:102060487","localadmin":"Jaraguá Do Sul","localadmin_gid":"whosonfirst:localadmin:404565545","locality":"Jaragua do Sul","locality_gid":"whosonfirst:locality:101964113","continent":"South America","continent_gid":"whosonfirst:continent:102191577","label":"Rua Francisco Piermann 455, Jaragua do Sul, Brazil"}}],"bbox":[-49.102122,-26.485254,-49.102122,-26.485254]},"new":{"geocoding":{"version":"0.2","attribution":"http://localhost:3100/attribution","query":{"text":"45 Sausalito - San Francisco Pier 41, San Francisco, CA 94133, USA","size":1,"private":false,"lang":{"name":"English","iso6391":"en","iso6393":"eng","via":"default","defaulted":true},"querySize":20,"parser":"pelias","parsed_text":{"subject":"45 Sausalito - San Francisco Pier","housenumber":"45","street":"Sausalito - San Francisco Pier","locality":"San Francisco","region":"CA","postcode":"94133","country":"USA","admin":"41, San Francisco, CA , USA"}},"engine":{"name":"Pelias","author":"Mapzen","version":"1.0"},"timestamp":1594320838630},"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[-49.102122,-26.485254]},"properties":{"id":"br/sc/statewide:894d1c1636bea072","gid":"openaddresses:address:br/sc/statewide:894d1c1636bea072","layer":"address","source":"openaddresses","source_id":"br/sc/statewide:894d1c1636bea072","name":"Rua Francisco Piermann 455","housenumber":"455","street":"Rua Francisco Piermann","postalcode":"89252-500","confidence":1,"match_type":"exact","accuracy":"point","country":"Brazil","country_gid":"whosonfirst:country:85633009","country_a":"BRA","region":"Santa Catarina","region_gid":"whosonfirst:region:85682021","region_a":"SC","county":"Jaragua do Sul","county_gid":"whosonfirst:county:102060487","localadmin":"Jaraguá Do Sul","localadmin_gid":"whosonfirst:localadmin:404565545","locality":"Jaragua do Sul","locality_gid":"whosonfirst:locality:101964113","continent":"South America","continent_gid":"whosonfirst:continent:102191577","label":"Rua Francisco Piermann 455, Jaragua do Sul, Brazil"}}],"bbox":[-49.102122,-26.485254,-49.102122,-26.485254]},"oldUrl":"http://pelias-api-staging.us-east-1.elasticbeanstalk.com/v1/search?size=1&text=45+Sausalito+-+San+Francisco+Pier+41,+San+Francisco,+CA+94133,+USA","newUrl":"http://localhost:3100/v1/search?size=1&text=45+Sausalito+-+San+Francisco+Pier+41,+San+Francisco,+CA+94133,+USA"},{"delta":{"geocoding":{"query":{"parser":["libpostal","pelias"],"parsed_text":{"street":["fashion island blvd #200","Fashion Island Blvd"],"city":["san mateo",0,0],"state":["ca",0,0],"postalcode":["94404",0,0],"country":["usa","USA"],"subject":["1510 Fashion Island Blvd"],"locality":["San Mateo"],"region":["CA"],"postcode":["94404"],"admin":["#200, San Mateo, CA , USA"]}}},"features":{"0":{"geometry":{"coordinates":{"0":[-122.285099],"1":[37.557682],"_t":"a","_0":[-122.308504,0,0],"_1":[37.562052,0,0]}},"properties":{"id":["85922431","sg:a6934858a1ae4efbb3118b86612330e9:address"],"gid":["whosonfirst:locality:85922431","safegraph:address:sg:a6934858a1ae4efbb3118b86612330e9:address"],"layer":["locality","address"],"source":["whosonfirst","safegraph"],"source_id":["85922431","sg:a6934858a1ae4efbb3118b86612330e9:address"],"name":["San Mateo","1510 Fashion Island Blvd"],"confidence":[0.6,1],"match_type":["fallback","exact"],"accuracy":["centroid","point"],"locality":["San Mateo","Foster City"],"locality_gid":["whosonfirst:locality:85922431","whosonfirst:locality:1276909861"],"label":["San Mateo, CA, USA","1510 Fashion Island Blvd, Foster City, CA, USA"],"housenumber":["1510"],"street":["Fashion Island Blvd"],"postalcode":["94404"]},"bbox":[[-122.35505,37.512249,-122.274974,37.602135],0,0]},"_t":"a"},"bbox":{"0":[-122.285099],"1":[37.557682],"2":[-122.285099],"3":[37.557682],"_t":"a","_0":[-122.35505,0,0],"_1":[37.512249,0,0],"_2":[-122.274974,0,0],"_3":[37.602135,0,0]}},"params":{"size":"1","text":"1510 Fashion Island Blvd #200, San Mateo, CA 94404, USA"},"old":{"geocoding":{"version":"0.2","attribution":"http://pelias-api-staging.us-east-1.elasticbeanstalk.com/attribution","query":{"text":"1510 Fashion Island Blvd #200, San Mateo, CA 94404, USA","size":1,"private":false,"lang":{"name":"English","iso6391":"en","iso6393":"eng","via":"default","defaulted":true},"querySize":20,"parser":"libpostal","parsed_text":{"housenumber":"1510","street":"fashion island blvd #200","city":"san mateo","state":"ca","postalcode":"94404","country":"usa"}},"engine":{"name":"Pelias","author":"Mapzen","version":"1.0"},"timestamp":1594320838098},"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[-122.308504,37.562052]},"properties":{"id":"85922431","gid":"whosonfirst:locality:85922431","layer":"locality","source":"whosonfirst","source_id":"85922431","name":"San Mateo","confidence":0.6,"match_type":"fallback","accuracy":"centroid","country":"United States","country_gid":"whosonfirst:country:85633793","country_a":"USA","region":"California","region_gid":"whosonfirst:region:85688637","region_a":"CA","county":"San Mateo County","county_gid":"whosonfirst:county:102085387","county_a":"SM","locality":"San Mateo","locality_gid":"whosonfirst:locality:85922431","continent":"North America","continent_gid":"whosonfirst:continent:102191575","label":"San Mateo, CA, USA"},"bbox":[-122.35505,37.512249,-122.274974,37.602135]}],"bbox":[-122.35505,37.512249,-122.274974,37.602135]},"new":{"geocoding":{"version":"0.2","attribution":"http://localhost:3100/attribution","query":{"text":"1510 Fashion Island Blvd #200, San Mateo, CA 94404, USA","size":1,"private":false,"lang":{"name":"English","iso6391":"en","iso6393":"eng","via":"default","defaulted":true},"querySize":20,"parser":"pelias","parsed_text":{"subject":"1510 Fashion Island Blvd","housenumber":"1510","street":"Fashion Island Blvd","locality":"San Mateo","region":"CA","postcode":"94404","country":"USA","admin":"#200, San Mateo, CA , USA"}},"engine":{"name":"Pelias","author":"Mapzen","version":"1.0"},"timestamp":1594320839039},"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[-122.285099,37.557682]},"properties":{"id":"sg:a6934858a1ae4efbb3118b86612330e9:address","gid":"safegraph:address:sg:a6934858a1ae4efbb3118b86612330e9:address","layer":"address","source":"safegraph","source_id":"sg:a6934858a1ae4efbb3118b86612330e9:address","name":"1510 Fashion Island Blvd","housenumber":"1510","street":"Fashion Island Blvd","postalcode":"94404","confidence":1,"match_type":"exact","accuracy":"point","country":"United States","country_gid":"whosonfirst:country:85633793","country_a":"USA","region":"California","region_gid":"whosonfirst:region:85688637","region_a":"CA","county":"San Mateo County","county_gid":"whosonfirst:county:102085387","county_a":"SM","locality":"Foster City","locality_gid":"whosonfirst:locality:1276909861","continent":"North America","continent_gid":"whosonfirst:continent:102191575","label":"1510 Fashion Island Blvd, Foster City, CA, USA"}}],"bbox":[-122.285099,37.557682,-122.285099,37.557682]},"oldUrl":"http://pelias-api-staging.us-east-1.elasticbeanstalk.com/v1/search?size=1&text=1510+Fashion+Island+Blvd+%23200,+San+Mateo,+CA+94404,+USA","newUrl":"http://localhost:3100/v1/search?size=1&text=1510+Fashion+Island+Blvd+%23200,+San+Mateo,+CA+94404,+USA"},{"delta":{"geocoding":{"query":{"parser":["libpostal","pelias"],"parsed_text":{"street":["sylvan way","Sylvan Way"],"city":["emerald hills",0,0],"state":["ca",0,0],"postalcode":["94062",0,0],"country":["usa","USA"],"subject":["271 Sylvan Way"],"locality":["Hills"],"region":["CA"],"postcode":["94062"],"admin":["Emerald Hills, CA , USA"]}}},"features":{"0":{"geometry":{"coordinates":{"0":[-122.274541],"1":[37.468446],"_t":"a","_0":[-122.283624,0,0],"_1":[37.463259,0,0]}},"properties":{"id":["85865155","P00002T1GUCG"],"gid":["whosonfirst:neighbourhood:85865155","pitneybowes:address:P00002T1GUCG"],"layer":["neighbourhood","address"],"source":["whosonfirst","pitneybowes"],"source_id":["85865155","P00002T1GUCG"],"name":["Emerald Hills","271 Sylvan Way"],"confidence":[0.6,1],"match_type":["fallback","exact"],"accuracy":["centroid","point"],"neighbourhood":["Emerald Hills",0,0],"neighbourhood_gid":["whosonfirst:neighbourhood:85865155",0,0],"label":["Emerald Hills, San Mateo County, CA, USA","271 Sylvan Way, Redwood City, CA, USA"],"housenumber":["271"],"street":["Sylvan Way"],"postalcode":["94062"],"locality":["Redwood City"],"locality_gid":["whosonfirst:locality:85922447"],"addendum":[{"radar":{"city":"Redwood City"}}]},"bbox":[[-122.283624,37.463259,-122.283624,37.463259],0,0]},"_t":"a"},"bbox":{"0":[-122.274541],"1":[37.468446],"2":[-122.274541],"3":[37.468446],"_t":"a","_0":[-122.283624,0,0],"_1":[37.463259,0,0],"_2":[-122.283624,0,0],"_3":[37.463259,0,0]}},"params":{"size":"1","text":"271 Sylvan Way, Emerald Hills, CA 94062, USA"},"old":{"geocoding":{"version":"0.2","attribution":"http://pelias-api-staging.us-east-1.elasticbeanstalk.com/attribution","query":{"text":"271 Sylvan Way, Emerald Hills, CA 94062, USA","size":1,"private":false,"lang":{"name":"English","iso6391":"en","iso6393":"eng","via":"default","defaulted":true},"querySize":20,"parser":"libpostal","parsed_text":{"housenumber":"271","street":"sylvan way","city":"emerald hills","state":"ca","postalcode":"94062","country":"usa"}},"engine":{"name":"Pelias","author":"Mapzen","version":"1.0"},"timestamp":1594320838075},"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[-122.283624,37.463259]},"properties":{"id":"85865155","gid":"whosonfirst:neighbourhood:85865155","layer":"neighbourhood","source":"whosonfirst","source_id":"85865155","name":"Emerald Hills","confidence":0.6,"match_type":"fallback","accuracy":"centroid","country":"United States","country_gid":"whosonfirst:country:85633793","country_a":"USA","region":"California","region_gid":"whosonfirst:region:85688637","region_a":"CA","county":"San Mateo County","county_gid":"whosonfirst:county:102085387","county_a":"SM","neighbourhood":"Emerald Hills","neighbourhood_gid":"whosonfirst:neighbourhood:85865155","continent":"North America","continent_gid":"whosonfirst:continent:102191575","label":"Emerald Hills, San Mateo County, CA, USA"},"bbox":[-122.283624,37.463259,-122.283624,37.463259]}],"bbox":[-122.283624,37.463259,-122.283624,37.463259]},"new":{"geocoding":{"version":"0.2","attribution":"http://localhost:3100/attribution","query":{"text":"271 Sylvan Way, Emerald Hills, CA 94062, USA","size":1,"private":false,"lang":{"name":"English","iso6391":"en","iso6393":"eng","via":"default","defaulted":true},"querySize":20,"parser":"pelias","parsed_text":{"subject":"271 Sylvan Way","housenumber":"271","street":"Sylvan Way","locality":"Hills","region":"CA","postcode":"94062","country":"USA","admin":"Emerald Hills, CA , USA"}},"engine":{"name":"Pelias","author":"Mapzen","version":"1.0"},"timestamp":1594320839089},"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[-122.274541,37.468446]},"properties":{"id":"P00002T1GUCG","gid":"pitneybowes:address:P00002T1GUCG","layer":"address","source":"pitneybowes","source_id":"P00002T1GUCG","name":"271 Sylvan Way","housenumber":"271","street":"Sylvan Way","postalcode":"94062","confidence":1,"match_type":"exact","accuracy":"point","country":"United States","country_gid":"whosonfirst:country:85633793","country_a":"USA","region":"California","region_gid":"whosonfirst:region:85688637","region_a":"CA","county":"San Mateo County","county_gid":"whosonfirst:county:102085387","county_a":"SM","locality":"Redwood City","locality_gid":"whosonfirst:locality:85922447","continent":"North America","continent_gid":"whosonfirst:continent:102191575","label":"271 Sylvan Way, Redwood City, CA, USA","addendum":{"radar":{"city":"Redwood City"}}}}],"bbox":[-122.274541,37.468446,-122.274541,37.468446]},"oldUrl":"http://pelias-api-staging.us-east-1.elasticbeanstalk.com/v1/search?size=1&text=271+Sylvan+Way,+Emerald+Hills,+CA+94062,+USA","newUrl":"http://localhost:3100/v1/search?size=1&text=271+Sylvan+Way,+Emerald+Hills,+CA+94062,+USA"},{"delta":{"geocoding":{"query":{"parser":["libpostal","pelias"],"parsed_text":{"street":["lomita dr","Lomita Dr"],"city":["palo alto",0,0],"state":["ca",0,0],"postalcode":["94304",0,0],"country":["USA","US"],"subject":["314 Lomita Dr"],"locality":["Palo Alto"],"region":["CA"],"postcode":["94304"],"admin":["Palo Alto, CA , US"]}}},"features":{"0":{"geometry":{"coordinates":{"0":[-122.17049],"1":[37.43205],"_t":"a","_0":[-122.127302,0,0],"_1":[37.431169,0,0]}},"properties":{"id":["85922351","9mo7mjG07Aj8Bycjh3GCVQ:address"],"gid":["whosonfirst:locality:85922351","yelp:address:9mo7mjG07Aj8Bycjh3GCVQ:address"],"layer":["locality","address"],"source":["whosonfirst","yelp"],"source_id":["85922351","9mo7mjG07Aj8Bycjh3GCVQ:address"],"name":["Palo Alto","227 Lomita Dr"],"confidence":[0.6,1],"match_type":["fallback","exact"],"accuracy":["centroid","point"],"label":["Palo Alto, CA, USA","227 Lomita Dr, Palo Alto, CA, USA"],"housenumber":["227"],"street":["Lomita Dr"],"postalcode":["94304"]},"bbox":[[-122.202653,37.285346,-122.068868,37.477838],0,0]},"_t":"a"},"bbox":{"0":[-122.17049],"1":[37.43205],"2":[-122.17049],"3":[37.43205],"_t":"a","_0":[-122.202653,0,0],"_1":[37.285346,0,0],"_2":[-122.068868,0,0],"_3":[37.477838,0,0]}},"params":{"size":"1","text":"314 Lomita Dr, Palo Alto, CA 94304, US"},"old":{"geocoding":{"version":"0.2","attribution":"http://pelias-api-staging.us-east-1.elasticbeanstalk.com/attribution","query":{"text":"314 Lomita Dr, Palo Alto, CA 94304, US","size":1,"private":false,"lang":{"name":"English","iso6391":"en","iso6393":"eng","via":"default","defaulted":true},"querySize":20,"parser":"libpostal","parsed_text":{"housenumber":"314","street":"lomita dr","city":"palo alto","state":"ca","postalcode":"94304","country":"USA"}},"engine":{"name":"Pelias","author":"Mapzen","version":"1.0"},"timestamp":1594320838463},"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[-122.127302,37.431169]},"properties":{"id":"85922351","gid":"whosonfirst:locality:85922351","layer":"locality","source":"whosonfirst","source_id":"85922351","name":"Palo Alto","confidence":0.6,"match_type":"fallback","accuracy":"centroid","country":"United States","country_gid":"whosonfirst:country:85633793","country_a":"USA","region":"California","region_gid":"whosonfirst:region:85688637","region_a":"CA","county":"Santa Clara County","county_gid":"whosonfirst:county:102081673","county_a":"SL","locality":"Palo Alto","locality_gid":"whosonfirst:locality:85922351","continent":"North America","continent_gid":"whosonfirst:continent:102191575","label":"Palo Alto, CA, USA"},"bbox":[-122.202653,37.285346,-122.068868,37.477838]}],"bbox":[-122.202653,37.285346,-122.068868,37.477838]},"new":{"geocoding":{"version":"0.2","attribution":"http://localhost:3100/attribution","query":{"text":"314 Lomita Dr, Palo Alto, CA 94304, US","size":1,"private":false,"lang":{"name":"English","iso6391":"en","iso6393":"eng","via":"default","defaulted":true},"querySize":20,"parser":"pelias","parsed_text":{"subject":"314 Lomita Dr","housenumber":"314","street":"Lomita Dr","locality":"Palo Alto","region":"CA","postcode":"94304","country":"US","admin":"Palo Alto, CA , US"}},"engine":{"name":"Pelias","author":"Mapzen","version":"1.0"},"timestamp":1594320839264},"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[-122.17049,37.43205]},"properties":{"id":"9mo7mjG07Aj8Bycjh3GCVQ:address","gid":"yelp:address:9mo7mjG07Aj8Bycjh3GCVQ:address","layer":"address","source":"yelp","source_id":"9mo7mjG07Aj8Bycjh3GCVQ:address","name":"227 Lomita Dr","housenumber":"227","street":"Lomita Dr","postalcode":"94304","confidence":1,"match_type":"exact","accuracy":"point","country":"United States","country_gid":"whosonfirst:country:85633793","country_a":"USA","region":"California","region_gid":"whosonfirst:region:85688637","region_a":"CA","county":"Santa Clara County","county_gid":"whosonfirst:county:102081673","county_a":"SL","locality":"Palo Alto","locality_gid":"whosonfirst:locality:85922351","continent":"North America","continent_gid":"whosonfirst:continent:102191575","label":"227 Lomita Dr, Palo Alto, CA, USA"}}],"bbox":[-122.17049,37.43205,-122.17049,37.43205]},"oldUrl":"http://pelias-api-staging.us-east-1.elasticbeanstalk.com/v1/search?size=1&text=314+Lomita+Dr,+Palo+Alto,+CA+94304,+US","newUrl":"http://localhost:3100/v1/search?size=1&text=314+Lomita+Dr,+Palo+Alto,+CA+94304,+US"}],"oldApiEnv":{"host":"pelias-api-staging.us-east-1.elasticbeanstalk.com","protocol":"http"},"newApiEnv":{"host":"localhost:3100","protocol":"http"}}
+
+      function createElementFromHTML(htmlString) {
+        var div = document.createElement("div");
+        div.innerHTML = htmlString.trim();
+
+        // Change this to div.childNodes to support multiple top-level nodes
+        return div.firstChild;
+      }
+
+      const changeList = document.getElementById("change-list");
+
+      var template = document.getElementById("change-template").innerHTML;
+      var renderChangeTemplate = Handlebars.compile(template);
+      changes.forEach((change, index) => {
+        const changeNode = createElementFromHTML(
+          renderChangeTemplate({
+            index: index + 1,
+            total: changes.length,
+            params: JSON.stringify(change.params, null, 2),
+            oldUrl: change.oldUrl,
+            newUrl: change.newUrl,
+          })
+        );
+
+        changeNode.querySelector(".delta-visual").innerHTML = jsondiffpatch.formatters.html.format(
+          change.delta,
+          change.old
+        );
+
+        changeList.append(changeNode);
+      });
+    </script>
+  </body>
+</html>

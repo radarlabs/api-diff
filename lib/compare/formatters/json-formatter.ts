@@ -2,19 +2,25 @@
 import { Change } from '../change';
 import { CompareFormatter } from './compare-formatter';
 
-type JsonChange = Pick<Change,
-'delta' | 'params'>
+type JsonChange = { old: unknown; new: unknown, oldUrl: string, newUrl: string } & Pick<Change, 'delta' | 'params'>;
 
 export default class JsonFormatter extends CompareFormatter {
   numQueriesRun = 0;
 
   numQueriesChanged = 0;
 
-  changes: JsonChange[] = []
+  changes: JsonChange[] = [];
 
   logChange(change: Change): void {
     this.numQueriesChanged += 1;
-    this.changes.push({ delta: change.delta, params: change.params });
+    this.changes.push({
+      delta: change.delta,
+      params: change.params,
+      old: change.oldResponse.data,
+      new: change.newResponse.data,
+      oldUrl: change.oldResponse.request.res.responseUrl,
+      newUrl: change.newResponse.request.res.responseUrl,
+    });
   }
 
   queryRan(): void {
@@ -25,6 +31,12 @@ export default class JsonFormatter extends CompareFormatter {
   }
 
   finished(): void {
-    console.log(JSON.stringify({ changes: this.changes }));
+    console.log(
+      JSON.stringify({
+        changes: this.changes,
+        oldApiEnv: this.oldApiEnv,
+        newApiEnv: this.newApiEnv,
+      }),
+    );
   }
 }
