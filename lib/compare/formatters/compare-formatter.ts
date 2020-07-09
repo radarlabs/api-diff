@@ -17,11 +17,14 @@ export abstract class CompareFormatter {
 
   abstract queryRan(): void;
 
-  abstract finished(): void;
+  abstract finished({ oldResponseTimes, newResponseTimes }:
+    { oldResponseTimes: number[], newResponseTimes: number[] }): void;
 
   oldApiEnv: ApiEnv;
 
   newApiEnv: ApiEnv;
+
+  startDate: Date;
 
   constructor({
     oldApiEnv,
@@ -31,5 +34,6 @@ export abstract class CompareFormatter {
     this.oldApiEnv = oldApiEnv;
     this.newApiEnv = newApiEnv;
     this.totalQueries = totalQueries;
+    this.startDate = new Date();
   }
 }

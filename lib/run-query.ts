@@ -1,8 +1,18 @@
 /* eslint-disable no-console */
 /* eslint-disable no-param-reassign */
-import axios, { Method, AxiosResponse } from 'axios';
+import axios, { Method, AxiosResponse, AxiosRequestConfig } from 'axios';
 import { ApiEnv } from './apiEnv';
 import config from './config';
+
+// response time middleware
+axios.interceptors.request.use((axiosConfig: AxiosRequestConfig) => {
+  (axiosConfig as any).metadata = { startTime: Date.now() };
+  return axiosConfig;
+});
+axios.interceptors.response.use((response: any) => {
+  response.duration = Date.now() - response.config.metadata.startTime;
+  return response;
+});
 
 /**
  * @param apiEnv

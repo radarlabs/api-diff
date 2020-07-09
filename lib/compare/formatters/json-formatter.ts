@@ -1,9 +1,13 @@
 /* eslint-disable no-console */
 import * as md5 from 'md5';
+import * as stats from 'stats-lite';
 import { Change } from '../change';
 import { CompareFormatter } from './compare-formatter';
 
-type JsonChange = { id: string, old: unknown; new: unknown, oldUrl: string, newUrl: string } & Pick<Change, 'delta' | 'params'>;
+type JsonChange = { id: string; old: unknown; new: unknown; oldUrl: string; newUrl: string } & Pick<
+  Change,
+  'delta' | 'params'
+>;
 
 export default class JsonFormatter extends CompareFormatter {
   numQueriesRun = 0;
@@ -32,18 +36,54 @@ export default class JsonFormatter extends CompareFormatter {
     }
   }
 
-  finishedDict(): any {
+  finishedDict({
+    oldResponseTimes,
+    newResponseTimes,
+  }: {
+    oldResponseTimes: number[];
+    newResponseTimes: number[];
+  }): any {
+    /**
+     * @param responseTimes
+     */
+    function makeResponseTimes(responseTimes: number[]) {
+      return {
+        p99: stats.percentile(responseTimes, 0.99),
+        p95: stats.percentile(responseTimes, 0.95),
+        p90: stats.percentile(responseTimes, 0.90),
+        p50: stats.percentile(responseTimes, 0.50),
+        median: stats.median(responseTimes),
+      };
+    }
+
     return {
+      startTime: this.startDate.toISOString(),
+      endTime: new Date().toISOString(),
       command: process.argv.join(' '),
+      totalQueries: this.totalQueries,
+      numQueriesRun: this.numQueriesRun,
       changes: this.changes,
       oldApiEnv: this.oldApiEnv,
       newApiEnv: this.newApiEnv,
+      old: {
+        apiEnv: this.oldApiEnv,
+        responseTimes: makeResponseTimes(oldResponseTimes),
+      },
+      new: {
+        apiEnv: this.newApiEnv,
+        responseTimes: makeResponseTimes(newResponseTimes),
+      },
+
     };
   }
 
-  finished(): void {
-    console.log(
-      JSON.stringify(this.finishedDict()),
-    );
+  finished({
+    oldResponseTimes,
+    newResponseTimes,
+  }: {
+    oldResponseTimes: number[];
+    newResponseTimes: number[];
+  }): void {
+    console.log(JSON.stringify(this.finishedDict({ oldResponseTimes, newResponseTimes })));
   }
 }

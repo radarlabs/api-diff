@@ -107,7 +107,7 @@ async function compareQuery({
   newApiEnv: ApiEnv;
   query: string;
   argv: ParsedArgs;
-}): Promise<Change | undefined> {
+}): Promise<Change> {
   const [endpoint, paramsString] = query.split('?');
   const params = queryString.parse(`${paramsString}&${argv.extra_params}`);
   delete params.undefined;
@@ -129,10 +129,6 @@ async function compareQuery({
   });
 
   const delta = differ.diff(oldResponse.data, newResponse.data);
-
-  if (!delta && !argv.unchanged) {
-    return undefined;
-  }
 
   return {
     params,
@@ -163,27 +159,29 @@ async function compareQueries({
   argv: ParsedArgs;
   formatter: CompareFormatter
 }) {
-  let numQueriesRun = 0;
+  const oldResponseTimes: number[] = [];
+  const newResponseTimes: number[] = [];
 
   await Bluebird.map(
     queries,
     async (query: string) => {
       formatter.queryRan();
 
-      numQueriesRun += 1;
       const change = await compareQuery({
         oldApiEnv,
         newApiEnv,
         query,
         argv,
       });
-      if (change) {
+      if (change.delta || argv.unchanged) {
         formatter.logChange(change);
       }
+      oldResponseTimes.push((change.oldResponse as any).duration);
+      newResponseTimes.push((change.newResponse as any).duration);
     },
     { concurrency: argv.concurrency },
   );
-  formatter.finished();
+  formatter.finished({ oldResponseTimes, newResponseTimes });
 }
 
 const argv = parseArgv() as ParsedArgs;

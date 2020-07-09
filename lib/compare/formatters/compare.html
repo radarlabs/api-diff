@@ -34,22 +34,22 @@
       }
 
       .change[data-quality="unscored"],
-      .scoreboard .unscored {
+      div.unscored, tr.unscored {
         background: beige;
       }
 
       .change[data-quality="better"],
-      .scoreboard .better {
+      div.better, tr.better {
         background: lightgreen;
       }
 
       .change[data-quality="worse"],
-      .scoreboard .worse {
+      div.worse, tr.worse{
         background: lightcoral;
       }
 
       .change[data-quality="neutral"],
-      .scoreboard .neutral {
+      div.neutral, tr.neutral {
         background: lightgrey;
       }
 
@@ -269,8 +269,56 @@
   </head>
 
   <body>
+    <div id="header"><</div>
     <div id="scoreboard"></div>
     <div id="change-list"></div>
+    <div id="summary"></div>
+
+    <template id="header-template">
+      <div class="jumbotron">
+        <h1 class="display-4">Compare</h1>
+        <p class="lead">
+          <b>{{old.apiEnv.host}} (old)</b><br />vs<br /><b>{{new.apiEnv.host}} (new)</b>
+        </p>
+        <hr class="my-4" />
+        <p>Started <b>{{startTime}}</b>, ran <b>{{numQueriesRun}} queries</b> in <b>{{elapsed}}s</b></p>
+        <table class="table">
+          <tr>
+            <th></th>
+            <th>old</th>
+            <th>new</th>
+          </tr>
+          <tr>
+            <td>p99</td>
+            <td>{{old.responseTimes.p99}}</td>
+            <td>{{new.responseTimes.p99}}</td>
+          </tr>
+          <tr>
+            <td>p95</td>
+            <td>{{old.responseTimes.p95}}</td>
+            <td>{{new.responseTimes.p95}}</td>
+          </tr>
+          <tr>
+            <td>p90</td>
+            <td>{{old.responseTimes.p90}}</td>
+            <td>{{new.responseTimes.p90}}</td>
+          </tr>
+          <tr>
+            <td>p50</td>
+            <td>{{old.responseTimes.p50}}</td>
+            <td>{{new.responseTimes.p50}}</td>
+          </tr>
+          <tr>
+            <td>median</td>
+            <td>{{old.responseTimes.median}}</td>
+            <td>{{new.responseTimes.median}}</td>
+          </tr>
+        </table>
+        <!-- <p class="lead">
+          <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+        </p> -->
+      </div>
+    </template>
 
     <template id="scoreboard-template">
       <table class="scoreboard">
@@ -323,13 +371,35 @@
       </div>
     </template>
 
+    <template id="summary-template">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title">Summary</h2>
+          <div class="summary">
+            {{#each summary as |values key|}}
+            <div class="card {{key}}">
+              <div class="card-body">
+                <h5 class="card-title">{{key}}</h5>
+                <ul class="list-group">
+                  {{#each values as |value|}}
+                  <li class="list-group-item">{{value}}</li>
+                  {{/each}}
+                </ul>
+              </div>
+            </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    </template>
+
     <script>
       // prettier-ignore
       const json = JSON_GO_HERE;
 
       const changes = json.changes;
 
-      function renderScoreboard() {
+      function renderScoreboardAndSummary() {
         const scoreboardValues = {
           neutral: 0,
           better: 0,
@@ -347,6 +417,39 @@
         document.getElementById("scoreboard").innerHTML = renderScoreboardTemplate(
           scoreboardValues
         );
+
+        // summary
+
+        const summarySections = {
+          neutral: [],
+          better: [],
+          worse: [],
+          unscored: [],
+        };
+        document
+          .querySelectorAll(".change")
+          .forEach((node) => summarySections[node.dataset.quality].push(node.dataset.params));
+
+        const summaryTemplate = document.getElementById("summary-template").innerHTML;
+        const renderSummaryTemplate = Handlebars.compile(summaryTemplate);
+
+        console.log(summarySections);
+        document.getElementById("summary").innerHTML = renderSummaryTemplate({
+          summary: summarySections,
+        });
+      }
+
+      function renderHeader() {
+        var template = document.getElementById("header-template").innerHTML;
+        var renderHeaderTemplate = Handlebars.compile(template);
+
+        document.getElementById("header").innerHTML = renderHeaderTemplate({
+          old: json.old,
+          new: json.new,
+          startTime: new Date(json.startTime).toString(),
+          elapsed: (new Date(json.endTime).getTime() - new Date(json.startTime).getTime()) / 1000,
+          numQueriesRun: json.numQueriesRun,
+        });
       }
 
       function createElementFromHTML(htmlString) {
@@ -369,8 +472,8 @@
             params: JSON.stringify(change.params, null, 2),
             oldUrl: change.oldUrl,
             newUrl: change.newUrl,
-            oldHost: json.oldApiEnv.host,
-            newHost: json.newApiEnv.host,
+            oldHost: json.old.apiEnv.host,
+            newHost: json.new.apiEnv.host,
           })
         );
 
@@ -385,9 +488,12 @@
           changeNode.dataset.quality = score;
 
           localStorage.setItem(change.id, score);
+
+          renderScoreboardAndSummary();
         }
 
         changeNode.dataset.quality = localStorage.getItem(change.id) || "unscored";
+        changeNode.dataset.params = JSON.stringify(change.params);
 
         changeNode.querySelector(".better").addEventListener("click", () => scoreResult("better"));
         changeNode.querySelector(".worse").addEventListener("click", () => scoreResult("worse"));
@@ -396,12 +502,13 @@
           .addEventListener("click", () => scoreResult("neutral"));
       });
 
-      renderScoreboard();
+      renderScoreboardAndSummary();
+      renderHeader();
 
       // document.addEventListener("keypress", function onEvent(event) {
       //   console.log(event.key);
 
-      //   const currentElem = 
+      //   const currentElem =
       //   // if (event.key === "Enter") {
       //   //     // Do something better
       //   // }
