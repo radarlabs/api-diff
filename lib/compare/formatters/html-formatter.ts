@@ -13,7 +13,7 @@ export default class HtmlFormatter extends JsonFormatter {
   }): void {
     const filePath = path.join(__dirname, 'compare.html');
     const html = fs.readFileSync(filePath).toString();
-    console.log(
+    this.write(
       html.replace('JSON_GO_HERE', JSON.stringify(this.finishedDict({
         oldResponseTimes,
         newResponseTimes,

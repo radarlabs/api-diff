@@ -26,18 +26,19 @@ export default class ConsoleFormatter extends CompareFormatter {
     ${apiEnvToApiSh(this.newApiEnv)} ${change.newResponse.request.res.responseUrl}`;
 
     if (!change.delta) {
-      console.log(chalk.cyan(`Unchanged: ${outputLines}`));
+      this.writeln(chalk.cyan(`Unchanged: ${outputLines}`));
     } else {
-      console.log(chalk.yellow(`Changed: ${outputLines}`));
+      this.writeln(chalk.yellow(`Changed: ${outputLines}`));
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (jsondiffpatch.console as any).log(change.delta);
   }
 
   queryRan(): void {
     this.numQueriesRun += 1;
     if (this.numQueriesRun % 10 === 0) {
-      console.log(`IN PROGRESS. ${this.numQueriesRun}/${this.totalQueries} run`);
+      this.writeln(`IN PROGRESS. ${this.numQueriesRun}/${this.totalQueries} run`);
     }
   }
 
@@ -49,25 +50,25 @@ export default class ConsoleFormatter extends CompareFormatter {
     newResponseTimes: number[];
   }): void {
     /**
-     * @param responseTimes
+     * @param {number[]} responseTimes array of response times in milliseconds
      */
     function logResponseTimes(responseTimes: number[]) {
-      console.log('  P99:', `${stats.percentile(responseTimes, 0.99)}ms`);
-      console.log('  P95:', `${stats.percentile(responseTimes, 0.95)}ms`);
-      console.log('  P90:', `${stats.percentile(responseTimes, 0.90)}ms`);
-      console.log('  P95:', `${stats.percentile(responseTimes, 0.50)}ms`);
+      this.writeln('  P99:', `${stats.percentile(responseTimes, 0.99)}ms`);
+      this.writeln('  P95:', `${stats.percentile(responseTimes, 0.95)}ms`);
+      this.writeln('  P90:', `${stats.percentile(responseTimes, 0.90)}ms`);
+      this.writeln('  P95:', `${stats.percentile(responseTimes, 0.50)}ms`);
     }
 
-    console.log(`DONE. ${this.numQueriesChanged}/${this.numQueriesRun} changed`);
+    this.writeln(`DONE. ${this.numQueriesChanged}/${this.numQueriesRun} changed`);
 
-    console.log('Elapsed:', (Date.now() - this.startDate.getTime()) / 1000, 'seconds');
+    this.writeln(`Elapsed: ${(Date.now() - this.startDate.getTime()) / 1000} seconds`);
 
-    console.log('OLD responseTimes');
+    this.writeln('OLD responseTimes');
     logResponseTimes(oldResponseTimes);
 
-    console.log('NEW responseTimes');
+    this.writeln('NEW responseTimes');
     logResponseTimes(newResponseTimes);
 
-    console.log();
+    this.writeln('');
   }
 }

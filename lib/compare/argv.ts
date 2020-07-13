@@ -24,9 +24,10 @@ export const OLD_KEY = 'old';
 export const NEW_KEY = 'new';
 
 /**
- *
+ * @param envs
+ * @returns {ParsedArgs} parsed commandline args
  */
-export function parseArgv() {
+export function parseArgv(envs: string[]): ParsedArgs {
   // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
   const yargs = require('yargs').strict();
 
@@ -34,24 +35,23 @@ export function parseArgv() {
     yargs.option(key, val);
   });
 
-  yargs.option(OLD_KEY);
-  yargs.hide(OLD_KEY);
-  yargs.option(NEW_KEY);
-  yargs.hide(NEW_KEY);
+  // env is "old" + "new" in compare, and just "old" in generate-baseline
+  envs.forEach((env) => {
+    // this is a workaround for yargs
+    yargs.option(env);
+    yargs.hide(env);
 
-  const oldParams = [];
-  const newParams = [];
-  _.forEach(getApiEnvCommandLineOptions(), (val, key) => {
-    yargs.option(`${OLD_KEY}.${key}`, {
-      ...val,
-      alias: val.alias ? `${OLD_KEY}.${val.alias}` : null,
+    const envParams = [];
+    _.forEach(getApiEnvCommandLineOptions(), (val, key) => {
+      const envKey = `${env}.${key}`;
+      yargs.option(envKey, {
+        ...val,
+        alias: val.alias ? `${env}.${val.alias}` : null,
+      });
+      envParams.push(envKey);
     });
-    oldParams.push(`${OLD_KEY}.${key}`);
-    yargs.option(`${NEW_KEY}.${key}`, {
-      ...val,
-      alias: val.alias ? `${NEW_KEY}.${val.alias}` : null,
-    });
-    newParams.push(`${NEW_KEY}.${key}`);
+
+    yargs.group(envParams, `Configuration for "${env}" server:`);
   });
 
   yargs.option('input_params', {
@@ -110,23 +110,16 @@ export function parseArgv() {
     description: 'what kind of output to generate',
   });
 
+  yargs.option('output_file', {
+    alias: 'o',
+    description: 'output file, if unspecified or -, output to stdout',
+  });
+
   yargs.group(['input_params', 'endpoint', 'input_queries', 'input_csv'], 'Query options:');
-  yargs.group(oldParams, 'Options for "old" server to compare:');
-  yargs.group(newParams, 'Options for "new" server to compare:');
   yargs.implies('input_csv', 'endpoint');
   yargs.implies('input_params', 'endpoint');
 
-  yargs.usage(`This tool takes in a set of queries to compare against two radar api servers. 
-It has a bunch of options, here are some examples:
-
-./run.sh compare --old.prod --new.local --endpoint /search/autocomplete --input_params input.txt
-   Compares /search/autocomplete on prod vs local, using query string in input.txt
-
-./run.sh compare --old.prod --new.local --new.key_env=staging --endpoint /search/autocomplete --input_params input.txt
-    Same, but looks for a staging key in the env var STAGING_TEST_RADAR_API_KEY in the env or in 
-  
-There are other ways to configure old and new, look in the help for more. These options are the same as to ./run.sh api, just with new & old prepended
-  `);
+  yargs.usage('REWRITE ME');
 
   return yargs.argv;
 }

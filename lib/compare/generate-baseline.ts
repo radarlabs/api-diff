@@ -2,13 +2,12 @@
 import * as queryString from 'query-string';
 import * as Bluebird from 'bluebird';
 
-import * as jsondiffpatch from 'jsondiffpatch';
 import { ApiEnv, argvToApiEnv } from '../apiEnv';
 import runQuery from '../run-query';
 import { Change } from './change';
 import { CompareFormatter } from './formatters/compare-formatter';
 import {
-  parseArgv, OLD_KEY, NEW_KEY, ParsedArgs,
+  parseArgv, OLD_KEY, ParsedArgs,
 } from './argv';
 import getFormatter from './formatters/get-formatter';
 import QueryReader from './query-reader';
@@ -20,14 +19,12 @@ import QueryReader from './query-reader';
  * @param root0.query
  * @param root0.argv
  */
-async function compareQuery({
+async function runOneQuery({
   oldApiEnv,
-  newApiEnv,
   query,
   argv,
 }: {
   oldApiEnv: ApiEnv;
-  newApiEnv: ApiEnv;
   query: string;
   argv: ParsedArgs;
 }): Promise<Change> {
@@ -39,25 +36,12 @@ async function compareQuery({
     params,
     method: argv.method,
   });
-  const newResponse = await runQuery(newApiEnv, {
-    endpoint,
-    params,
-    method: argv.method,
-  });
-
-  const differ = jsondiffpatch.create({
-    propertyFilter(name, _context) {
-      return !['buildInfo', 'debug', ...(argv.ignored_fields || [])].includes(name);
-    },
-  });
-
-  const delta = differ.diff(oldResponse.data, newResponse.data);
 
   return {
     params,
-    delta,
+    delta: undefined,
     oldResponse,
-    newResponse,
+    newResponse: undefined,
   };
 }
 
@@ -69,61 +53,52 @@ async function compareQuery({
  * @param root0.argv
  * @param root0.formatter
  */
-async function compareQueries({
+async function runQueries({
   oldApiEnv,
-  newApiEnv,
   queries,
   argv,
   formatter,
 }: {
   oldApiEnv: ApiEnv;
-  newApiEnv: ApiEnv;
   queries: string[];
   argv: ParsedArgs;
-  formatter: CompareFormatter;
+  formatter: CompareFormatter
 }) {
   const oldResponseTimes: number[] = [];
-  const newResponseTimes: number[] = [];
 
   await Bluebird.map(
     queries,
     async (query: string) => {
       formatter.queryRan();
 
-      const change = await compareQuery({
+      const change = await runOneQuery({
         oldApiEnv,
-        newApiEnv,
         query,
         argv,
       });
-      if (change.delta || argv.unchanged) {
-        formatter.logChange(change);
-      }
+      formatter.logChange(change);
       oldResponseTimes.push((change.oldResponse as any).duration);
-      newResponseTimes.push((change.newResponse as any).duration);
     },
     { concurrency: argv.concurrency },
   );
-  formatter.finished({ oldResponseTimes, newResponseTimes });
+  formatter.finished({ oldResponseTimes, newResponseTimes: undefined });
 }
 
-const argv = parseArgv([OLD_KEY, NEW_KEY]) as ParsedArgs;
+const argv = parseArgv([OLD_KEY]) as ParsedArgs;
 
 const oldApiEnv = argvToApiEnv(argv[OLD_KEY]);
-const newApiEnv = argvToApiEnv(argv[NEW_KEY]);
 
 const queries = QueryReader(argv);
 
-const formatter = getFormatter(argv.output_mode, {
+const formatter = getFormatter('json', {
   oldApiEnv,
-  newApiEnv,
+  newApiEnv: undefined,
   argv,
   totalQueries: queries.length,
 });
 
-compareQueries({
+runQueries({
   oldApiEnv,
-  newApiEnv,
   queries,
   argv,
   formatter,

@@ -433,7 +433,6 @@
         const summaryTemplate = document.getElementById("summary-template").innerHTML;
         const renderSummaryTemplate = Handlebars.compile(summaryTemplate);
 
-        console.log(summarySections);
         document.getElementById("summary").innerHTML = renderSummaryTemplate({
           summary: summarySections,
         });
@@ -504,15 +503,6 @@
 
       renderScoreboardAndSummary();
       renderHeader();
-
-      // document.addEventListener("keypress", function onEvent(event) {
-      //   console.log(event.key);
-
-      //   const currentElem =
-      //   // if (event.key === "Enter") {
-      //   //     // Do something better
-      //   // }
-      // });
     </script>
   </body>
 </html>

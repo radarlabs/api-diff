@@ -121,7 +121,7 @@ export function argvToApiEnv(argv: any): ApiEnv {
     };
   }
 
-  if (apiEnv.host.startsWith('http')) {
+  if (apiEnv.host?.startsWith('http')) {
     const url = new URL(apiEnv.host);
     apiEnv.host = url.host;
     apiEnv.protocol = url.protocol.replace(':', '');
