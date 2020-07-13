@@ -69,13 +69,12 @@ async function runQueries({
   await Bluebird.map(
     queries,
     async (query: string) => {
-      formatter.queryRan();
-
       const change = await runOneQuery({
         oldApiEnv,
         query,
         argv,
       });
+      formatter.queryRan();
       formatter.logChange(change);
       oldResponseTimes.push((change.oldResponse as any).duration);
     },

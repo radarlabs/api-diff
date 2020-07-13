@@ -48,7 +48,10 @@ function readQueriesHelper(argv: QueryReaderArgs): string[] {
         const [csvHeader, paramName] = parts;
         keyMap[csvHeader] = paramName;
       });
-      const hasNumericKeyMap = _.every(_.keys(keyMap), (k) => /^\d+$/.test(k));
+
+      // if the key mapping is all from numbers, assume the user is trying
+      // to tell us that the input csv doesn't have named headers
+      const hasNumericKeyMap = _.keys(keyMap).length > 0 && _.every(_.keys(keyMap), (k) => /^\d+$/.test(k));
 
       const records = parseCsvSync(fileLines, {
         columns: !hasNumericKeyMap,

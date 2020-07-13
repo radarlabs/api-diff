@@ -6,5 +6,5 @@ export type Change = {
   params: queryString.ParsedQuery;
   delta?: unknown;
   oldResponse: AxiosResponse;
-  newResponse: AxiosResponse;
+  newResponse?: AxiosResponse;
 };

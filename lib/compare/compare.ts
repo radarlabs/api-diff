@@ -88,14 +88,13 @@ async function compareQueries({
   await Bluebird.map(
     queries,
     async (query: string) => {
-      formatter.queryRan();
-
       const change = await compareQuery({
         oldApiEnv,
         newApiEnv,
         query,
         argv,
       });
+      formatter.queryRan();
       if (change.delta || argv.unchanged) {
         formatter.logChange(change);
       }

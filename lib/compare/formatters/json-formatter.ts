@@ -7,10 +7,12 @@ import { CompareFormatter } from './compare-formatter';
 type JsonChange = {
   id: string;
   old: unknown;
-  new: unknown;
+  new?: unknown;
   oldUrl: string;
-  newUrl: string;
+  newUrl?: string;
   endpoint: string;
+  oldStatus: number;
+  newStatus?: number;
 } & Pick<Change, 'delta' | 'params'>;
 
 /**
@@ -44,9 +46,11 @@ export default class JsonFormatter extends CompareFormatter {
       delta: change.delta,
       params: change.params,
       old: change.oldResponse.data,
-      new: change.newResponse.data,
+      new: change.newResponse?.data,
       oldUrl: change.oldResponse.request.res.responseUrl,
-      newUrl: change.newResponse.request.res.responseUrl,
+      newUrl: change.newResponse?.request.res.responseUrl,
+      oldStatus: change.oldResponse.status,
+      newStatus: change.newResponse?.status,
     });
   }
 
