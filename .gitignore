@@ -112,3 +112,4 @@ dist
 *.tsv
 config.hjson
 *.json
+*.html

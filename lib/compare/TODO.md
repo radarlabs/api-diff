@@ -1,7 +1,6 @@
 - write a better README
 
-- save gold set mode
-- compare to golden set
+- put old data into old from golden / generally clean up old a bit from golden
 
 - think one last time about the config file
 

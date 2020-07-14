@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 import * as jsondiffpatch from 'jsondiffpatch';
 import * as stats from 'stats-lite';
 
@@ -21,8 +21,8 @@ export default class ConsoleFormatter extends CompareFormatter {
       }
       return './api.sh';
     };
-    const outputLines = `${JSON.stringify(change.params)}
-    ${apiEnvToApiSh(this.oldApiEnv)} ${change.oldResponse.request.res.responseUrl}
+    const outputLines = `${JSON.stringify(change.query.params)}
+    ${apiEnvToApiSh(this.oldApiEnv)} ${change.oldResponse.request?.res?.responseUrl}
     ${apiEnvToApiSh(this.newApiEnv)} ${change.newResponse.request.res.responseUrl}`;
 
     if (!change.delta) {
@@ -52,12 +52,12 @@ export default class ConsoleFormatter extends CompareFormatter {
     /**
      * @param {number[]} responseTimes array of response times in milliseconds
      */
-    function logResponseTimes(responseTimes: number[]) {
-      this.writeln('  P99:', `${stats.percentile(responseTimes, 0.99)}ms`);
-      this.writeln('  P95:', `${stats.percentile(responseTimes, 0.95)}ms`);
-      this.writeln('  P90:', `${stats.percentile(responseTimes, 0.90)}ms`);
-      this.writeln('  P95:', `${stats.percentile(responseTimes, 0.50)}ms`);
-    }
+    const logResponseTimes = (responseTimes: number[]) => {
+      this.writeln(`  P99: ${stats.percentile(responseTimes, 0.99)}ms`);
+      this.writeln(`  P95: ${stats.percentile(responseTimes, 0.95)}ms`);
+      this.writeln(`  P90: ${stats.percentile(responseTimes, 0.90)}ms`);
+      this.writeln(`  P95: ${stats.percentile(responseTimes, 0.50)}ms`);
+    };
 
     this.writeln(`DONE. ${this.numQueriesChanged}/${this.numQueriesRun} changed`);
 

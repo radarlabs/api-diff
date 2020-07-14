@@ -4,9 +4,6 @@ import config, { ConfigHostEntry } from './config';
 
 import { failedExit } from './cli-utils';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-require('dotenv').config();
-
 const apiEnvCommandLineOptions: Record<string, any> = {
   host: {
     type: 'string',
@@ -91,22 +88,33 @@ export function fixApiEnvKey(apiEnv: Partial<ApiEnv>): void {
 /**
  * @param argv
  */
-export function argvToApiEnv(argv: any): ApiEnv {
-  let apiEnv: Partial<ApiEnv> = _.clone(argv);
+export function argvToApiEnv(argv: Partial<ApiEnv> | undefined): ApiEnv {
+  let apiEnv: Partial<ApiEnv> = _.clone(argv) || {};
 
   let aliasedHostEntry: ConfigHostEntry;
   _.forEach(config.hosts, (hostEntry: ConfigHostEntry, key: string) => {
+    // look through our config file for named host entries,
+    // see if one of them like prod: {} was specified on the commandline
     if (argv[key]) {
+      // This gets triggered if a user specifies more than one hostEntry command
+      // line option, like --prod and --staging (if both are defined in their config)
       if (aliasedHostEntry) {
         throw new Error(`Can only specify one of ${_.keys(config.hosts).join(',')}`);
       }
 
+      // If this entry takes an argument, replace uppercase(hostConfigEntryName)
+      // with the argument specified
+      // so user: { takesArg: true, host: 'api-USER-dev.foo.io'}
+      // specified by --user blackmad becomes api-blackmad-dev.foo.io
       if (hostEntry.takesArg) {
         const toReplace = key.toUpperCase();
         // eslint-disable-next-line no-param-reassign
         hostEntry.host = hostEntry.host.replace(toReplace, argv[key]);
       }
 
+      // keyEnv is either the env specified in the hostEntry or just the
+      // name of the hostConfig. For example, localhost might specify keyEnv: staging,
+      // while the hostConfig for "staging" wouldn't need to do so
       // eslint-disable-next-line no-param-reassign
       hostEntry.keyEnv = hostEntry.keyEnv || key;
 
@@ -121,13 +129,13 @@ export function argvToApiEnv(argv: any): ApiEnv {
     };
   }
 
-  if (apiEnv.host?.startsWith('http')) {
+  if (apiEnv?.host?.startsWith('http')) {
     const url = new URL(apiEnv.host);
     apiEnv.host = url.host;
     apiEnv.protocol = url.protocol.replace(':', '');
   }
 
-  apiEnv.protocol = apiEnv.protocol || 'http';
+  apiEnv.protocol = apiEnv?.protocol || 'http';
 
   if (config.authStyle) {
     fixApiEnvKey(apiEnv);

@@ -2,6 +2,7 @@
 /* eslint-disable no-param-reassign */
 import axios, { Method, AxiosResponse, AxiosRequestConfig } from 'axios';
 import { ApiEnv } from './apiEnv';
+import { Query } from './compare/query';
 import config from './config';
 
 // response time middleware
@@ -23,15 +24,7 @@ axios.interceptors.response.use((response: any) => {
  */
 export default async function runQuery(
   apiEnv: ApiEnv,
-  {
-    params,
-    endpoint,
-    method,
-  }: {
-    params: Record<string, unknown>;
-    method: string;
-    endpoint: string;
-  },
+  { params, endpoint, method }: Query,
 ): Promise<AxiosResponse> {
   // v1/xxxx ... maybe someone was lazy and didn't start with an opening slash
   if (endpoint[0] !== '/' && !endpoint.startsWith('http:')) {
@@ -72,8 +65,8 @@ export default async function runQuery(
       headers,
       params: method === 'GET' ? params : undefined,
       data: method === 'POST' ? params : undefined,
-      method: method.toLowerCase() as Method,
-      timeout: 2000,
+      method: method as Method,
+      timeout: 30000,
     });
     return response;
   } catch (error) {
@@ -81,7 +74,7 @@ export default async function runQuery(
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx
       // console.error(error.response.data);
-      console.error(error.response.status);
+      console.error(`Got error code: ${error.response.status}`);
       // console.error(error.response.headers);
       return error.response;
     }

@@ -8,13 +8,15 @@ import * as chalk from 'chalk';
 import parseCsvSync from 'csv-parse/lib/sync';
 import { failedExit } from '../cli-utils';
 import { ParsedArgs } from './argv';
+import { JsonChange } from './formatters/json-formatter';
+import { Query } from './query';
 
-type QueryReaderArgs = Pick<ParsedArgs, 'input_queries' | 'endpoint' | 'input_params' | 'input_csv' | 'key_map'>
+type QueryReaderArgs = Pick<ParsedArgs, 'method' | 'input_json_baseline' | 'input_queries' | 'endpoint' | 'input_params' | 'input_csv' | 'key_map'>
 
 /**
  * @param argv
  */
-function readQueriesHelper(argv: QueryReaderArgs): string[] {
+function readQueriesHelper(argv: QueryReaderArgs): Query[] {
   const hasInputFile = argv.input_params || argv.input_csv;
   if ((argv.endpoint && !hasInputFile) || (!argv.endpoint && hasInputFile)) {
     console.error(
@@ -24,14 +26,36 @@ function readQueriesHelper(argv: QueryReaderArgs): string[] {
     );
   }
 
-  if (argv.endpoint && argv.input_params) {
+  /**
+   * @param line
+   */
+  function lineToQuery(line: string) {
+    const [endpoint, paramString] = line.split('?');
+    return {
+      endpoint,
+      params: queryString.parse(paramString) as Record<string, string>,
+      method: argv.method,
+    };
+  }
+
+  if (argv.input_json_baseline) {
+    return _.flatMap(argv.input_json_baseline, ((file) => {
+      const contents = fs.readFileSync(file).toString();
+      const json = JSON.parse(contents);
+      return json.changes.map((change: JsonChange): Query => ({
+        ...change.query,
+        baselineResponse: change.old.response,
+      }));
+    }));
+  } if (argv.endpoint && argv.input_params) {
     const { endpoint } = argv;
     return _.flatMap(argv.input_params, (input_param_file: string) => fs
       .readFileSync(input_param_file)
       .toString()
       .split('\n')
       .filter((line) => !!line)
-      .map((line) => `${endpoint}?${line}`));
+      .map((line) => `${endpoint}?${line}`))
+      .map(lineToQuery);
   }
   if (argv.endpoint && argv.input_csv) {
     const { endpoint } = argv;
@@ -75,7 +99,11 @@ function readQueriesHelper(argv: QueryReaderArgs): string[] {
           delete modifiedRecord[csvHeader];
         });
 
-        return `${endpoint}?${queryString.stringify(modifiedRecord)}`;
+        return {
+          endpoint,
+          method: argv.method,
+          params: modifiedRecord,
+        };
       });
     });
   }
@@ -84,7 +112,8 @@ function readQueriesHelper(argv: QueryReaderArgs): string[] {
       .readFileSync(input_queries_file)
       .toString()
       .split('\n')
-      .filter((line) => !!line));
+      .filter((line) => !!line))
+      .map(lineToQuery);
   }
 
   return [];
@@ -93,7 +122,7 @@ function readQueriesHelper(argv: QueryReaderArgs): string[] {
 /**
  * @param argv
  */
-function readQueries(argv: QueryReaderArgs): string[] {
+export default function readQueries(argv: QueryReaderArgs): Query[] {
   const queries = readQueriesHelper(argv);
 
   if (!queries || queries.length === 0) {
@@ -104,5 +133,3 @@ function readQueries(argv: QueryReaderArgs): string[] {
 
   return queries;
 }
-
-export = readQueries;

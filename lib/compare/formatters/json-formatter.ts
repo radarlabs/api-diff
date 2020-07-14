@@ -4,16 +4,16 @@ import * as stats from 'stats-lite';
 import { Change } from '../change';
 import { CompareFormatter } from './compare-formatter';
 
-type JsonChange = {
+type ApiEnvResponse = {
+  response: unknown,
+  url: string,
+  status: number
+}
+export type JsonChange = {
   id: string;
-  old: unknown;
-  new?: unknown;
-  oldUrl: string;
-  newUrl?: string;
-  endpoint: string;
-  oldStatus: number;
-  newStatus?: number;
-} & Pick<Change, 'delta' | 'params'>;
+  old: ApiEnvResponse,
+  new?: ApiEnvResponse;
+} & Pick<Change, 'delta' | 'query'>;
 
 /**
  * @param responseTimes
@@ -38,19 +38,20 @@ export default class JsonFormatter extends CompareFormatter {
   logChange(change: Change): void {
     this.numQueriesChanged += 1;
 
-    const url = new URL(change.oldResponse.request.res.responseUrl);
-
     this.changes.push({
-      id: md5(JSON.stringify({ delta: change.delta, params: change.params })),
-      endpoint: url.pathname,
+      id: md5(JSON.stringify({ delta: change.delta, params: change.query.params })),
+      query: change.query,
       delta: change.delta,
-      params: change.params,
-      old: change.oldResponse.data,
-      new: change.newResponse?.data,
-      oldUrl: change.oldResponse.request.res.responseUrl,
-      newUrl: change.newResponse?.request.res.responseUrl,
-      oldStatus: change.oldResponse.status,
-      newStatus: change.newResponse?.status,
+      old: {
+        response: change.oldResponse.data,
+        status: change.oldResponse.status,
+        url: change.oldResponse.request?.res?.responseUrl,
+      },
+      new: change.newResponse?.data ? {
+        response: change.newResponse.data,
+        status: change.newResponse.status,
+        url: change.newResponse.request.res.responseUrl,
+      } : undefined,
     });
   }
 
@@ -74,17 +75,15 @@ export default class JsonFormatter extends CompareFormatter {
       command: process.argv.join(' '),
       totalQueries: this.totalQueries,
       numQueriesRun: this.numQueriesRun,
-      changes: this.changes,
-      oldApiEnv: this.oldApiEnv,
-      newApiEnv: this.newApiEnv,
       old: {
         apiEnv: this.oldApiEnv,
         responseTimes: makeResponseTimes(oldResponseTimes),
       },
-      new: {
+      new: this.newApiEnv ? {
         apiEnv: this.newApiEnv,
         responseTimes: makeResponseTimes(newResponseTimes),
-      },
+      } : undefined,
+      changes: this.changes,
     };
   }
 
@@ -95,6 +94,6 @@ export default class JsonFormatter extends CompareFormatter {
     oldResponseTimes: number[];
     newResponseTimes: number[];
   }): void {
-    this.write(JSON.stringify(this.finishedDict({ oldResponseTimes, newResponseTimes })));
+    this.write(JSON.stringify(this.finishedDict({ oldResponseTimes, newResponseTimes }), null, 2));
   }
 }

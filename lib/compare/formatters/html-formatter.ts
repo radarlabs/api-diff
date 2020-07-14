@@ -17,7 +17,7 @@ export default class HtmlFormatter extends JsonFormatter {
       html.replace('JSON_GO_HERE', JSON.stringify(this.finishedDict({
         oldResponseTimes,
         newResponseTimes,
-      }))),
+      }), null, 2)),
     );
   }
 }

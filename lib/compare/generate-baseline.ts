@@ -10,7 +10,8 @@ import {
   parseArgv, OLD_KEY, ParsedArgs,
 } from './argv';
 import getFormatter from './formatters/get-formatter';
-import QueryReader from './query-reader';
+import * as QueryReader from './query-reader';
+import { Query } from './query';
 
 /**
  * @param root0
@@ -25,20 +26,22 @@ async function runOneQuery({
   argv,
 }: {
   oldApiEnv: ApiEnv;
-  query: string;
+  query: Query;
   argv: ParsedArgs;
 }): Promise<Change> {
-  const [endpoint, paramsString] = query.split('?');
-  const params = queryString.parse(`${paramsString}&${argv.extra_params}`);
-  delete params.undefined;
-  const oldResponse = await runQuery(oldApiEnv, {
-    endpoint,
+  const extraParams = queryString.parse(`${argv.extra_params}`) as Record<string, string>;
+  delete extraParams.undefined;
+  const params = { ...query.params, ...extraParams };
+  const queryWithExtraParams = {
+    endpoint: query.endpoint,
+    method: query.method,
     params,
-    method: argv.method,
-  });
+  };
+
+  const oldResponse = await runQuery(oldApiEnv, queryWithExtraParams);
 
   return {
-    params,
+    query: queryWithExtraParams,
     delta: undefined,
     oldResponse,
     newResponse: undefined,
@@ -60,7 +63,7 @@ async function runQueries({
   formatter,
 }: {
   oldApiEnv: ApiEnv;
-  queries: string[];
+  queries: Query[];
   argv: ParsedArgs;
   formatter: CompareFormatter
 }) {
@@ -68,7 +71,7 @@ async function runQueries({
 
   await Bluebird.map(
     queries,
-    async (query: string) => {
+    async (query: Query) => {
       const change = await runOneQuery({
         oldApiEnv,
         query,
@@ -87,7 +90,7 @@ const argv = parseArgv([OLD_KEY]) as ParsedArgs;
 
 const oldApiEnv = argvToApiEnv(argv[OLD_KEY]);
 
-const queries = QueryReader(argv);
+const queries = QueryReader.readQueries(argv);
 
 const formatter = getFormatter('json', {
   oldApiEnv,

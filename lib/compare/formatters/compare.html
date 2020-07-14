@@ -468,9 +468,9 @@
           renderChangeTemplate({
             index: index + 1,
             total: changes.length,
-            params: JSON.stringify(change.params, null, 2),
-            oldUrl: change.oldUrl,
-            newUrl: change.newUrl,
+            params: JSON.stringify(change.query.params, null, 2),
+            oldUrl: change.old.url,
+            newUrl: change.new.url,
             oldHost: json.old.apiEnv.host,
             newHost: json.new.apiEnv.host,
           })
@@ -478,7 +478,7 @@
 
         changeNode.querySelector(".delta-visual").innerHTML = jsondiffpatch.formatters.html.format(
           change.delta,
-          change.old
+          change.old.response
         );
 
         changeList.append(changeNode);
@@ -492,7 +492,7 @@
         }
 
         changeNode.dataset.quality = localStorage.getItem(change.id) || "unscored";
-        changeNode.dataset.params = JSON.stringify(change.params);
+        changeNode.dataset.params = JSON.stringify(change.query.params);
 
         changeNode.querySelector(".better").addEventListener("click", () => scoreResult("better"));
         changeNode.querySelector(".worse").addEventListener("click", () => scoreResult("worse"));

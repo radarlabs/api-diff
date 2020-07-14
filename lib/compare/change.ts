@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
 import { AxiosResponse } from 'axios';
-import * as queryString from 'query-string';
+import { Query } from './query';
 
 export type Change = {
-  params: queryString.ParsedQuery;
+  query: Query,
   delta?: unknown;
   oldResponse: AxiosResponse;
   newResponse?: AxiosResponse;
