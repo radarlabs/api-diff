@@ -1,11 +1,10 @@
 /* eslint-disable camelcase */
-import * as queryString from 'query-string';
 import * as Bluebird from 'bluebird';
 
 import * as jsondiffpatch from 'jsondiffpatch';
 import { AxiosResponse } from 'axios';
 import { ApiEnv, argvToApiEnv } from '../apiEnv';
-import runQuery from '../run-query';
+import runQuery, { AxiosResponseWithDuration } from '../run-query';
 import { Change } from './change';
 import { CompareFormatter } from './formatters/compare-formatter';
 import {
@@ -15,12 +14,16 @@ import getFormatter from './formatters/get-formatter';
 import QueryReader from './query-reader';
 import { Query } from './query';
 
+type CompareArgs = Pick<ParsedArgs, 'concurrency' | 'ignored_fields' | 'extra_params' | 'timeout'>;
+
 /**
- * @param root0
- * @param root0.oldApiEnv
- * @param root0.newApiEnv
- * @param root0.query
- * @param root0.argv
+ * Compare one query against two ApiEnvs, returning a Change object
+ *
+ * @param {ApiEnv} oldApiEnv old env to run query against
+ * @param {ApiEnv} newApiEnv new env to run query against
+ * @param {Query} query query to compare
+ * @param {CompareArgs} argv global command line args that affect running queries
+ * @returns {Promise<Change>} output of running query against both envs
  */
 async function compareQuery({
   oldApiEnv,
@@ -31,23 +34,14 @@ async function compareQuery({
   oldApiEnv: ApiEnv;
   newApiEnv: ApiEnv;
   query: Query;
-  argv: ParsedArgs;
+  argv: CompareArgs;
 }): Promise<Change> {
-  const extraParams = queryString.parse(argv.extra_params.join('&')) as Record<string, string>;
-  delete extraParams.undefined;
-  const params = { ...query.params, ...extraParams };
-  const queryWithExtraParams = {
-    endpoint: query.endpoint,
-    method: query.method,
-    params,
-  };
-
   // if the query has a baseline response (running from a golden json file), use that
   // otherwise run it against the old server
   const oldResponse = query.baselineResponse
-    ? ({ data: query.baselineResponse } as AxiosResponse<any>)
-    : await runQuery(oldApiEnv, queryWithExtraParams, argv.timeout);
-  const newResponse = await runQuery(newApiEnv, queryWithExtraParams, argv.timeout);
+    ? ({ data: query.baselineResponse } as AxiosResponse<unknown>)
+    : await runQuery(oldApiEnv, query, argv.timeout);
+  const newResponse = await runQuery(newApiEnv, query, argv.timeout);
 
   const differ = jsondiffpatch.create({
     propertyFilter(name) {
@@ -58,7 +52,7 @@ async function compareQuery({
   const delta = differ.diff(oldResponse.data, newResponse.data);
 
   return {
-    query: queryWithExtraParams,
+    query,
     delta,
     oldResponse,
     newResponse,
@@ -66,12 +60,15 @@ async function compareQuery({
 }
 
 /**
- * @param root0
- * @param root0.oldApiEnv
- * @param root0.newApiEnv
- * @param root0.queries
- * @param root0.argv
- * @param root0.formatter
+ * Compare and output many queries against two ApiEnvs. Passing along
+ * the changes for output to a ChangeFormatter.
+ *
+ * @param {ApiEnv} oldApiEnv old env to run query against
+ * @param {ApiEnv} newApiEnv new env to run query against
+ * @param {Query[]} queries queries to compare
+ * @param {CompareArgs} argv global command line args that affect running queries
+ * @param {CompareFormatter} formatter formatter to use for output
+ * @returns {Promise<void>} side effect only - outputs to output_file or stdout
  */
 async function compareQueries({
   oldApiEnv,
@@ -83,9 +80,9 @@ async function compareQueries({
   oldApiEnv: ApiEnv;
   newApiEnv: ApiEnv;
   queries: Query[];
-  argv: ParsedArgs;
+  argv: CompareArgs;
   formatter: CompareFormatter;
-}) {
+}): Promise<void> {
   const oldResponseTimes: number[] = [];
   const newResponseTimes: number[] = [];
   const oldStatusCodes: Record<number, number> = {};
@@ -100,12 +97,11 @@ async function compareQueries({
         query,
         argv,
       });
-      formatter.queryRan();
-      if (change.delta || argv.unchanged) {
-        formatter.logChange(change);
-      }
-      oldResponseTimes.push((change.oldResponse as any).duration);
-      newResponseTimes.push((change.newResponse as any).duration);
+
+      formatter.queryCompleted(change);
+
+      oldResponseTimes.push((change.oldResponse as AxiosResponseWithDuration).duration);
+      newResponseTimes.push((change.newResponse as AxiosResponseWithDuration).duration);
 
       if (!oldStatusCodes[change.oldResponse.status]) {
         oldStatusCodes[change.oldResponse.status] = 0;
@@ -131,24 +127,33 @@ async function compareQueries({
   });
 }
 
-const argv = parseArgv([OLD_KEY, NEW_KEY]) as ParsedArgs;
+/** Main logic - parses command line, creates a formatter, runs queries and
+ * generates output.
+ *
+ * @returns {Promise<void>} on completion
+ */
+function main(): Promise<void> {
+  const argv = parseArgv([OLD_KEY, NEW_KEY]) as ParsedArgs;
 
-const oldApiEnv = argvToApiEnv(argv[OLD_KEY]);
-const newApiEnv = argvToApiEnv(argv[NEW_KEY]);
+  const oldApiEnv = argvToApiEnv(argv[OLD_KEY]);
+  const newApiEnv = argvToApiEnv(argv[NEW_KEY]);
 
-const queries = QueryReader(argv);
+  const queries = QueryReader(argv);
 
-const formatter = getFormatter(argv.output_mode, {
-  oldApiEnv,
-  newApiEnv,
-  argv,
-  totalQueries: queries.length,
-});
+  const formatter = getFormatter(argv.output_mode, {
+    oldApiEnv,
+    newApiEnv,
+    argv,
+    totalQueries: queries.length,
+  });
 
-compareQueries({
-  oldApiEnv,
-  newApiEnv,
-  queries,
-  argv,
-  formatter,
-});
+  return compareQueries({
+    oldApiEnv,
+    newApiEnv,
+    queries,
+    argv,
+    formatter,
+  });
+}
+
+main();

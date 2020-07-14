@@ -1,5 +1,14 @@
+/**
+ * Generate baseline json to be used in future compare runs.
+ *
+ * This file is mostly a copy of compare.ts, which I don't love.
+ * compare.ts is designed to work by comparing two servers, this
+ * script only runs against one server and saves the output to a json file.
+ *
+ * Adding more clauses to compare.ts seemed ugly, but I will probably
+ * attempt it at some point
+ */
 /* eslint-disable camelcase */
-import * as queryString from 'query-string';
 import * as Bluebird from 'bluebird';
 
 import { ApiEnv, argvToApiEnv } from '../apiEnv';
@@ -29,19 +38,10 @@ async function runOneQuery({
   query: Query;
   argv: ParsedArgs;
 }): Promise<Change> {
-  const extraParams = queryString.parse(argv.extra_params.join('&')) as Record<string, string>;
-  delete extraParams.undefined;
-  const params = { ...query.params, ...extraParams };
-  const queryWithExtraParams = {
-    endpoint: query.endpoint,
-    method: query.method,
-    params,
-  };
-
-  const oldResponse = await runQuery(oldApiEnv, queryWithExtraParams, argv.timeout);
+  const oldResponse = await runQuery(oldApiEnv, query, argv.timeout);
 
   return {
-    query: queryWithExtraParams,
+    query,
     delta: undefined,
     oldResponse,
     newResponse: undefined,
@@ -68,6 +68,7 @@ async function runQueries({
   formatter: CompareFormatter
 }) {
   const oldResponseTimes: number[] = [];
+  const oldStatusCodes: Record<number, number> = {};
 
   await Bluebird.map(
     queries,
@@ -77,13 +78,23 @@ async function runQueries({
         query,
         argv,
       });
-      formatter.queryRan();
-      formatter.logChange(change);
+      formatter.queryCompleted(change);
       oldResponseTimes.push((change.oldResponse as any).duration);
+
+      if (!oldStatusCodes[change.oldResponse.status]) {
+        oldStatusCodes[change.oldResponse.status] = 0;
+      }
+
+      oldStatusCodes[change.oldResponse.status] += 1;
     },
     { concurrency: argv.concurrency },
   );
-  formatter.finished({ oldResponseTimes, newResponseTimes: undefined });
+  formatter.finished({
+    old: {
+      responseTimes: oldResponseTimes,
+      statusCodes: oldStatusCodes,
+    },
+  });
 }
 
 const argv = parseArgv([OLD_KEY]) as ParsedArgs;

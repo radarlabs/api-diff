@@ -25,7 +25,15 @@ export default class JsonFormatter extends CompareFormatter {
 
   changes: JsonChange[] = [];
 
-  logChange(change: Change): void {
+  queryCompleted(change: Change): void {
+    this.numQueriesRun += 1;
+    if (this.numQueriesRun % 10 === 0) {
+      console.error(`IN PROGRESS. ${this.numQueriesRun}/${this.totalQueries} run`);
+    }
+
+    if (!change.delta && this.showUnchanged) {
+      return;
+    }
     this.numQueriesChanged += 1;
 
     this.changes.push({
@@ -45,13 +53,6 @@ export default class JsonFormatter extends CompareFormatter {
         }
         : undefined,
     });
-  }
-
-  queryRan(): void {
-    this.numQueriesRun += 1;
-    if (this.numQueriesRun % 10 === 0) {
-      console.error(`IN PROGRESS. ${this.numQueriesRun}/${this.totalQueries} run`);
-    }
   }
 
   /**

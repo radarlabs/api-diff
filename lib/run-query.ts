@@ -13,7 +13,7 @@ type WithAxiosMetadata = {
   metadata: AxiosMetadata
 }
 
-type AxiosResponseWithDuration =
+export type AxiosResponseWithDuration =
   AxiosResponse & {config: WithAxiosMetadata} & { duration: number}
 
 // Response time middleware. Tracks the duration of the axios request/response

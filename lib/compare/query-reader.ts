@@ -11,7 +11,7 @@ import { ParsedArgs } from './argv';
 import { JsonChange } from './formatters/json-formatter';
 import { Query } from './query';
 
-type QueryReaderArgs = Pick<ParsedArgs, 'method' | 'input_json_baseline' | 'input_queries' | 'endpoint' | 'input_params' | 'input_csv' | 'key_map'>
+type QueryReaderArgs = Pick<ParsedArgs, 'method' | 'input_json_baseline' | 'input_queries' | 'endpoint' | 'input_params' | 'input_csv' | 'key_map' | 'extra_params'>
 
 /**
  * Core query reader logic. Parses argv for input files, and transforms them into Query objects.
@@ -139,6 +139,12 @@ export default function readQueries(argv: QueryReaderArgs): Query[] {
       'No queries found, did you specify one of: --input_params, --input_csv, --input_queries?',
     );
   }
+
+  const extraParams = queryString.parse(argv.extra_params.join('&')) as Record<string, string>;
+  queries.forEach((query) => {
+    // eslint-disable-next-line no-param-reassign
+    query.params = { ...query.params, ...extraParams };
+  });
 
   return queries;
 }
