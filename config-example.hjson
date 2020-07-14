@@ -1,4 +1,5 @@
 {
+  # this will be uppercased as the prefix to api key env variables
   name: "apicom",
 
   # "param" or "header"

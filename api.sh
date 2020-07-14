@@ -1,3 +1,3 @@
 #!/bin/sh
-
-./node_modules/.bin/ts-node lib/api.ts $@
+echo $CONFIG_FILE
+bash -c "./node_modules/.bin/ts-node lib/api.ts $(printf ' %q' "$@")"

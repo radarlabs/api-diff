@@ -47,6 +47,23 @@ It also includes a script for talking to json http services with saved configura
   > diffs.html
 ```
 
+### Use api tool with a [config file](#configuration)
+```
+COMPARE_CONFIG_FILE=config.hjson ./api.sh \ # use config.hjson
+  --prod \ # use the "prod" host entry from config.json
+  --endpoint /geocode/forward \ # run against /geocode/endpoint
+  near="40.74,-74" "query=30 jay st" # use these as query parameters
+```
+
+This also works with a url because I've defined in my config file how auth works and where to find the keys, and what kinds of keys different hosts need
+
+```
+COMPARE_CONFIG_FILE=config.hjson ./api.sh \
+  "http://api.radar.io/v1/geocode/forward?query=30 jay st"
+```
+
+Because I've defined a "prod" entry in config.hjson, and put keys into .env, this command will execute wth the necessary authentication.
+
 ## Usage
 
 This tool might seem like it has a zillion options, but I promise, it's not that bad!
@@ -60,6 +77,7 @@ All of the tools in this repo can load a configuration file that makes it easy t
 An example config looks like this
 ```
 {
+  # this will be uppercased as the prefix to api key env variables
   name: "apicom",
 
   # "param" or "header"
@@ -114,18 +132,33 @@ APICOM_STAGING_LIVE_KEY=XXXX
 Our config defines two types of keys - test and live. It also defines two key environments. One for "prod" and one for "staging," the host configs for "local" and "user" are both configured to look in the "staging" key env"
 
 ### Specifying a server
+For compare, two servers must be specified, with --new.X and --old.X options. For the api tool, the server is specifed in the same way but without the "new/old." prefix.
+
+Servers can be specified in two ways:
+
+- by using host entries from our config file. So `--old.prod`, `--old.staging`, `--old.user blackmad` etc would all work based on our examples (similarly, `--new.staging`, `--new.prod`, etc)
+- a combination of `--old.host` (required), `--old.protocol` (defaults to http), and `--old.key` (only if auth is needed). And similarly, `--new.host`, `--new.protocol` and `--new.key`
+
+These can be mixed! 
+
+### Reading queries
+
+- `--input_params` - the input file has one query per line, of the form `param1=A%20B&param2=Z`. requires `--endpoint` argument. `--method` used, defaults to GET.
+- `--input_queries` - the input file has one path + params per line, like `/endpoint?param1=A%20&p2=Z`. `--method` used, defaults to GET.
+- `--input_csv` - for reading csvs. Combined with `--endpoint` and `--method`
+  - Assumes that the first line of the file is column headings, unless `--key_map` is used with *all numeric keys*
+  - Column headings are used as parameter names
+  - `--key_map` remaps column headings. `--key_map query=text` remaps the csv heading "query" to the query param "text". `--key_map 0=text 1=near` will cause the parser to assume the csv does not have named column headings (because all the keys are numbers), and will use the first column as the query param "text", the second as the query param "near"
+
+### other options
+- `--concurrency` - how many queries to run at a time per host
+- `--timeout` - per query timeout, defaults to 30s
+- `--unchanged` - whether or not to output unchanged queries, defaults to false
+- `--ignored_fields` - fields to leave out when computing differences from server responses
+
+### output options
+- `--color` - text mode only. whether or not to colorize the output. Defaults to true if sending to stdout, false if redirecting output. Use this option to force colorized output. Suggest always using it.
+- `--output_mode` - json, html or text (console output)
+- `--output_file` - defaults to stdout, where to output to
 
 
-
-A pretty normal run of this looks like
-
-```
-npx ts-node compare.ts \
-  --color \ # defaults to color on for terminal, off for redirect. adding --color forces ansi color escape codes in all output
-  --old.host localhost:3100 \
-  --new.host normal-prod-url.elasticbeanstalk.com \
-  --input_csv directionals.csv \ # the column names will be used as the parameters names to the endpoint
-  --endpoint /v1/search  \ # the queries will be run against this
-  --extra_params size=1 \ # added to every query, useful for truncating results to reduce noise
-  --ignored_fields attribution timestamp bbox # ignore these fields in the diff
-```

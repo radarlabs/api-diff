@@ -4,12 +4,13 @@ import config, { ConfigHostEntry } from './config';
 
 import { failedExit } from './cli-utils';
 
-require('dotenv');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('dotenv').config();
 
 const apiEnvCommandLineOptions: Record<string, any> = {
   host: {
     type: 'string',
-    description: 'Host/port - will override --env',
+    description: 'host/port',
   },
   protocol: {
     choices: ['http', 'https'],
@@ -66,7 +67,7 @@ type KeyParams = Pick<ApiEnv, 'keyEnv' | 'keyType'>;
  * @param root0.keyType
  */
 function findKey({ keyEnv, keyType }: KeyParams): string {
-  const envVariableName = [config.name, keyEnv, keyType, 'API_KEY']
+  const envVariableName = [config.name, keyEnv, keyType, 'KEY']
     .filter((s) => !_.isEmpty(s))
     .join('_')
     .toUpperCase();
@@ -141,6 +142,10 @@ export function argvToApiEnv(argv: Partial<ApiEnv> | undefined): ApiEnv {
 
   if (config.authStyle) {
     fixApiEnvKey(apiEnv);
+  }
+
+  if (!apiEnv.host) {
+    failedExit(`Could not find host via arguments specified ${JSON.stringify(argv, null, 2)}`);
   }
 
   return apiEnv as ApiEnv;

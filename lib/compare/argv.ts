@@ -49,6 +49,7 @@ export function parseArgv(envs: string[]): ParsedArgs {
       yargs.option(envKey, {
         ...val,
         alias: val.alias ? `${env}.${val.alias}` : null,
+        nargs: 0,
       });
       envParams.push(envKey);
     });
@@ -122,7 +123,7 @@ export function parseArgv(envs: string[]): ParsedArgs {
     description: 'output file, if unspecified or -, output to stdout',
   });
 
-  yargs.group(['input_params', 'endpoint', 'input_queries', 'input_csv', 'key_map', 'input_json_baseline', 'ignored_fields', 'method', 'extra_params'], 'Query options:');
+  yargs.group(['input_params', 'endpoint', 'input_queries', 'input_csv', 'key_map', 'input_json_baseline', 'method', 'extra_params'], 'Query reader options:');
   yargs.group(['color', 'output_mode', 'output_file', 'unchanged'], 'Output options:');
 
   yargs.implies('input_csv', 'endpoint');
