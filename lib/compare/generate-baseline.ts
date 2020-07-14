@@ -10,7 +10,7 @@ import {
   parseArgv, OLD_KEY, ParsedArgs,
 } from './argv';
 import getFormatter from './formatters/get-formatter';
-import * as QueryReader from './query-reader';
+import QueryReader from './query-reader';
 import { Query } from './query';
 
 /**
@@ -90,7 +90,7 @@ const argv = parseArgv([OLD_KEY]) as ParsedArgs;
 
 const oldApiEnv = argvToApiEnv(argv[OLD_KEY]);
 
-const queries = QueryReader.readQueries(argv);
+const queries = QueryReader(argv);
 
 const formatter = getFormatter('json', {
   oldApiEnv,
