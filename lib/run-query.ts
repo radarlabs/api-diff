@@ -32,7 +32,7 @@ axios.interceptors.response.use((response: AxiosResponseWithDuration) => {
  * @param {ApiEnv} apiEnv apiEnv to run against
  * @param {Query} query query to run
  * @param {number} timeout request timeout in milliseconds
- * @returns {Promise<AxiosResponse} server response
+ * @returns {Promise<AxiosResponse>} server response
  */
 export default async function runQuery(
   apiEnv: ApiEnv,

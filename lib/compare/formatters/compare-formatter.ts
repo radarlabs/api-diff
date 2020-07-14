@@ -1,5 +1,4 @@
 import * as fs from 'fs';
-import * as stats from 'stats-lite';
 import { Change } from '../change';
 import { ApiEnv } from '../../apiEnv';
 import { ParsedArgs } from '../argv';

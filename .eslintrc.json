@@ -7,6 +7,8 @@
   "parser": "@typescript-eslint/parser",
   "plugins": ["jsdoc"],
   "rules": {
-    "import/extensions": 0
+    "import/extensions": 0,
+    "jsdoc/no-undefined-types": 0,
+    "jsdoc/check-param-names": 0
   }
 }

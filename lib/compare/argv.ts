@@ -19,14 +19,16 @@ export type ParsedArgs = {
   output_mode: OutputMode;
   output_file: string;
   input_json_baseline: string;
-  timeout: number
+  timeout: number;
 };
 
 export const OLD_KEY = 'old';
 export const NEW_KEY = 'new';
 
 /**
- * @param envs
+ *
+ * @param envs list of envs to generate api env command line options for.
+ *   [old, new] in compare, [old] in baseline
  * @returns {ParsedArgs} parsed commandline args
  */
 export function parseArgv(envs: string[]): ParsedArgs {
@@ -49,7 +51,6 @@ export function parseArgv(envs: string[]): ParsedArgs {
       yargs.option(envKey, {
         ...val,
         alias: val.alias ? `${env}.${val.alias}` : null,
-        nargs: 0,
       });
       envParams.push(envKey);
     });
@@ -70,7 +71,8 @@ export function parseArgv(envs: string[]): ParsedArgs {
 
   yargs.option('input_csv', {
     type: 'array',
-    description: 'One or more files containing query params in a csv, requires --endpoint. --key_map remaps column names or indexes to query parameter names.',
+    description:
+      'One or more files containing query params in a csv, requires --endpoint. --key_map remaps column names or indexes to query parameter names.',
   });
 
   yargs.option('endpoint', {
@@ -123,7 +125,19 @@ export function parseArgv(envs: string[]): ParsedArgs {
     description: 'output file, if unspecified or -, output to stdout',
   });
 
-  yargs.group(['input_params', 'endpoint', 'input_queries', 'input_csv', 'key_map', 'input_json_baseline', 'method', 'extra_params'], 'Query reader options:');
+  yargs.group(
+    [
+      'input_params',
+      'endpoint',
+      'input_queries',
+      'input_csv',
+      'key_map',
+      'input_json_baseline',
+      'method',
+      'extra_params',
+    ],
+    'Query reader options:',
+  );
   yargs.group(['color', 'output_mode', 'output_file', 'unchanged'], 'Output options:');
 
   yargs.implies('input_csv', 'endpoint');

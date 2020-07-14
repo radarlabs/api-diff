@@ -14,7 +14,10 @@ import { Query } from './query';
 type QueryReaderArgs = Pick<ParsedArgs, 'method' | 'input_json_baseline' | 'input_queries' | 'endpoint' | 'input_params' | 'input_csv' | 'key_map'>
 
 /**
- * @param argv
+ * Core query reader logic. Parses argv for input files, and transforms them into Query objects.
+ *
+ * @param {QueryReaderArgs} argv input args for query reader
+ * @returns {Query[]} list of queries read
  */
 function readQueriesHelper(argv: QueryReaderArgs): Query[] {
   const hasInputFile = argv.input_params || argv.input_csv;
@@ -27,9 +30,12 @@ function readQueriesHelper(argv: QueryReaderArgs): Query[] {
   }
 
   /**
-   * @param line
+   * Convert a /path?params=X string to a Query
+   *
+   * @param {string} line /path?params=X string
+   * @returns {Query} parsed query
    */
-  function lineToQuery(line: string) {
+  function lineToQuery(line: string): Query {
     const [endpoint, paramString] = line.split('?');
     return {
       endpoint,
@@ -120,7 +126,10 @@ function readQueriesHelper(argv: QueryReaderArgs): Query[] {
 }
 
 /**
- * @param argv
+ * Wraps query reader logic - exits if no queries found for any reason
+ *
+ * @param {QueryReaderArgs} argv QueryReaderArgs
+ * @returns {Query[]} list of parsed queries
  */
 export default function readQueries(argv: QueryReaderArgs): Query[] {
   const queries = readQueriesHelper(argv);
