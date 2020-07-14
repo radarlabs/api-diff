@@ -72,7 +72,7 @@ export abstract class CompareFormatter {
       console.error(`IN PROGRESS. ${this.numQueriesRun}/${this.totalQueries} run`);
     }
 
-    if (!change.delta && this.showUnchanged) {
+    if (!change.delta && !this.showUnchanged) {
       return;
     }
 

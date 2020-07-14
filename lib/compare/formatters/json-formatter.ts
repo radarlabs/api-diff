@@ -25,15 +25,7 @@ export default class JsonFormatter extends CompareFormatter {
 
   changes: JsonChange[] = [];
 
-  queryCompleted(change: Change): void {
-    this.numQueriesRun += 1;
-    if (this.numQueriesRun % 10 === 0) {
-      console.error(`IN PROGRESS. ${this.numQueriesRun}/${this.totalQueries} run`);
-    }
-
-    if (!change.delta && this.showUnchanged) {
-      return;
-    }
+  logChange(change: Change): void {
     this.numQueriesChanged += 1;
 
     this.changes.push({
