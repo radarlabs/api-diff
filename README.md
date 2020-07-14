@@ -55,6 +55,12 @@ COMPARE_CONFIG_FILE=config.hjson ./api.sh \ # use config.hjson
   near="40.74,-74" "query=30 jay st" # use these as query parameters
 ```
 
+### Use compare tool with a [config file](#configuration)
+COMPARE_CONFIG_FILE=config.hjson ./compare.sh \ # use config.hjson
+  --old.staging \
+  --new.local \
+  --input_csv ~/geoocde-acceptance-tests/input/addresses.csv
+
 This also works with a url because I've defined in my config file how auth works and where to find the keys, and what kinds of keys different hosts need
 
 ```
@@ -73,6 +79,8 @@ At it's core, you need to specify two servers (old and new), and an input config
 ## Configuration
 
 All of the tools in this repo can load a configuration file that makes it easy to have saved defaults of servers to compare. A config file is specified via the environment variable COMPARE_CONFIG_FILE, wth the idea that you can have multiple configs (for different services, like an api server and a geocode server) and use shell aliases to wrap the config.
+
+The config file is specified in (hjson)[https://hjson.github.io/] which allows for comments and trailing commas.
 
 An example config looks like this
 ```
