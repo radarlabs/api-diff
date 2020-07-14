@@ -70,6 +70,22 @@ COMPARE_CONFIG_FILE=config.hjson ./api.sh \
 
 Because I've defined a "prod" entry in config.hjson, and put keys into .env, this command will execute wth the necessary authentication.
 
+
+## Output
+
+### [text (console) output](https://radarlabs.github.io/compare/demos/text-diff-as-html.html)
+```./compare.sh --new.host localhost:4100  --old.host localhost:3100 --input_csv addresses.csv --endpoint /v1/search --extra_params size=1 sources=osm,gn,wof --ignored_fields bbox geometry attribution timestamp via parsed_text gid id source_id --output_mode text --color > out.txt```
+
+![start of text diff](https://radarlabs.github.io/compare/demos/text-output-2.png)
+![end of text diff](https://radarlabs.github.io/compare/demos/text-output-1.png)
+
+- [full output as text](https://radarlabs.github.io/compare/demos/diff.txt) - this is much prettier in a terminal due to escape characters. The header links to a version of this output wrapped in an html viewer for ansi escape codes.
+
+### [html output](https://radarlabs.github.io/compare/demos/diff.html)
+```./compare.sh --new.host localhost:4100  --old.host localhost:3100 --input_csv addresses.csv --endpoint /v1/search --extra_params size=1 sources=osm,gn,wof --ignored_fields bbox geometry attribution timestamp via parsed_text gid id source_id --output_mode html > out.html```
+
+Note that this is an interactive evaluation form for figuring out which queries improved and which got worse. Each result is assigned an id based on the md5 hash of the query params + delta, and scores are saved to local storage. in your web browser. This means if you're doing a lot of compares, where many of the diffs are the same between runs, you won't need to re-rank them.
+
 ## Usage
 
 This tool might seem like it has a zillion options, but I promise, it's not that bad!
@@ -168,24 +184,3 @@ These can be mixed!
 - `--color` - text mode only. whether or not to colorize the output. Defaults to true if sending to stdout, false if redirecting output. Use this option to force colorized output. Suggest always using it.
 - `--output_mode` - json, html or text (console output)
 - `--output_file` - defaults to stdout, where to output to
-
-
-## Output
-
-### text (console) output
-```./compare.sh --new.host localhost:4100  --old.host localhost:3100 --input_csv addresses.csv --endpoint /v1/search --extra_params size=1 sources=osm,gn,wof --ignored_fields bbox geometry attribution timestamp via parsed_text gid id source_id --output_mode text --color > out.txt```
-
-![start of text diff](https://radarlabs.github.io/compare/demos/text-output-2.png)
-![end of text diff](https://radarlabs.github.io/compare/demos/text-output-1.png)
-
-- [full output](https://radarlabs.github.io/compare/demos/diff.txt) - this is much prettier in a terminal due to escape characters
-- [full text output rendered in an html page to look like a console](https://radarlabs.github.io/compare/demos/text-diff-as-html.html)
-
-### html output
-```./compare.sh --new.host localhost:4100  --old.host localhost:3100 --input_csv addresses.csv --endpoint /v1/search --extra_params size=1 sources=osm,gn,wof --ignored_fields bbox geometry attribution timestamp via parsed_text gid id source_id --output_mode html > out.html```
-
-[full output](https://radarlabs.github.io/compare/demos/diff.html)
-
-Note that this is an interactive evaluation form for figuring out which queries improved and which got worse. Each result is assigned an id based on the md5 hash of the query params + delta, and scores are saved to local storage. in your web browser. This means if you're doing a lot of compares, where many of the diffs are the same between runs, you won't need to re-rank them.
-
-
