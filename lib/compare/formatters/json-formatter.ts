@@ -1,9 +1,8 @@
 /* eslint-disable no-console */
 
 import md5 from 'md5';
-import * as stats from 'stats-lite';
 import { Change } from '../change';
-import { CompareFormatter } from './compare-formatter';
+import { CompareFormatter, FinishedStats, makeResponseTimesHistogram } from './compare-formatter';
 
 /** One half of a compare response in output */
 type ApiEnvResponse = {
@@ -17,22 +16,6 @@ export type JsonChange = {
   old: ApiEnvResponse;
   new?: ApiEnvResponse;
 } & Pick<Change, 'delta' | 'query'>;
-
-/**
- * Convert list of response times to a dictionary of stats
- *
- * @param {number[]} responseTimes list of response times in milliseconds to analyze
- * @returns {Record<string, number>} map of stats names to value
- */
-function makeResponseTimes(responseTimes: number[]): Record<string, number> {
-  return {
-    p99: stats.percentile(responseTimes, 0.99),
-    p95: stats.percentile(responseTimes, 0.95),
-    p90: stats.percentile(responseTimes, 0.9),
-    p50: stats.percentile(responseTimes, 0.5),
-    median: stats.median(responseTimes),
-  };
-}
 
 /** Outputs compare run as json. HTML output is built on top of this format */
 export default class JsonFormatter extends CompareFormatter {
@@ -74,17 +57,10 @@ export default class JsonFormatter extends CompareFormatter {
   /**
    * Output the overall json object. Broken out here so html formatter can call it
    *
-   * @param {number[]} oldResponseTimes final list of response times from old server
-   * @param {number[]} newResponseTimes final list of response times from old server
+   * @param {FinishedStats} finishedStats new/old stats - status codes, response times, more to come
    * @returns {unknown} top level json object
    */
-  finishedDict({
-    oldResponseTimes,
-    newResponseTimes,
-  }: {
-    oldResponseTimes: number[];
-    newResponseTimes: number[];
-  }): unknown {
+  finishedDict(finishedStats: FinishedStats): unknown {
     return {
       startTime: this.startDate.toISOString(),
       endTime: new Date().toISOString(),
@@ -93,25 +69,21 @@ export default class JsonFormatter extends CompareFormatter {
       numQueriesRun: this.numQueriesRun,
       old: {
         apiEnv: this.oldApiEnv,
-        responseTimes: makeResponseTimes(oldResponseTimes),
+        responseTimes: makeResponseTimesHistogram(finishedStats.old.responseTimes),
+        statusCodes: finishedStats.old.statusCodes,
       },
       new: this.newApiEnv
         ? {
           apiEnv: this.newApiEnv,
-          responseTimes: makeResponseTimes(newResponseTimes),
+          responseTimes: makeResponseTimesHistogram(finishedStats.new.responseTimes),
+          statusCodes: finishedStats.new.statusCodes,
         }
         : undefined,
       changes: this.changes,
     };
   }
 
-  finished({
-    oldResponseTimes,
-    newResponseTimes,
-  }: {
-    oldResponseTimes: number[];
-    newResponseTimes: number[];
-  }): void {
-    this.write(JSON.stringify(this.finishedDict({ oldResponseTimes, newResponseTimes }), null, 2));
+  finished(finishedStats: FinishedStats): void {
+    this.write(JSON.stringify(this.finishedDict(finishedStats), null, 2));
   }
 }

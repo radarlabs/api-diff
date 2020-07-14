@@ -1,10 +1,11 @@
 /* eslint-disable no-console */
 import chalk from 'chalk';
 import * as jsondiffpatch from 'jsondiffpatch';
-import * as stats from 'stats-lite';
+import { table } from 'table';
+import * as _ from 'lodash';
 
 import { Change } from '../change';
-import { CompareFormatter } from './compare-formatter';
+import { CompareFormatter, FinishedStats, makeResponseTimesHistogram } from './compare-formatter';
 import { ApiEnv } from '../../apiEnv';
 
 export default class ConsoleFormatter extends CompareFormatter {
@@ -42,33 +43,40 @@ export default class ConsoleFormatter extends CompareFormatter {
     }
   }
 
-  finished({
-    oldResponseTimes,
-    newResponseTimes,
-  }: {
-    oldResponseTimes: number[];
-    newResponseTimes: number[];
-  }): void {
-    /**
-     * @param {number[]} responseTimes array of response times in milliseconds
-     */
-    const logResponseTimes = (responseTimes: number[]) => {
-      this.writeln(`  P99: ${stats.percentile(responseTimes, 0.99)}ms`);
-      this.writeln(`  P95: ${stats.percentile(responseTimes, 0.95)}ms`);
-      this.writeln(`  P90: ${stats.percentile(responseTimes, 0.90)}ms`);
-      this.writeln(`  P95: ${stats.percentile(responseTimes, 0.50)}ms`);
-    };
-
+  finished(finishedStats: FinishedStats): void {
     this.writeln(`DONE. ${this.numQueriesChanged}/${this.numQueriesRun} changed`);
 
     this.writeln(`Elapsed: ${(Date.now() - this.startDate.getTime()) / 1000} seconds`);
 
-    this.writeln('OLD responseTimes');
-    logResponseTimes(oldResponseTimes);
-
-    this.writeln('NEW responseTimes');
-    logResponseTimes(newResponseTimes);
-
     this.writeln('');
+
+    // Response times table
+    this.writeln('Response times');
+    const oldResponseTimes = makeResponseTimesHistogram(finishedStats.old.responseTimes);
+    const newResponseTimes = makeResponseTimesHistogram(finishedStats.new.responseTimes);
+
+    const responseTimesTable = [['', 'old', 'new']];
+    _.keys(oldResponseTimes).forEach((key) => {
+      responseTimesTable.push([
+        key,
+        oldResponseTimes[key].toString(),
+        newResponseTimes[key].toString(),
+      ]);
+    });
+
+    this.writeln(table(responseTimesTable));
+
+    // Status codes table
+    this.writeln('Status codes');
+    const statusCodesTable = [['', 'old', 'new']];
+    _.keys(finishedStats.old.statusCodes).forEach((key) => {
+      statusCodesTable.push([
+        key,
+        finishedStats.old.statusCodes[key].toString(),
+        finishedStats.old.statusCodes[key].toString(),
+      ]);
+    });
+
+    this.writeln(table(statusCodesTable));
   }
 }

@@ -89,7 +89,7 @@ export default async function runQuery(
     if (error.response) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx
-      console.error(`Got error code: ${error.response.status}`);
+      console.error(`Got error code: ${error.response.status} for ${error.response.request?.res.responseUrl}`);
       return error.response;
     }
     if (error.request) {

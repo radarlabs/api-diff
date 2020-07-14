@@ -29,7 +29,7 @@ async function runOneQuery({
   query: Query;
   argv: ParsedArgs;
 }): Promise<Change> {
-  const extraParams = queryString.parse(`${argv.extra_params}`) as Record<string, string>;
+  const extraParams = queryString.parse(argv.extra_params.join('&')) as Record<string, string>;
   delete extraParams.undefined;
   const params = { ...query.params, ...extraParams };
   const queryWithExtraParams = {

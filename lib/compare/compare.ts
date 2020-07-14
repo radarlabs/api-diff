@@ -33,7 +33,7 @@ async function compareQuery({
   query: Query;
   argv: ParsedArgs;
 }): Promise<Change> {
-  const extraParams = queryString.parse(`${argv.extra_params}`) as Record<string, string>;
+  const extraParams = queryString.parse(argv.extra_params.join('&')) as Record<string, string>;
   delete extraParams.undefined;
   const params = { ...query.params, ...extraParams };
   const queryWithExtraParams = {
@@ -50,7 +50,7 @@ async function compareQuery({
   const newResponse = await runQuery(newApiEnv, queryWithExtraParams, argv.timeout);
 
   const differ = jsondiffpatch.create({
-    propertyFilter(name, _context) {
+    propertyFilter(name) {
       return !(argv.ignored_fields || []).includes(name);
     },
   });
@@ -88,6 +88,8 @@ async function compareQueries({
 }) {
   const oldResponseTimes: number[] = [];
   const newResponseTimes: number[] = [];
+  const oldStatusCodes: Record<number, number> = {};
+  const newStatusCodes: Record<number, number> = {};
 
   await Bluebird.map(
     queries,
@@ -104,10 +106,29 @@ async function compareQueries({
       }
       oldResponseTimes.push((change.oldResponse as any).duration);
       newResponseTimes.push((change.newResponse as any).duration);
+
+      if (!oldStatusCodes[change.oldResponse.status]) {
+        oldStatusCodes[change.oldResponse.status] = 0;
+      }
+      if (!newStatusCodes[change.newResponse.status]) {
+        newStatusCodes[change.newResponse.status] = 0;
+      }
+
+      oldStatusCodes[change.oldResponse.status] += 1;
+      newStatusCodes[change.newResponse.status] += 1;
     },
     { concurrency: argv.concurrency },
   );
-  formatter.finished({ oldResponseTimes, newResponseTimes });
+  formatter.finished({
+    old: {
+      responseTimes: oldResponseTimes,
+      statusCodes: oldStatusCodes,
+    },
+    new: {
+      responseTimes: newResponseTimes,
+      statusCodes: newStatusCodes,
+    },
+  });
 }
 
 const argv = parseArgv([OLD_KEY, NEW_KEY]) as ParsedArgs;

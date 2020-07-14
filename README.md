@@ -18,7 +18,7 @@ It also includes a script for talking to json http services with saved configura
   --input_queries, --input_params or --input_json_baseline
   --key_map query=text  \ # remap column "query" to cgi parameter "text"
   --endpoint /v1/search \ # run against /v1/search on our hosts
-  --extra_params size=1 \ # extra options to append to every query
+  --extra_params size=1 sources=oa,osm \ # extra options to append to every query
   --ignored_fields bbox geometry attribution timestamp \ # ignore all fields named these things in computing our diff
   --output_mode html \ # output an interactive html diff. other options are text and json
   > diffs.html
@@ -32,7 +32,7 @@ It also includes a script for talking to json http services with saved configura
    --input_csv ~/geoocde-acceptance-tests/input/addresses.csv \ # input csv file with headers corresponding to cgi params
    --key_map query=text  \ # remap the "query" header in our csv to the "text" cgi param
    --endpoint /v1/search \ # run queries against this endpoint
-   --extra_params size=1 \ # add an extra cgi param to every query, in this case, to 
+   --extra_params size=1 sources=osm,oa \ # add an extra cgi param to every query, in this case, to 
 
    > addresses-baseline.json
 ```

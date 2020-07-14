@@ -10,7 +10,7 @@ export type ParsedArgs = {
   input_csv?: string;
   input_queries?: string;
   endpoint: string;
-  extra_params: string;
+  extra_params: string[];
   method: string;
   ignored_fields: string[];
   concurrency: number;
@@ -27,7 +27,7 @@ export const NEW_KEY = 'new';
 
 /**
  *
- * @param envs list of envs to generate api env command line options for.
+ * @param {string[]} envs list of envs to generate api env command line options for.
  *   [old, new] in compare, [old] in baseline
  * @returns {ParsedArgs} parsed commandline args
  */
@@ -64,7 +64,7 @@ export function parseArgv(envs: string[]): ParsedArgs {
   });
 
   yargs.option('extra_params', {
-    type: 'string',
+    type: 'array',
     description:
       'Extra static parameters that will be added to each query, maybe something like limit=2 to make diffs less noisy',
   });

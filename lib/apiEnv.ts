@@ -47,7 +47,7 @@ const apiEnvCommandLineOptions: YargsOptionMapping = {
  * For example, if our config file has entries in the host section called "prod"
  * and "staging", this returns options to be able to specify --prod and --staging
  *
- * @returns
+ * @returns {YargsOptionMapping} mapping of string to yargs option config
  */
 export function getApiEnvCommandLineOptions(): YargsOptionMapping {
   if (config.keyTypes) {
@@ -98,8 +98,8 @@ export function findApiKey({ keyEnv, keyType }: Pick<ApiEnv, 'keyEnv' | 'keyType
  * Construct an ApiEnv from command line args
  * Fills in missing information from defaults and config where necessary.
  *
- * @param argv assume a partial apienv from commandline args
- * @returns filled in ApiEnv
+ * @param {Partial<ApiEnv> | undefined} argv assume a partial apienv from commandline args
+ * @returns {ApiEnv} filled in ApiEnv
  */
 export function argvToApiEnv(argv: Partial<ApiEnv> | undefined): ApiEnv {
   let apiEnv: Partial<ApiEnv> = _.clone(argv) || {};
