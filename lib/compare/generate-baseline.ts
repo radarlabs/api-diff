@@ -38,7 +38,7 @@ async function runOneQuery({
     params,
   };
 
-  const oldResponse = await runQuery(oldApiEnv, queryWithExtraParams);
+  const oldResponse = await runQuery(oldApiEnv, queryWithExtraParams, argv.timeout);
 
   return {
     query: queryWithExtraParams,

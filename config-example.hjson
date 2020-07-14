@@ -1,17 +1,21 @@
 {
+  name: "apicom",
+
   # "param" or "header"
   authStyle: "header",
 
   # only required if using authStyle="param"
   # authParam: "api_key",
 
-  # first one is default
+  # first keyType listed here will be the default if a
+  # keyType is not specified in the commandline options to compare
   keyTypes: ['test', 'live'],
 
   hosts: {
     prod: {
       host: 'prod.api.com',
       aliases: ['production'],
+      protocol: 'https',
     }
     staging: {
       host: 'staging.api.com'
@@ -19,7 +23,6 @@
     local: {
       host: 'localhost:8000',
       keyEnv: 'staging',
-      protocol: 'http',
     },
     user: {
       takesArg: true,

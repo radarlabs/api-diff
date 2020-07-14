@@ -19,6 +19,7 @@ export type ParsedArgs = {
   output_mode: OutputMode;
   output_file: string;
   input_json_baseline: string;
+  timeout: number
 };
 
 export const OLD_KEY = 'old';
@@ -121,7 +122,9 @@ export function parseArgv(envs: string[]): ParsedArgs {
     description: 'output file, if unspecified or -, output to stdout',
   });
 
-  yargs.group(['input_params', 'endpoint', 'input_queries', 'input_csv'], 'Query options:');
+  yargs.group(['input_params', 'endpoint', 'input_queries', 'input_csv', 'key_map', 'input_json_baseline', 'ignored_fields', 'method', 'extra_params'], 'Query options:');
+  yargs.group(['color', 'output_mode', 'output_file', 'unchanged'], 'Output options:');
+
   yargs.implies('input_csv', 'endpoint');
   yargs.implies('input_params', 'endpoint');
 

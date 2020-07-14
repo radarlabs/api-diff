@@ -98,4 +98,4 @@ if (argv._.length === 1 && argv._[0].startsWith('http')) {
 
 runQuery(apiEnv, {
   params, method: argv.method, endpoint,
-}).then(({ data }) => console.dir(data, { depth: null, colors: chalk.level > 0 }));
+}, argv.timeout).then(({ data }) => console.dir(data, { depth: null, colors: chalk.level > 0 }));

@@ -16,4 +16,9 @@ export const globalCommandLineOptions = {
     type: 'boolean',
     description: 'turns on/off colorized output, defaults to true for stdin, false for redirected output',
   },
+  timeout: {
+    type: 'number',
+    description: 'request timeout in milliseconds',
+    default: 30000,
+  },
 };

@@ -4,6 +4,8 @@ import config, { ConfigHostEntry } from './config';
 
 import { failedExit } from './cli-utils';
 
+require('dotenv');
+
 const apiEnvCommandLineOptions: Record<string, any> = {
   host: {
     type: 'string',
@@ -64,7 +66,7 @@ type KeyParams = Pick<ApiEnv, 'keyEnv' | 'keyType'>;
  * @param root0.keyType
  */
 function findKey({ keyEnv, keyType }: KeyParams): string {
-  const envVariableName = [keyEnv, keyType, 'API_KEY']
+  const envVariableName = [config.name, keyEnv, keyType, 'API_KEY']
     .filter((s) => !_.isEmpty(s))
     .join('_')
     .toUpperCase();

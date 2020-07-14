@@ -1,8 +1,8 @@
 import * as fs from 'fs';
 import * as hjson from 'hjson';
 
-const noConfigFile = process.env.CONFIG_FILE === '';
-const CONFIG_FILE = process.env.CONFIG_FILE || 'config.hjson';
+const { COMPARE_CONFIG_FILE } = process.env;
+const noConfigFile = !COMPARE_CONFIG_FILE;
 
 export type ConfigHostEntry = {
   host: string;
@@ -13,14 +13,15 @@ export type ConfigHostEntry = {
 };
 
 export type Config = {
+  name: string;
   authStyle?: 'header' | 'param';
   authParam?: string;
   keyTypes?: string[];
   hosts: Record<string, ConfigHostEntry>;
 };
 
-if (!noConfigFile && !fs.existsSync(CONFIG_FILE)) {
-  throw new Error(`${CONFIG_FILE} missing`);
+if (!noConfigFile && !fs.existsSync(COMPARE_CONFIG_FILE)) {
+  throw new Error(`${COMPARE_CONFIG_FILE} missing`);
 }
-const config = hjson.parse(noConfigFile ? '' : fs.readFileSync(CONFIG_FILE).toString()) as Config;
+const config = hjson.parse(noConfigFile ? '' : fs.readFileSync(COMPARE_CONFIG_FILE).toString()) as Config;
 export default config;

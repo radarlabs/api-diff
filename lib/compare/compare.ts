@@ -46,8 +46,8 @@ async function compareQuery({
   // otherwise run it against the old server
   const oldResponse = query.baselineResponse
     ? ({ data: query.baselineResponse } as AxiosResponse<any>)
-    : await runQuery(oldApiEnv, queryWithExtraParams);
-  const newResponse = await runQuery(newApiEnv, queryWithExtraParams);
+    : await runQuery(oldApiEnv, queryWithExtraParams, argv.timeout);
+  const newResponse = await runQuery(newApiEnv, queryWithExtraParams, argv.timeout);
 
   const differ = jsondiffpatch.create({
     propertyFilter(name, _context) {

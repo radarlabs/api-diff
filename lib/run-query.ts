@@ -21,10 +21,12 @@ axios.interceptors.response.use((response: any) => {
  * @param root0.params
  * @param root0.method
  * @param root0.endpoint
+ * @param timeout
  */
 export default async function runQuery(
   apiEnv: ApiEnv,
   { params, endpoint, method }: Query,
+  timeout?: number,
 ): Promise<AxiosResponse> {
   // v1/xxxx ... maybe someone was lazy and didn't start with an opening slash
   if (endpoint[0] !== '/' && !endpoint.startsWith('http:')) {
@@ -66,7 +68,7 @@ export default async function runQuery(
       params: method === 'GET' ? params : undefined,
       data: method === 'POST' ? params : undefined,
       method: method as Method,
-      timeout: 30000,
+      timeout,
     });
     return response;
   } catch (error) {
