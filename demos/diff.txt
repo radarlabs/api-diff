@@ -1,0 +1,1203 @@
+IN PROGRESS. 10/249 run
+[33mChanged: {"text":"560 Penstock Drive","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=560+Penstock+Drive&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=560+Penstock+Drive&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"point"[39m => [32m"centroid"[39m
+        continent: [31m"North America"[39m => [32m"Europe"[39m
+        continent_gid: [31m"whosonfirst:continent:102191575"[39m => [32m"whosonfirst:continent:102191581"[39m
+        country: [31m"United States"[39m => [32m"United Kingdom"[39m
+        country_a: [31m"USA"[39m => [32m"GBR"[39m
+        country_gid: [31m"whosonfirst:country:85633793"[39m => [32m"whosonfirst:country:85633159"[39m
+        county: [31m"Nevada County"[39m => [32m"City of Stoke-on-Trent"[39m
+        county_a: [31m"NE"[39m => [32m"STE"[39m
+        county_gid: [31m"whosonfirst:county:102085391"[39m => [32m"whosonfirst:county:1360698805"[39m
+        [31mhousenumber: [39m[31m"560"[39m
+        label: [31m"560 Penstock Drive, Grass Valley, CA, USA"[39m => [32m"Penstock Drive, Stoke-On-Trent, England, United Kingdom"[39m
+        layer: [31m"address"[39m => [32m"street"[39m
+        locality: [31m"Grass Valley"[39m => [32m"Stoke-On-Trent"[39m
+        locality_gid: [31m"whosonfirst:locality:85921979"[39m => [32m"whosonfirst:locality:1175612703"[39m
+        [32mmacroregion: [39m[32m"England"[39m
+        [32mmacroregion_gid: [39m[32m"whosonfirst:macroregion:404227469"[39m
+        match_type: [31m"interpolated"[39m => [32m"fallback"[39m
+        name: [31m"560 Penstock Drive"[39m => [32m"Penstock Drive"[39m
+        region: [31m"California"[39m => [32m"Staffordshire"[39m
+        [31mregion_a: [39m[31m"CA"[39m
+        region_gid: [31m"whosonfirst:region:85688637"[39m => [32m"whosonfirst:region:1360698593"[39m
+        source: [31m"openaddresses"[39m => [32m"openstreetmap"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"150 Carter Street","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=150+Carter+Street&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=150+Carter+Street&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"point"[39m => [32m"centroid"[39m
+        county: [31m"Scott County"[39m => [32m"Charleston County"[39m
+        county_a: [31m"SC"[39m => [32m"CS"[39m
+        county_gid: [31m"whosonfirst:county:102083821"[39m => [32m"whosonfirst:county:102085591"[39m
+        [31mhousenumber: [39m[31m"150"[39m
+        label: [31m"150 Carter Street, Gate City, VA, USA"[39m => [32m"Carter Street, Dorchester, SC, USA"[39m
+        layer: [31m"address"[39m => [32m"street"[39m
+        locality: [31m"Gate City"[39m => [32m"Dorchester"[39m
+        locality_gid: [31m"whosonfirst:locality:101728599"[39m => [32m"whosonfirst:locality:101720751"[39m
+        match_type: [31m"interpolated"[39m => [32m"fallback"[39m
+        name: [31m"150 Carter Street"[39m => [32m"Carter Street"[39m
+        region: [31m"Virginia"[39m => [32m"South Carolina"[39m
+        region_a: [31m"VA"[39m => [32m"SC"[39m
+        region_gid: [31m"whosonfirst:region:85688747"[39m => [32m"whosonfirst:region:85688683"[39m
+        source: [31m"mixed"[39m => [32m"openstreetmap"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"8821 West Myrtle Avenue","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=8821+West+Myrtle+Avenue&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=8821+West+Myrtle+Avenue&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"point"[39m => [32m"centroid"[39m
+        county: [31m"Maricopa County"[39m => [32m"Montgomery County"[39m
+        county_a: [31m"MA"[39m => [32m"MG"[39m
+        county_gid: [31m"whosonfirst:county:102087421"[39m => [32m"whosonfirst:county:102082143"[39m
+        [31mhousenumber: [39m[31m"8821"[39m
+        label: [31m"8821 West Myrtle Avenue, Glendale, AZ, USA"[39m => [32m"West Myrtle Avenue, Caney, KS, USA"[39m
+        layer: [31m"address"[39m => [32m"street"[39m
+        [32mlocaladmin: [39m[32m"Caney"[39m
+        [32mlocaladmin_gid: [39m[32m"whosonfirst:localadmin:404504603"[39m
+        locality: [31m"Glendale"[39m => [32m"Caney"[39m
+        locality_gid: [31m"whosonfirst:locality:85917509"[39m => [32m"whosonfirst:locality:85946447"[39m
+        match_type: [31m"interpolated"[39m => [32m"fallback"[39m
+        name: [31m"8821 West Myrtle Avenue"[39m => [32m"West Myrtle Avenue"[39m
+        region: [31m"Arizona"[39m => [32m"Kansas"[39m
+        region_a: [31m"AZ"[39m => [32m"KS"[39m
+        region_gid: [31m"whosonfirst:region:85688719"[39m => [32m"whosonfirst:region:85688555"[39m
+        source: [31m"openaddresses"[39m => [32m"openstreetmap"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"2 Ambelwood Way","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=2+Ambelwood+Way&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=2+Ambelwood+Way&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        confidence: [31m0.8[39m => [32m1[39m
+        match_type: [31m"fallback"[39m => [32m"exact"[39m
+      }
+    }
+  ]
+}
+IN PROGRESS. 20/249 run
+IN PROGRESS. 30/249 run
+[33mChanged: {"text":"90 Via Verde","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=90+Via+Verde&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=90+Via+Verde&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"centroid"[39m => [32m"point"[39m
+        continent: [31m"Europe"[39m => [32m"North America"[39m
+        continent_gid: [31m"whosonfirst:continent:102191581"[39m => [32m"whosonfirst:continent:102191575"[39m
+        country: [31m"Spain"[39m => [32m"United States"[39m
+        country_a: [31m"ESP"[39m => [32m"USA"[39m
+        country_gid: [31m"whosonfirst:country:85633129"[39m => [32m"whosonfirst:country:85633793"[39m
+        [32mcounty: [39m[32m"Riverside County"[39m
+        [32mcounty_a: [39m[32m"RI"[39m
+        [32mcounty_gid: [39m[32m"whosonfirst:county:102086221"[39m
+        [32mhousenumber: [39m[32m"90"[39m
+        label: [31m"Via Verde, Bolaños De Calatrava, Spain"[39m => [32m"90 Via Verde, Rancho Mirage, CA, USA"[39m
+        layer: [31m"street"[39m => [32m"address"[39m
+        [31mlocaladmin: [39m[31m"Bolaños De Calatrava"[39m
+        [31mlocaladmin_gid: [39m[31m"whosonfirst:localadmin:404333461"[39m
+        [32mlocality: [39m[32m"Rancho Mirage"[39m
+        [32mlocality_gid: [39m[32m"whosonfirst:locality:85923349"[39m
+        [31mmacroregion: [39m[31m"Castile–La Mancha"[39m
+        [31mmacroregion_gid: [39m[31m"whosonfirst:macroregion:404227375"[39m
+        match_type: [31m"fallback"[39m => [32m"interpolated"[39m
+        name: [31m"Via Verde"[39m => [32m"90 Via Verde"[39m
+        region: [31m"Ciudad Real"[39m => [32m"California"[39m
+        region_a: [31m"CM"[39m => [32m"CA"[39m
+        region_gid: [31m"whosonfirst:region:85682689"[39m => [32m"whosonfirst:region:85688637"[39m
+        source: [31m"openstreetmap"[39m => [32m"mixed"[39m
+      }
+    }
+  ]
+}
+IN PROGRESS. 40/249 run
+[33mChanged: {"text":"9036 Calico Court","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=9036+Calico+Court&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=9036+Calico+Court&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"centroid"[39m => [32m"point"[39m
+        county: [31m"City of Chesapeake"[39m => [32m"San Bernardino County"[39m
+        county_a: [31m"CS"[39m => [32m"SA"[39m
+        county_gid: [31m"whosonfirst:county:102087265"[39m => [32m"whosonfirst:county:102085395"[39m
+        [32mhousenumber: [39m[32m"9036"[39m
+        label: [31m"Calico Court, Chesapeake, VA, USA"[39m => [32m"9036 Calico Court, Hesperia, CA, USA"[39m
+        layer: [31m"street"[39m => [32m"address"[39m
+        locality: [31m"Chesapeake"[39m => [32m"Hesperia"[39m
+        locality_gid: [31m"whosonfirst:locality:101728797"[39m => [32m"whosonfirst:locality:85923911"[39m
+        match_type: [31m"fallback"[39m => [32m"interpolated"[39m
+        name: [31m"Calico Court"[39m => [32m"9036 Calico Court"[39m
+        region: [31m"Virginia"[39m => [32m"California"[39m
+        region_a: [31m"VA"[39m => [32m"CA"[39m
+        region_gid: [31m"whosonfirst:region:85688747"[39m => [32m"whosonfirst:region:85688637"[39m
+        source: [31m"openstreetmap"[39m => [32m"openaddresses"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"718 Dutchmans Court","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=718+Dutchmans+Court&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=718+Dutchmans+Court&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"centroid"[39m => [32m"point"[39m
+        [32mhousenumber: [39m[32m"718"[39m
+        label: [31m"Dutchmans Court, Nashville, TN, USA"[39m => [32m"718 Dutchmans Court, Nashville, TN, USA"[39m
+        layer: [31m"street"[39m => [32m"address"[39m
+        match_type: [31m"fallback"[39m => [32m"interpolated"[39m
+        name: [31m"Dutchmans Court"[39m => [32m"718 Dutchmans Court"[39m
+        source: [31m"openstreetmap"[39m => [32m"openaddresses"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"8496 Isles Court","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=8496+Isles+Court&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=8496+Isles+Court&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"centroid"[39m => [32m"point"[39m
+        county: [31m"Lancaster County"[39m => [32m"Anne Arundel County"[39m
+        county_a: [31m"LA"[39m => [32m"AN"[39m
+        county_gid: [31m"whosonfirst:county:102083503"[39m => [32m"whosonfirst:county:102083469"[39m
+        [32mhousenumber: [39m[32m"8496"[39m
+        label: [31m"Isles Court, Waverly, NE, USA"[39m => [32m"8496 Isles Court, Lake Shore, MD, USA"[39m
+        layer: [31m"street"[39m => [32m"address"[39m
+        [31mlocaladmin: [39m[31m"Waverly"[39m
+        [31mlocaladmin_gid: [39m[31m"whosonfirst:localadmin:404520089"[39m
+        locality: [31m"Waverly"[39m => [32m"Lake Shore"[39m
+        locality_gid: [31m"whosonfirst:locality:85973567"[39m => [32m"whosonfirst:locality:85949723"[39m
+        match_type: [31m"fallback"[39m => [32m"interpolated"[39m
+        name: [31m"Isles Court"[39m => [32m"8496 Isles Court"[39m
+        region: [31m"Nebraska"[39m => [32m"Maryland"[39m
+        region_a: [31m"NE"[39m => [32m"MD"[39m
+        region_gid: [31m"whosonfirst:region:85688563"[39m => [32m"whosonfirst:region:85688501"[39m
+        source: [31m"openstreetmap"[39m => [32m"openaddresses"[39m
+      }
+    }
+  ]
+}
+IN PROGRESS. 50/249 run
+[33mChanged: {"text":"8522 Ingalls Circle","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=8522+Ingalls+Circle&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=8522+Ingalls+Circle&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"point"[39m => [32m"centroid"[39m
+        [31mhousenumber: [39m[31m"8522"[39m
+        label: [31m"8522 Ingalls Circle, Arvada, CO, USA"[39m => [32m"Ingalls Circle, Arvada, CO, USA"[39m
+        layer: [31m"address"[39m => [32m"street"[39m
+        match_type: [31m"interpolated"[39m => [32m"fallback"[39m
+        name: [31m"8522 Ingalls Circle"[39m => [32m"Ingalls Circle"[39m
+        source: [31m"openaddresses"[39m => [32m"openstreetmap"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"145 Grau Drive","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=145+Grau+Drive&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=145+Grau+Drive&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"centroid"[39m => [32m"point"[39m
+        [32mhousenumber: [39m[32m"145"[39m
+        label: [31m"Grau Drive, Fremont, CA, USA"[39m => [32m"145 Grau Drive, Fremont, CA, USA"[39m
+        layer: [31m"street"[39m => [32m"address"[39m
+        match_type: [31m"fallback"[39m => [32m"interpolated"[39m
+        name: [31m"Grau Drive"[39m => [32m"145 Grau Drive"[39m
+        source: [31m"openstreetmap"[39m => [32m"openaddresses"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"5900 Upland Road","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=5900+Upland+Road&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=5900+Upland+Road&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"centroid"[39m => [32m"point"[39m
+        county: [31m"San Mateo County"[39m => [32m"Ventura County"[39m
+        county_a: [31m"SM"[39m => [32m"VE"[39m
+        county_gid: [31m"whosonfirst:county:102085387"[39m => [32m"whosonfirst:county:102086933"[39m
+        [32mhousenumber: [39m[32m"5900"[39m
+        label: [31m"Upland Road, Redwood City, CA, USA"[39m => [32m"5900 Upland Road, Camarillo, CA, USA"[39m
+        layer: [31m"street"[39m => [32m"address"[39m
+        locality: [31m"Redwood City"[39m => [32m"Camarillo"[39m
+        locality_gid: [31m"whosonfirst:locality:85922447"[39m => [32m"whosonfirst:locality:85923249"[39m
+        match_type: [31m"fallback"[39m => [32m"interpolated"[39m
+        name: [31m"Upland Road"[39m => [32m"5900 Upland Road"[39m
+        source: [31m"openstreetmap"[39m => [32m"mixed"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"9331 Edison Road","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=9331+Edison+Road&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=9331+Edison+Road&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"centroid"[39m => [32m"point"[39m
+        country: [31m"Canada"[39m => [32m"United States"[39m
+        country_a: [31m"CAN"[39m => [32m"USA"[39m
+        country_gid: [31m"whosonfirst:country:85633041"[39m => [32m"whosonfirst:country:85633793"[39m
+        county: [31m"Thunder Bay"[39m => [32m"Lafayette County"[39m
+        [32mcounty_a: [39m[32m"LF"[39m
+        county_gid: [31m"whosonfirst:county:890458687"[39m => [32m"whosonfirst:county:102081865"[39m
+        [32mhousenumber: [39m[32m"9331"[39m
+        label: [31m"Edison Road, Thunder Bay, ON, Canada"[39m => [32m"9331 Edison Road, Benton, WI, USA"[39m
+        layer: [31m"street"[39m => [32m"address"[39m
+        [32mlocaladmin: [39m[32m"Benton"[39m
+        [32mlocaladmin_gid: [39m[32m"whosonfirst:localadmin:404493481"[39m
+        [31mlocality: [39m[31m"Thunder Bay"[39m
+        [31mlocality_gid: [39m[31m"whosonfirst:locality:101735591"[39m
+        match_type: [31m"fallback"[39m => [32m"interpolated"[39m
+        name: [31m"Edison Road"[39m => [32m"9331 Edison Road"[39m
+        region: [31m"Ontario"[39m => [32m"Wisconsin"[39m
+        region_a: [31m"ON"[39m => [32m"WI"[39m
+        region_gid: [31m"whosonfirst:region:85682057"[39m => [32m"whosonfirst:region:85688517"[39m
+        source: [31m"openstreetmap"[39m => [32m"mixed"[39m
+      }
+    }
+  ]
+}
+IN PROGRESS. 60/249 run
+[33mChanged: {"text":"3959 Fairlands Drive","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=3959+Fairlands+Drive&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=3959+Fairlands+Drive&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"centroid"[39m => [32m"point"[39m
+        continent: [31m"Oceania"[39m => [32m"North America"[39m
+        continent_gid: [31m"whosonfirst:continent:102191583"[39m => [32m"whosonfirst:continent:102191575"[39m
+        country: [31m"Australia"[39m => [32m"United States"[39m
+        country_a: [31m"AUS"[39m => [32m"USA"[39m
+        country_gid: [31m"whosonfirst:country:85632793"[39m => [32m"whosonfirst:country:85633793"[39m
+        county: [31m"Waratah/Wynyard"[39m => [32m"Alameda County"[39m
+        [32mcounty_a: [39m[32m"AA"[39m
+        county_gid: [31m"whosonfirst:county:102048983"[39m => [32m"whosonfirst:county:102086959"[39m
+        [32mhousenumber: [39m[32m"3959"[39m
+        label: [31m"Fairlands Drive, Somerset, TAS, Australia"[39m => [32m"3959 Fairlands Drive, Pleasanton, CA, USA"[39m
+        layer: [31m"street"[39m => [32m"address"[39m
+        [31mlocaladmin: [39m[31m"Somerset"[39m
+        [31mlocaladmin_gid: [39m[31m"whosonfirst:localadmin:404549425"[39m
+        locality: [31m"Somerset"[39m => [32m"Pleasanton"[39m
+        locality_gid: [31m"whosonfirst:locality:101938277"[39m => [32m"whosonfirst:locality:85921871"[39m
+        match_type: [31m"fallback"[39m => [32m"interpolated"[39m
+        name: [31m"Fairlands Drive"[39m => [32m"3959 Fairlands Drive"[39m
+        region: [31m"Tasmania"[39m => [32m"California"[39m
+        region_a: [31m"TAS"[39m => [32m"CA"[39m
+        region_gid: [31m"whosonfirst:region:85681583"[39m => [32m"whosonfirst:region:85688637"[39m
+        source: [31m"openstreetmap"[39m => [32m"openaddresses"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"8785 Ellis Court","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=8785+Ellis+Court&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=8785+Ellis+Court&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"point"[39m => [32m"centroid"[39m
+        county: [31m"Jefferson County"[39m => [32m"Essex County"[39m
+        county_a: [31m"JE"[39m => [32m"ES"[39m
+        county_gid: [31m"whosonfirst:county:102084113"[39m => [32m"whosonfirst:county:102084963"[39m
+        [31mhousenumber: [39m[31m"8785"[39m
+        label: [31m"8785 Ellis Court, Arvada, CO, USA"[39m => [32m"Ellis Court, Tappahannock, VA, USA"[39m
+        layer: [31m"address"[39m => [32m"street"[39m
+        locality: [31m"Arvada"[39m => [32m"Tappahannock"[39m
+        locality_gid: [31m"whosonfirst:locality:85929333"[39m => [32m"whosonfirst:locality:101728637"[39m
+        match_type: [31m"interpolated"[39m => [32m"fallback"[39m
+        name: [31m"8785 Ellis Court"[39m => [32m"Ellis Court"[39m
+        region: [31m"Colorado"[39m => [32m"Virginia"[39m
+        region_a: [31m"CO"[39m => [32m"VA"[39m
+        region_gid: [31m"whosonfirst:region:85688603"[39m => [32m"whosonfirst:region:85688747"[39m
+        source: [31m"openaddresses"[39m => [32m"openstreetmap"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"2755 Country Drive","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=2755+Country+Drive&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=2755+Country+Drive&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"point"[39m => [32m"centroid"[39m
+        county: [31m"Davison County"[39m => [32m"Crittenden County"[39m
+        county_a: [31m"DV"[39m => [32m"CT"[39m
+        county_gid: [31m"whosonfirst:county:102086045"[39m => [32m"whosonfirst:county:102085451"[39m
+        [31mhousenumber: [39m[31m"2755"[39m
+        label: [31m"2755 Country Drive, Mitchell, SD, USA"[39m => [32m"Country Drive, Marion, KY, USA"[39m
+        layer: [31m"address"[39m => [32m"street"[39m
+        [31mlocaladmin: [39m[31m"Mitchell"[39m
+        [31mlocaladmin_gid: [39m[31m"whosonfirst:localadmin:404489739"[39m
+        locality: [31m"Mitchell"[39m => [32m"Marion"[39m
+        locality_gid: [31m"whosonfirst:locality:101721597"[39m => [32m"whosonfirst:locality:85947189"[39m
+        match_type: [31m"interpolated"[39m => [32m"fallback"[39m
+        name: [31m"2755 Country Drive"[39m => [32m"Country Drive"[39m
+        region: [31m"South Dakota"[39m => [32m"Kentucky"[39m
+        region_a: [31m"SD"[39m => [32m"KY"[39m
+        region_gid: [31m"whosonfirst:region:85688693"[39m => [32m"whosonfirst:region:85688641"[39m
+        source: [31m"mixed"[39m => [32m"openstreetmap"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"1850 Berryhill Place","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=1850+Berryhill+Place&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=1850+Berryhill+Place&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"point"[39m => [32m"centroid"[39m
+        [31mhousenumber: [39m[31m"1850"[39m
+        label: [31m"1850 Berryhill Place, Montgomery, AL, USA"[39m => [32m"Berryhill Place, Montgomery, AL, USA"[39m
+        layer: [31m"address"[39m => [32m"street"[39m
+        match_type: [31m"interpolated"[39m => [32m"fallback"[39m
+        name: [31m"1850 Berryhill Place"[39m => [32m"Berryhill Place"[39m
+        source: [31m"mixed"[39m => [32m"openstreetmap"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"622 Thomas Street","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=622+Thomas+Street&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=622+Thomas+Street&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"centroid"[39m => [32m"point"[39m
+        [32mborough: [39m[32m"Brooklyn"[39m
+        [32mborough_gid: [39m[32m"whosonfirst:borough:421205765"[39m
+        confidence: [31m0.8[39m => [32m1[39m
+        continent: [31m"Europe"[39m => [32m"North America"[39m
+        continent_gid: [31m"whosonfirst:continent:102191581"[39m => [32m"whosonfirst:continent:102191575"[39m
+        country: [31m"United Kingdom"[39m => [32m"United States"[39m
+        country_a: [31m"GBR"[39m => [32m"USA"[39m
+        country_gid: [31m"whosonfirst:country:85633159"[39m => [32m"whosonfirst:country:85633793"[39m
+        county: [31m"Bath and North East Somerset"[39m => [32m"Kings County"[39m
+        county_a: [31m"BAS"[39m => [32m"KI"[39m
+        county_gid: [31m"whosonfirst:county:1360698775"[39m => [32m"whosonfirst:county:102082361"[39m
+        [32mhousenumber: [39m[32m"622"[39m
+        label: [31m"Thomas Street, Bath, England, United Kingdom"[39m => [32m"622 Thomas S Boyland Street, Brooklyn, New York, NY, USA"[39m
+        layer: [31m"street"[39m => [32m"address"[39m
+        locality: [31m"Bath"[39m => [32m"New York"[39m
+        [32mlocality_a: [39m[32m"NYC"[39m
+        locality_gid: [31m"whosonfirst:locality:101750387"[39m => [32m"whosonfirst:locality:85977539"[39m
+        [31mmacroregion: [39m[31m"England"[39m
+        [31mmacroregion_gid: [39m[31m"whosonfirst:macroregion:404227469"[39m
+        match_type: [31m"fallback"[39m => [32m"exact"[39m
+        name: [31m"Thomas Street"[39m => [32m"622 Thomas S Boyland Street"[39m
+        [32mneighbourhood: [39m[32m"Brownsville"[39m
+        [32mneighbourhood_gid: [39m[32m"whosonfirst:neighbourhood:85808127"[39m
+        [32mpostalcode: [39m[32m"11212"[39m
+        region: [31m"Somerset"[39m => [32m"New York"[39m
+        [32mregion_a: [39m[32m"NY"[39m
+        region_gid: [31m"whosonfirst:region:1360698589"[39m => [32m"whosonfirst:region:85688543"[39m
+        street: [31m"Thomas Street"[39m => [32m"Thomas S Boyland Street"[39m
+      }
+    }
+  ]
+}
+IN PROGRESS. 70/249 run
+[33mChanged: {"text":"11655 West 81st Avenue","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=11655+West+81st+Avenue&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=11655+West+81st+Avenue&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"point"[39m => [32m"centroid"[39m
+        county: [31m"Lake County"[39m => [32m"Municipality of Anchorage"[39m
+        county_a: [31m"LK"[39m => [32m"AN"[39m
+        county_gid: [31m"whosonfirst:county:102087149"[39m => [32m"whosonfirst:county:102085881"[39m
+        [31mhousenumber: [39m[31m"11655"[39m
+        label: [31m"11655 West 81st Avenue, St. John Township, IN, USA"[39m => [32m"West 81st Avenue, Anchorage, AK, USA"[39m
+        layer: [31m"address"[39m => [32m"street"[39m
+        [31mlocaladmin: [39m[31m"St. John Township"[39m
+        [31mlocaladmin_gid: [39m[31m"whosonfirst:localadmin:404501873"[39m
+        [32mlocality: [39m[32m"Anchorage"[39m
+        [32mlocality_gid: [39m[32m"whosonfirst:locality:85915707"[39m
+        match_type: [31m"interpolated"[39m => [32m"fallback"[39m
+        name: [31m"11655 West 81st Avenue"[39m => [32m"West 81st Avenue"[39m
+        region: [31m"Indiana"[39m => [32m"Alaska"[39m
+        region_a: [31m"IN"[39m => [32m"AK"[39m
+        region_gid: [31m"whosonfirst:region:85688709"[39m => [32m"whosonfirst:region:85688573"[39m
+        source: [31m"mixed"[39m => [32m"openstreetmap"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"632 Belmar Drive","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=632+Belmar+Drive&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=632+Belmar+Drive&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"point"[39m => [32m"centroid"[39m
+        [31mhousenumber: [39m[31m"632"[39m
+        label: [31m"632 Belmar Drive, Owensboro, KY, USA"[39m => [32m"Belmar Drive, Owensboro, KY, USA"[39m
+        layer: [31m"address"[39m => [32m"street"[39m
+        match_type: [31m"interpolated"[39m => [32m"fallback"[39m
+        name: [31m"632 Belmar Drive"[39m => [32m"Belmar Drive"[39m
+        source: [31m"mixed"[39m => [32m"openstreetmap"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"3504 East 16th Avenue","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=3504+East+16th+Avenue&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=3504+East+16th+Avenue&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"centroid"[39m => [32m"point"[39m
+        county: [31m"Baldwin County"[39m => [32m"Potter County"[39m
+        county_a: [31m"BD"[39m => [32m"PT"[39m
+        county_gid: [31m"whosonfirst:county:102085469"[39m => [32m"whosonfirst:county:102086749"[39m
+        [32mhousenumber: [39m[32m"3504"[39m
+        label: [31m"East 16th Avenue, Gulf Shores, AL, USA"[39m => [32m"3504 East 16th Avenue, Amarillo, TX, USA"[39m
+        layer: [31m"street"[39m => [32m"address"[39m
+        locality: [31m"Gulf Shores"[39m => [32m"Amarillo"[39m
+        locality_gid: [31m"whosonfirst:locality:85914719"[39m => [32m"whosonfirst:locality:101724103"[39m
+        match_type: [31m"fallback"[39m => [32m"interpolated"[39m
+        name: [31m"East 16th Avenue"[39m => [32m"3504 East 16th Avenue"[39m
+        region: [31m"Alabama"[39m => [32m"Texas"[39m
+        region_a: [31m"AL"[39m => [32m"TX"[39m
+        region_gid: [31m"whosonfirst:region:85688675"[39m => [32m"whosonfirst:region:85688753"[39m
+        source: [31m"openstreetmap"[39m => [32m"mixed"[39m
+      }
+    }
+  ]
+}
+IN PROGRESS. 80/249 run
+[33mChanged: {"text":"107 Guaymas Place","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=107+Guaymas+Place&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=107+Guaymas+Place&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"centroid"[39m => [32m"point"[39m
+        [32mhousenumber: [39m[32m"107"[39m
+        label: [31m"Guaymas Place, Davis, CA, USA"[39m => [32m"107 Guaymas Place, Davis, CA, USA"[39m
+        layer: [31m"street"[39m => [32m"address"[39m
+        match_type: [31m"fallback"[39m => [32m"interpolated"[39m
+        name: [31m"Guaymas Place"[39m => [32m"107 Guaymas Place"[39m
+        source: [31m"openstreetmap"[39m => [32m"openaddresses"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"6114 West Glenn Drive","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=6114+West+Glenn+Drive&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=6114+West+Glenn+Drive&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"centroid"[39m => [32m"point"[39m
+        [32mhousenumber: [39m[32m"6114"[39m
+        label: [31m"West Glenn Drive, Glendale, AZ, USA"[39m => [32m"6114 West Glenn Drive, Glendale, AZ, USA"[39m
+        layer: [31m"street"[39m => [32m"address"[39m
+        match_type: [31m"fallback"[39m => [32m"interpolated"[39m
+        name: [31m"West Glenn Drive"[39m => [32m"6114 West Glenn Drive"[39m
+        source: [31m"openstreetmap"[39m => [32m"mixed"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"65 Jones Lane","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=65+Jones+Lane&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=65+Jones+Lane&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        county: [31m"Greene County"[39m => [32m"Talladega County"[39m
+        county_a: [31m"GE"[39m => [32m"TD"[39m
+        county_gid: [31m"whosonfirst:county:102086377"[39m => [32m"whosonfirst:county:102085517"[39m
+        label: [31m"65 Jones Lane, Greene County, TN, USA"[39m => [32m"65 Jones Lane, Talladega County, AL, USA"[39m
+        region: [31m"Tennessee"[39m => [32m"Alabama"[39m
+        region_a: [31m"TN"[39m => [32m"AL"[39m
+        region_gid: [31m"whosonfirst:region:85688701"[39m => [32m"whosonfirst:region:85688675"[39m
+      }
+    }
+  ]
+}
+IN PROGRESS. 90/249 run
+[33mChanged: {"text":"6120 Southeast 84th Street","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=6120+Southeast+84th+Street&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=6120+Southeast+84th+Street&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"point"[39m => [32m"centroid"[39m
+        [31mhousenumber: [39m[31m"6120"[39m
+        label: [31m"6120 Southeast 84th Street, Oklahoma City, OK, USA"[39m => [32m"Southeast 84th Street, Oklahoma City, OK, USA"[39m
+        layer: [31m"address"[39m => [32m"street"[39m
+        match_type: [31m"interpolated"[39m => [32m"fallback"[39m
+        name: [31m"6120 Southeast 84th Street"[39m => [32m"Southeast 84th Street"[39m
+        source: [31m"openaddresses"[39m => [32m"openstreetmap"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"201 West Montgomery Cross Road","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=201+West+Montgomery+Cross+Road&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=201+West+Montgomery+Cross+Road&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"point"[39m => [32m"centroid"[39m
+        [31mhousenumber: [39m[31m"201"[39m
+        label: [31m"201 West Montgomery Cross Road, Savannah, GA, USA"[39m => [32m"West Montgomery Cross Road, Savannah, GA, USA"[39m
+        layer: [31m"address"[39m => [32m"street"[39m
+        match_type: [31m"interpolated"[39m => [32m"fallback"[39m
+        name: [31m"201 West Montgomery Cross Road"[39m => [32m"West Montgomery Cross Road"[39m
+        source: [31m"mixed"[39m => [32m"openstreetmap"[39m
+      }
+    }
+  ]
+}
+IN PROGRESS. 100/249 run
+[33mChanged: {"text":"565 North Lakeshore Drive","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=565+North+Lakeshore+Drive&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=565+North+Lakeshore+Drive&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"centroid"[39m => [32m"point"[39m
+        county: [31m"Fulton County"[39m => [32m"Pittsburg County"[39m
+        county_a: [31m"FU"[39m => [32m"PI"[39m
+        county_gid: [31m"whosonfirst:county:102082507"[39m => [32m"whosonfirst:county:102083909"[39m
+        [32mhousenumber: [39m[32m"565"[39m
+        label: [31m"North Lakeshore Drive, Cherokee Village, AR, USA"[39m => [32m"565 North Lakeshore Drive, Pittsburg County, OK, USA"[39m
+        layer: [31m"street"[39m => [32m"address"[39m
+        [31mlocality: [39m[31m"Cherokee Village"[39m
+        [31mlocality_gid: [39m[31m"whosonfirst:locality:85919793"[39m
+        match_type: [31m"fallback"[39m => [32m"interpolated"[39m
+        name: [31m"North Lakeshore Drive"[39m => [32m"565 North Lakeshore Drive"[39m
+        region: [31m"Arkansas"[39m => [32m"Oklahoma"[39m
+        region_a: [31m"AR"[39m => [32m"OK"[39m
+        region_gid: [31m"whosonfirst:region:85688549"[39m => [32m"whosonfirst:region:85688585"[39m
+        source: [31m"openstreetmap"[39m => [32m"mixed"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"4738 Mallard Common","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=4738+Mallard+Common&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=4738+Mallard+Common&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"centroid"[39m => [32m"point"[39m
+        [32mhousenumber: [39m[32m"4738"[39m
+        label: [31m"Mallard Common, Fremont, CA, USA"[39m => [32m"4738 Mallard Common, Fremont, CA, USA"[39m
+        layer: [31m"street"[39m => [32m"address"[39m
+        match_type: [31m"fallback"[39m => [32m"interpolated"[39m
+        name: [31m"Mallard Common"[39m => [32m"4738 Mallard Common"[39m
+        source: [31m"openstreetmap"[39m => [32m"openaddresses"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"875 Latouche Street","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=875+Latouche+Street&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=875+Latouche+Street&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"centroid"[39m => [32m"point"[39m
+        [32mhousenumber: [39m[32m"875"[39m
+        label: [31m"Latouche Street, Anchorage, AK, USA"[39m => [32m"875 Latouche Street, Anchorage, AK, USA"[39m
+        layer: [31m"street"[39m => [32m"address"[39m
+        match_type: [31m"fallback"[39m => [32m"interpolated"[39m
+        name: [31m"Latouche Street"[39m => [32m"875 Latouche Street"[39m
+        source: [31m"openstreetmap"[39m => [32m"openaddresses"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"8700 Seaton Boulevard","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=8700+Seaton+Boulevard&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=8700+Seaton+Boulevard&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"centroid"[39m => [32m"point"[39m
+        county: [31m"Cass County"[39m => [32m"Montgomery County"[39m
+        county_a: [31m"CS"[39m => [32m"MT"[39m
+        county_gid: [31m"whosonfirst:county:102080797"[39m => [32m"whosonfirst:county:102085733"[39m
+        [32mhousenumber: [39m[32m"8700"[39m
+        label: [31m"Seaton Boulevard, Raymore, MO, USA"[39m => [32m"8700 Seaton Boulevard, Montgomery, AL, USA"[39m
+        layer: [31m"street"[39m => [32m"address"[39m
+        [31mlocaladmin: [39m[31m"Raymore Township"[39m
+        [31mlocaladmin_gid: [39m[31m"whosonfirst:localadmin:404516607"[39m
+        locality: [31m"Raymore"[39m => [32m"Montgomery"[39m
+        locality_gid: [31m"whosonfirst:locality:85970697"[39m => [32m"whosonfirst:locality:85913947"[39m
+        match_type: [31m"fallback"[39m => [32m"interpolated"[39m
+        name: [31m"Seaton Boulevard"[39m => [32m"8700 Seaton Boulevard"[39m
+        region: [31m"Missouri"[39m => [32m"Alabama"[39m
+        region_a: [31m"MO"[39m => [32m"AL"[39m
+        region_gid: [31m"whosonfirst:region:85688661"[39m => [32m"whosonfirst:region:85688675"[39m
+        source: [31m"openstreetmap"[39m => [32m"openaddresses"[39m
+      }
+    }
+  ]
+}
+IN PROGRESS. 110/249 run
+[33mChanged: {"text":"5754 Belleau Drive","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=5754+Belleau+Drive&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=5754+Belleau+Drive&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"centroid"[39m => [32m"point"[39m
+        county: [31m"Chesterfield County"[39m => [32m"Montgomery County"[39m
+        county_a: [31m"CD"[39m => [32m"MT"[39m
+        county_gid: [31m"whosonfirst:county:102084955"[39m => [32m"whosonfirst:county:102085733"[39m
+        [32mhousenumber: [39m[32m"5754"[39m
+        label: [31m"Belleau Drive, Bon Air, VA, USA"[39m => [32m"5754 Belleau Drive, Montgomery, AL, USA"[39m
+        layer: [31m"street"[39m => [32m"address"[39m
+        locality: [31m"Bon Air"[39m => [32m"Montgomery"[39m
+        locality_gid: [31m"whosonfirst:locality:101729299"[39m => [32m"whosonfirst:locality:85913947"[39m
+        match_type: [31m"fallback"[39m => [32m"interpolated"[39m
+        name: [31m"Belleau Drive"[39m => [32m"5754 Belleau Drive"[39m
+        region: [31m"Virginia"[39m => [32m"Alabama"[39m
+        region_a: [31m"VA"[39m => [32m"AL"[39m
+        region_gid: [31m"whosonfirst:region:85688747"[39m => [32m"whosonfirst:region:85688675"[39m
+        source: [31m"openstreetmap"[39m => [32m"openaddresses"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"1004 Bellflower Street","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=1004+Bellflower+Street&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=1004+Bellflower+Street&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"centroid"[39m => [32m"point"[39m
+        [32mhousenumber: [39m[32m"1004"[39m
+        label: [31m"Bellflower Street, Livermore, CA, USA"[39m => [32m"1004 Bellflower Street, Livermore, CA, USA"[39m
+        layer: [31m"street"[39m => [32m"address"[39m
+        match_type: [31m"fallback"[39m => [32m"interpolated"[39m
+        name: [31m"Bellflower Street"[39m => [32m"1004 Bellflower Street"[39m
+        source: [31m"openstreetmap"[39m => [32m"openaddresses"[39m
+      }
+    }
+  ]
+}
+IN PROGRESS. 120/249 run
+[33mChanged: {"text":"5545 Saddlewood Lane","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=5545+Saddlewood+Lane&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=5545+Saddlewood+Lane&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"point"[39m => [32m"centroid"[39m
+        county: [31m"Davidson County"[39m => [32m"Montgomery County"[39m
+        county_a: [31m"DA"[39m => [32m"MT"[39m
+        county_gid: [31m"whosonfirst:county:102087061"[39m => [32m"whosonfirst:county:102085733"[39m
+        [31mhousenumber: [39m[31m"5545"[39m
+        label: [31m"5545 Saddlewood Lane, Nashville, TN, USA"[39m => [32m"Saddlewood Lane, Montgomery, AL, USA"[39m
+        layer: [31m"address"[39m => [32m"street"[39m
+        locality: [31m"Nashville"[39m => [32m"Montgomery"[39m
+        locality_gid: [31m"whosonfirst:locality:101723183"[39m => [32m"whosonfirst:locality:85913947"[39m
+        match_type: [31m"interpolated"[39m => [32m"fallback"[39m
+        name: [31m"5545 Saddlewood Lane"[39m => [32m"Saddlewood Lane"[39m
+        region: [31m"Tennessee"[39m => [32m"Alabama"[39m
+        region_a: [31m"TN"[39m => [32m"AL"[39m
+        region_gid: [31m"whosonfirst:region:85688701"[39m => [32m"whosonfirst:region:85688675"[39m
+        source: [31m"mixed"[39m => [32m"openstreetmap"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"2139 Glynnwood Drive","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=2139+Glynnwood+Drive&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=2139+Glynnwood+Drive&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"point"[39m => [32m"centroid"[39m
+        county: [31m"Washington County"[39m => [32m"Montgomery County"[39m
+        county_a: [31m"WN"[39m => [32m"MT"[39m
+        county_gid: [31m"whosonfirst:county:102083915"[39m => [32m"whosonfirst:county:102085733"[39m
+        [31mhousenumber: [39m[31m"2139"[39m
+        label: [31m"2139 Glynnwood Drive, Bartlesville, OK, USA"[39m => [32m"Glynnwood Drive, Montgomery, AL, USA"[39m
+        layer: [31m"address"[39m => [32m"street"[39m
+        locality: [31m"Bartlesville"[39m => [32m"Montgomery"[39m
+        locality_gid: [31m"whosonfirst:locality:101714775"[39m => [32m"whosonfirst:locality:85913947"[39m
+        match_type: [31m"interpolated"[39m => [32m"fallback"[39m
+        name: [31m"2139 Glynnwood Drive"[39m => [32m"Glynnwood Drive"[39m
+        region: [31m"Oklahoma"[39m => [32m"Alabama"[39m
+        region_a: [31m"OK"[39m => [32m"AL"[39m
+        region_gid: [31m"whosonfirst:region:85688585"[39m => [32m"whosonfirst:region:85688675"[39m
+        source: [31m"mixed"[39m => [32m"openstreetmap"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"8125 Glynnwood Drive","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=8125+Glynnwood+Drive&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=8125+Glynnwood+Drive&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"centroid"[39m => [32m"point"[39m
+        [32mhousenumber: [39m[32m"8125"[39m
+        label: [31m"Glynnwood Drive, Montgomery, AL, USA"[39m => [32m"8125 Glynnwood Drive, Montgomery, AL, USA"[39m
+        layer: [31m"street"[39m => [32m"address"[39m
+        match_type: [31m"fallback"[39m => [32m"interpolated"[39m
+        name: [31m"Glynnwood Drive"[39m => [32m"8125 Glynnwood Drive"[39m
+        source: [31m"openstreetmap"[39m => [32m"openaddresses"[39m
+      }
+    }
+  ]
+}
+IN PROGRESS. 130/249 run
+[33mChanged: {"text":"5055 West 58th Avenue","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=5055+West+58th+Avenue&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=5055+West+58th+Avenue&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"centroid"[39m => [32m"point"[39m
+        country: [31m"Canada"[39m => [32m"United States"[39m
+        country_a: [31m"CAN"[39m => [32m"USA"[39m
+        country_gid: [31m"whosonfirst:country:85633041"[39m => [32m"whosonfirst:country:85633793"[39m
+        county: [31m"Greater Vancouver"[39m => [32m"Adams County"[39m
+        county_a: [31m"MVRD"[39m => [32m"AD"[39m
+        county_gid: [31m"whosonfirst:county:890457467"[39m => [32m"whosonfirst:county:102084053"[39m
+        [32mhousenumber: [39m[32m"5055"[39m
+        label: [31m"West 58th Avenue, Vancouver, BC, Canada"[39m => [32m"5055 West 58th Avenue, Berkley, CO, USA"[39m
+        layer: [31m"street"[39m => [32m"address"[39m
+        locality: [31m"Vancouver"[39m => [32m"Berkley"[39m
+        locality_gid: [31m"whosonfirst:locality:101741075"[39m => [32m"whosonfirst:locality:85930265"[39m
+        match_type: [31m"fallback"[39m => [32m"interpolated"[39m
+        name: [31m"West 58th Avenue"[39m => [32m"5055 West 58th Avenue"[39m
+        [31mneighbourhood: [39m[31m"Kerrisdale"[39m
+        [31mneighbourhood_gid: [39m[31m"whosonfirst:neighbourhood:85865009"[39m
+        region: [31m"British Columbia"[39m => [32m"Colorado"[39m
+        region_a: [31m"BC"[39m => [32m"CO"[39m
+        region_gid: [31m"whosonfirst:region:85682117"[39m => [32m"whosonfirst:region:85688603"[39m
+        source: [31m"openstreetmap"[39m => [32m"openaddresses"[39m
+      }
+    }
+  ]
+}
+IN PROGRESS. 140/249 run
+[33mChanged: {"text":"7529 West 72nd Avenue","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=7529+West+72nd+Avenue&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=7529+West+72nd+Avenue&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"point"[39m => [32m"centroid"[39m
+        [31mhousenumber: [39m[31m"7529"[39m
+        label: [31m"7529 West 72nd Avenue, Arvada, CO, USA"[39m => [32m"West 72nd Avenue, Arvada, CO, USA"[39m
+        layer: [31m"address"[39m => [32m"street"[39m
+        match_type: [31m"interpolated"[39m => [32m"fallback"[39m
+        name: [31m"7529 West 72nd Avenue"[39m => [32m"West 72nd Avenue"[39m
+        source: [31m"openaddresses"[39m => [32m"openstreetmap"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"2209 June Drive","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=2209+June+Drive&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=2209+June+Drive&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"point"[39m => [32m"centroid"[39m
+        county: [31m"Angelina County"[39m => [32m"Jefferson County"[39m
+        county_a: [31m"AG"[39m => [32m"JF"[39m
+        county_gid: [31m"whosonfirst:county:102087319"[39m => [32m"whosonfirst:county:102084449"[39m
+        [31mhousenumber: [39m[31m"2209"[39m
+        label: [31m"2209 June Drive, Hudson, TX, USA"[39m => [32m"June Drive, Hollyvilla, KY, USA"[39m
+        layer: [31m"address"[39m => [32m"street"[39m
+        locality: [31m"Hudson"[39m => [32m"Hollyvilla"[39m
+        locality_gid: [31m"whosonfirst:locality:101724397"[39m => [32m"whosonfirst:locality:85947545"[39m
+        match_type: [31m"interpolated"[39m => [32m"fallback"[39m
+        name: [31m"2209 June Drive"[39m => [32m"June Drive"[39m
+        region: [31m"Texas"[39m => [32m"Kentucky"[39m
+        region_a: [31m"TX"[39m => [32m"KY"[39m
+        region_gid: [31m"whosonfirst:region:85688753"[39m => [32m"whosonfirst:region:85688641"[39m
+        source: [31m"mixed"[39m => [32m"openstreetmap"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"2622 Martin Luther King Junior Boulevard","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=2622+Martin+Luther+King+Junior+Boulevard&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=2622+Martin+Luther+King+Junior+Boulevard&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"point"[39m => [32m"centroid"[39m
+        [31mhousenumber: [39m[31m"2622"[39m
+        label: [31m"2622 Martin Luther King Junior Boulevard, Detroit, MI, USA"[39m => [32m"Martin Luther King Junior Boulevard, Detroit, MI, USA"[39m
+        layer: [31m"address"[39m => [32m"street"[39m
+        match_type: [31m"interpolated"[39m => [32m"fallback"[39m
+        name: [31m"2622 Martin Luther King Junior Boulevard"[39m => [32m"Martin Luther King Junior Boulevard"[39m
+        neighbourhood: [31m"Core City"[39m => [32m"Midtown"[39m
+        neighbourhood_gid: [31m"whosonfirst:neighbourhood:85870553"[39m => [32m"whosonfirst:neighbourhood:85870587"[39m
+        source: [31m"mixed"[39m => [32m"openstreetmap"[39m
+      }
+    }
+  ]
+}
+IN PROGRESS. 150/249 run
+IN PROGRESS. 160/249 run
+[33mChanged: {"text":"21950 Arnold Center Road","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=21950+Arnold+Center+Road&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=21950+Arnold+Center+Road&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"point"[39m => [32m"centroid"[39m
+        county: [31m"Los Angeles County"[39m => [32m"Coffee County"[39m
+        county_a: [31m"LO"[39m => [32m"CF"[39m
+        county_gid: [31m"whosonfirst:county:102086957"[39m => [32m"whosonfirst:county:102087095"[39m
+        [31mhousenumber: [39m[31m"21950"[39m
+        label: [31m"21950 Arnold Center Road, Carson, CA, USA"[39m => [32m"Arnold Center Road, Coffee County, TN, USA"[39m
+        layer: [31m"address"[39m => [32m"street"[39m
+        [31mlocality: [39m[31m"Carson"[39m
+        [31mlocality_gid: [39m[31m"whosonfirst:locality:85923683"[39m
+        match_type: [31m"interpolated"[39m => [32m"fallback"[39m
+        name: [31m"21950 Arnold Center Road"[39m => [32m"Arnold Center Road"[39m
+        [31mneighbourhood: [39m[31m"Dominguez"[39m
+        [31mneighbourhood_gid: [39m[31m"whosonfirst:neighbourhood:85814831"[39m
+        region: [31m"California"[39m => [32m"Tennessee"[39m
+        region_a: [31m"CA"[39m => [32m"TN"[39m
+        region_gid: [31m"whosonfirst:region:85688637"[39m => [32m"whosonfirst:region:85688701"[39m
+        source: [31m"openaddresses"[39m => [32m"openstreetmap"[39m
+      }
+    }
+  ]
+}
+IN PROGRESS. 170/249 run
+IN PROGRESS. 180/249 run
+IN PROGRESS. 190/249 run
+[33mChanged: {"text":"6657 West Rose Garden Lane","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=6657+West+Rose+Garden+Lane&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=6657+West+Rose+Garden+Lane&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"point"[39m => [32m"centroid"[39m
+        [31mhousenumber: [39m[31m"6657"[39m
+        label: [31m"6657 West Rose Garden Lane, Glendale, AZ, USA"[39m => [32m"West Rose Garden Lane, Phoenix, AZ, USA"[39m
+        layer: [31m"address"[39m => [32m"street"[39m
+        locality: [31m"Glendale"[39m => [32m"Phoenix"[39m
+        locality_gid: [31m"whosonfirst:locality:85917509"[39m => [32m"whosonfirst:locality:85917479"[39m
+        match_type: [31m"interpolated"[39m => [32m"fallback"[39m
+        name: [31m"6657 West Rose Garden Lane"[39m => [32m"West Rose Garden Lane"[39m
+        [32mneighbourhood: [39m[32m"Wild Flower"[39m
+        [32mneighbourhood_gid: [39m[32m"whosonfirst:neighbourhood:85857713"[39m
+        source: [31m"openaddresses"[39m => [32m"openstreetmap"[39m
+      }
+    }
+  ]
+}
+IN PROGRESS. 200/249 run
+[33mChanged: {"text":"172 Alburg Springs Road","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=172+Alburg+Springs+Road&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=172+Alburg+Springs+Road&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"centroid"[39m => [32m"point"[39m
+        [32mhousenumber: [39m[32m"172"[39m
+        label: [31m"Alburg Springs Road, Alburg, VT, USA"[39m => [32m"172 Alburg Springs Road, Alburg, VT, USA"[39m
+        layer: [31m"street"[39m => [32m"address"[39m
+        match_type: [31m"fallback"[39m => [32m"interpolated"[39m
+        name: [31m"Alburg Springs Road"[39m => [32m"172 Alburg Springs Road"[39m
+        source: [31m"openstreetmap"[39m => [32m"mixed"[39m
+      }
+    }
+  ]
+}
+IN PROGRESS. 210/249 run
+[33mChanged: {"text":"3162 Martin Luther King Junior Boulevard","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=3162+Martin+Luther+King+Junior+Boulevard&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=3162+Martin+Luther+King+Junior+Boulevard&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"centroid"[39m => [32m"point"[39m
+        [32mhousenumber: [39m[32m"3162"[39m
+        label: [31m"Martin Luther King Junior Boulevard, Detroit, MI, USA"[39m => [32m"3162 Martin Luther King Junior Boulevard, Detroit, MI, USA"[39m
+        layer: [31m"street"[39m => [32m"address"[39m
+        match_type: [31m"fallback"[39m => [32m"interpolated"[39m
+        name: [31m"Martin Luther King Junior Boulevard"[39m => [32m"3162 Martin Luther King Junior Boulevard"[39m
+        neighbourhood: [31m"Midtown"[39m => [32m"Core City"[39m
+        neighbourhood_gid: [31m"whosonfirst:neighbourhood:85870587"[39m => [32m"whosonfirst:neighbourhood:85870553"[39m
+        source: [31m"openstreetmap"[39m => [32m"mixed"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"5306 Ritchie Highway","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=5306+Ritchie+Highway&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=5306+Ritchie+Highway&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"centroid"[39m => [32m"point"[39m
+        [32mhousenumber: [39m[32m"5306"[39m
+        label: [31m"Ritchie Highway, Glen Burnie, MD, USA"[39m => [32m"5306 Ritchie Highway, Ferndale, MD, USA"[39m
+        layer: [31m"street"[39m => [32m"address"[39m
+        locality: [31m"Glen Burnie"[39m => [32m"Ferndale"[39m
+        locality_gid: [31m"whosonfirst:locality:85949717"[39m => [32m"whosonfirst:locality:85949713"[39m
+        match_type: [31m"fallback"[39m => [32m"interpolated"[39m
+        name: [31m"Ritchie Highway"[39m => [32m"5306 Ritchie Highway"[39m
+        source: [31m"openstreetmap"[39m => [32m"mixed"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"716 Waller Road","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=716+Waller+Road&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=716+Waller+Road&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"centroid"[39m => [32m"point"[39m
+        [32mhousenumber: [39m[32m"716"[39m
+        label: [31m"Waller Road, West Carroll Parish, LA, USA"[39m => [32m"716 Waller Road, West Carroll Parish, LA, USA"[39m
+        layer: [31m"street"[39m => [32m"address"[39m
+        match_type: [31m"fallback"[39m => [32m"interpolated"[39m
+        name: [31m"Waller Road"[39m => [32m"716 Waller Road"[39m
+        source: [31m"openstreetmap"[39m => [32m"mixed"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"450 Kinhawk Drive","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=450+Kinhawk+Drive&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=450+Kinhawk+Drive&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"centroid"[39m => [32m"point"[39m
+        [32mhousenumber: [39m[32m"450"[39m
+        label: [31m"Kinhawk Drive, Nashville, TN, USA"[39m => [32m"450 Kinhawk Drive, Nashville, TN, USA"[39m
+        layer: [31m"street"[39m => [32m"address"[39m
+        match_type: [31m"fallback"[39m => [32m"interpolated"[39m
+        name: [31m"Kinhawk Drive"[39m => [32m"450 Kinhawk Drive"[39m
+        source: [31m"openstreetmap"[39m => [32m"mixed"[39m
+      }
+    }
+  ]
+}
+IN PROGRESS. 220/249 run
+[33mChanged: {"text":"131 Westerly Street","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=131+Westerly+Street&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=131+Westerly+Street&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        county: [31m"Westchester County"[39m => [32m"Hartford County"[39m
+        county_a: [31m"WE"[39m => [32m"HA"[39m
+        county_gid: [31m"whosonfirst:county:102082373"[39m => [32m"whosonfirst:county:102085381"[39m
+        label: [31m"131 Westerly Street, Yonkers, NY, USA"[39m => [32m"131 Westerly Street, Manchester, CT, USA"[39m
+        localadmin: [31m"Yonkers"[39m => [32m"Manchester"[39m
+        localadmin_gid: [31m"whosonfirst:localadmin:404523397"[39m => [32m"whosonfirst:localadmin:404495985"[39m
+        [31mlocality: [39m[31m"Yonkers"[39m
+        [31mlocality_gid: [39m[31m"whosonfirst:locality:85978759"[39m
+        region: [31m"New York"[39m => [32m"Connecticut"[39m
+        region_a: [31m"NY"[39m => [32m"CT"[39m
+        region_gid: [31m"whosonfirst:region:85688543"[39m => [32m"whosonfirst:region:85688629"[39m
+        source: [31m"mixed"[39m => [32m"openaddresses"[39m
+      }
+    }
+  ]
+}
+[33mChanged: {"text":"308 Woodleaf Court","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=308+Woodleaf+Court&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=308+Woodleaf+Court&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"centroid"[39m => [32m"point"[39m
+        county: [31m"Orange County"[39m => [32m"Anne Arundel County"[39m
+        county_a: [31m"OR"[39m => [32m"AN"[39m
+        county_gid: [31m"whosonfirst:county:102085847"[39m => [32m"whosonfirst:county:102083469"[39m
+        [32mhousenumber: [39m[32m"308"[39m
+        label: [31m"Woodleaf Court, Orange County, FL, USA"[39m => [32m"308 Woodleaf Court, Glen Burnie, MD, USA"[39m
+        layer: [31m"street"[39m => [32m"address"[39m
+        [32mlocality: [39m[32m"Glen Burnie"[39m
+        [32mlocality_gid: [39m[32m"whosonfirst:locality:85949717"[39m
+        match_type: [31m"fallback"[39m => [32m"interpolated"[39m
+        name: [31m"Woodleaf Court"[39m => [32m"308 Woodleaf Court"[39m
+        region: [31m"Florida"[39m => [32m"Maryland"[39m
+        region_a: [31m"FL"[39m => [32m"MD"[39m
+        region_gid: [31m"whosonfirst:region:85688651"[39m => [32m"whosonfirst:region:85688501"[39m
+        source: [31m"openstreetmap"[39m => [32m"openaddresses"[39m
+      }
+    }
+  ]
+}
+IN PROGRESS. 230/249 run
+[33mChanged: {"text":"1267 Martin Street","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=1267+Martin+Street&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=1267+Martin+Street&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"point"[39m => [32m"centroid"[39m
+        continent: [31m"North America"[39m => [32m"Europe"[39m
+        continent_gid: [31m"whosonfirst:continent:102191575"[39m => [32m"whosonfirst:continent:102191581"[39m
+        country: [31m"United States"[39m => [32m"United Kingdom"[39m
+        country_a: [31m"USA"[39m => [32m"GBR"[39m
+        country_gid: [31m"whosonfirst:country:85633793"[39m => [32m"whosonfirst:country:85633159"[39m
+        county: [31m"Lancaster County"[39m => [32m"Kirklees"[39m
+        county_a: [31m"LN"[39m => [32m"KIR"[39m
+        county_gid: [31m"whosonfirst:county:102081377"[39m => [32m"whosonfirst:county:1360698917"[39m
+        [31mhousenumber: [39m[31m"1267"[39m
+        label: [31m"1267 Martin Street, East Earl, PA, USA"[39m => [32m"Martin Street, Dewsbury, England, United Kingdom"[39m
+        layer: [31m"address"[39m => [32m"street"[39m
+        [31mlocaladmin: [39m[31m"East Earl Township"[39m
+        [31mlocaladmin_gid: [39m[31m"whosonfirst:localadmin:404487067"[39m
+        locality: [31m"East Earl"[39m => [32m"Dewsbury"[39m
+        locality_gid: [31m"whosonfirst:locality:101720483"[39m => [32m"whosonfirst:locality:101750569"[39m
+        [32mmacroregion: [39m[32m"England"[39m
+        [32mmacroregion_gid: [39m[32m"whosonfirst:macroregion:404227469"[39m
+        match_type: [31m"interpolated"[39m => [32m"fallback"[39m
+        name: [31m"1267 Martin Street"[39m => [32m"Martin Street"[39m
+        region: [31m"Pennsylvania"[39m => [32m"West Yorkshire"[39m
+        [31mregion_a: [39m[31m"PA"[39m
+        region_gid: [31m"whosonfirst:region:85688481"[39m => [32m"whosonfirst:region:1360698609"[39m
+        source: [31m"mixed"[39m => [32m"openstreetmap"[39m
+      }
+    }
+  ]
+}
+IN PROGRESS. 240/249 run
+[33mChanged: {"text":"629 Debbie Drive","size":"1","sources":"osm,gn,wof"}[39m
+[33m    ./api.sh http://localhost:3100/v1/search?text=629+Debbie+Drive&size=1&sources=osm,gn,wof[39m
+[33m    ./api.sh http://localhost:4100/v1/search?text=629+Debbie+Drive&size=1&sources=osm,gn,wof[39m
+{
+  features: [
+    0: {
+      properties: {
+        accuracy: [31m"centroid"[39m => [32m"point"[39m
+        county: [31m"Jones County"[39m => [32m"Rhea County"[39m
+        county_a: [31m"JE"[39m => [32m"RH"[39m
+        county_gid: [31m"whosonfirst:county:102081715"[39m => [32m"whosonfirst:county:102086477"[39m
+        [32mhousenumber: [39m[32m"629"[39m
+        label: [31m"Debbie Drive, Jones County, GA, USA"[39m => [32m"629 Debbie Drive, Rhea County, TN, USA"[39m
+        layer: [31m"street"[39m => [32m"address"[39m
+        match_type: [31m"fallback"[39m => [32m"interpolated"[39m
+        name: [31m"Debbie Drive"[39m => [32m"629 Debbie Drive"[39m
+        region: [31m"Georgia"[39m => [32m"Tennessee"[39m
+        region_a: [31m"GA"[39m => [32m"TN"[39m
+        region_gid: [31m"whosonfirst:region:85688535"[39m => [32m"whosonfirst:region:85688701"[39m
+        source: [31m"openstreetmap"[39m => [32m"mixed"[39m
+      }
+    }
+  ]
+}
+DONE. 49/249 changed
+Elapsed: 33.279 seconds
+Response times
+╔════════╤════════════════════╤═════════╗
+║        │ old                │ new     ║
+╟────────┼────────────────────┼─────────╢
+║ p99    │ 1366.02            │ 1201.07 ║
+╟────────┼────────────────────┼─────────╢
+║ p95    │ 1183.5999999999997 │ 1150    ║
+╟────────┼────────────────────┼─────────╢
+║ p90    │ 1171               │ 1137.6  ║
+╟────────┼────────────────────┼─────────╢
+║ p50    │ 754                │ 574     ║
+╟────────┼────────────────────┼─────────╢
+║ median │ 754                │ 574     ║
+╚════════╧════════════════════╧═════════╝
+
+Status codes
+╔═════╤═════╤═════╗
+║     │ old │ new ║
+╟─────┼─────┼─────╢
+║ 200 │ 249 │ 249 ║
+╚═════╧═════╧═════╝
+
