@@ -96,7 +96,7 @@ At it's core, you need to specify two servers (old and new), and an input config
 
 All of the tools in this repo can load a configuration file that makes it easy to have saved defaults of servers to compare. A config file is specified via the environment variable COMPARE_CONFIG_FILE, wth the idea that you can have multiple configs (for different services, like an api server and a geocode server) and use shell aliases to wrap the config.
 
-The config file is specified in (hjson)[https://hjson.github.io/] which allows for comments and trailing commas.
+The config file is specified in [hjson](https://hjson.github.io/) which allows for comments and trailing commas.
 
 An example config looks like this
 ```
