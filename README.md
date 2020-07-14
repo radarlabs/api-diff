@@ -175,8 +175,8 @@ These can be mixed!
 ### text (console) output
 ```./compare.sh --new.host localhost:4100  --old.host localhost:3100 --input_csv addresses.csv --endpoint /v1/search --extra_params size=1 sources=osm,gn,wof --ignored_fields bbox geometry attribution timestamp via parsed_text gid id source_id --output_mode text --color > out.txt```
 
-![start of text diff](https://radarlabs.github.io/compare/demos/text-output-1.png)
-![end of text diff](https://radarlabs.github.io/compare/demos/text-output-2.png)
+![start of text diff](https://radarlabs.github.io/compare/demos/text-output-2.png)
+![end of text diff](https://radarlabs.github.io/compare/demos/text-output-1.png)
 
 - [full output](https://radarlabs.github.io/compare/demos/diff.txt) - this is much prettier in a terminal due to escape characters
 - [full text output rendered in an html page to look like a console](https://radarlabs.github.io/compare/demos/text-diff-as-html.html)
