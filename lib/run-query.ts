@@ -5,29 +5,43 @@ import { ApiEnv } from './apiEnv';
 import { Query } from './compare/query';
 import config from './config';
 
-// response time middleware
-axios.interceptors.request.use((axiosConfig: AxiosRequestConfig) => {
-  (axiosConfig as any).metadata = { startTime: Date.now() };
+type AxiosMetadata = {
+  startTime: number
+}
+
+type WithAxiosMetadata = {
+  metadata: AxiosMetadata
+}
+
+type AxiosResponseWithDuration =
+  AxiosResponse & {config: WithAxiosMetadata} & { duration: number}
+
+// Response time middleware. Tracks the duration of the axios request/response
+axios.interceptors.request.use((axiosConfig: AxiosRequestConfig & WithAxiosMetadata) => {
+  axiosConfig.metadata = { startTime: Date.now() };
   return axiosConfig;
 });
-axios.interceptors.response.use((response: any) => {
+axios.interceptors.response.use((response: AxiosResponseWithDuration) => {
   response.duration = Date.now() - response.config.metadata.startTime;
   return response;
 });
 
 /**
- * @param apiEnv
- * @param root0
- * @param root0.params
- * @param root0.method
- * @param root0.endpoint
- * @param timeout
+ * Run one query against specified apiEnv
+ *
+ * @param {ApiEnv} apiEnv apiEnv to run against
+ * @param {Query} query query to run
+ * @param {number} timeout request timeout in milliseconds
+ * @returns {Promise<AxiosResponse} server response
  */
 export default async function runQuery(
   apiEnv: ApiEnv,
-  { params, endpoint, method }: Query,
+  query: Query,
   timeout?: number,
 ): Promise<AxiosResponse> {
+  const { params, method } = query;
+  let { endpoint } = query;
+
   // v1/xxxx ... maybe someone was lazy and didn't start with an opening slash
   if (endpoint[0] !== '/' && !endpoint.startsWith('http:')) {
     endpoint = `/${endpoint}`;
@@ -75,18 +89,18 @@ export default async function runQuery(
     if (error.response) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx
-      // console.error(error.response.data);
       console.error(`Got error code: ${error.response.status}`);
-      // console.error(error.response.headers);
       return error.response;
     }
     if (error.request) {
+      // TODO(blackmad): maybe shouldn't throw?
       // The request was made but no response was received
       // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
       // http.ClientRequest in node.js
       console.error(error.toJSON());
       throw error;
     } else {
+      // TODO(blackmad): maybe shouldn't throw?
       // Something happened in setting up the request that triggered an Error
       console.error('Error', error.message);
       throw error;

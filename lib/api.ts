@@ -4,7 +4,7 @@ import * as queryString from 'query-string';
 import * as chalk from 'chalk';
 import { failedExit, globalCommandLineOptions } from './cli-utils';
 import {
-  argvToApiEnv, getApiEnvCommandLineOptions, ApiEnv, fixApiEnvKey,
+  argvToApiEnv, getApiEnvCommandLineOptions, ApiEnv, findApiKey,
 } from './apiEnv';
 import runQuery from './run-query';
 import config, { COMPARE_CONFIG_FILE } from './config';
@@ -77,7 +77,8 @@ if (argv._.length === 1 && argv._[0].startsWith('http')) {
     apiEnv.keyEnv = hostEntry.keyEnv;
   }
 
-  fixApiEnvKey(apiEnv);
+  apiEnv.key = apiEnv.key
+  || findApiKey({ keyEnv: apiEnv.keyEnv, keyType: apiEnv.keyType });
 
   endpoint = url.pathname;
   params = queryString.parse(url.search) as Record<string, string>;

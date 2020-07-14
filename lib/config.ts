@@ -11,6 +11,7 @@ export type ConfigHostEntry = {
   protocol?: 'http' | 'https';
   takesArg?: boolean;
   keyEnv?: string;
+  keyType?: string;
 };
 
 export type Config = {

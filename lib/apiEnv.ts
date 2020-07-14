@@ -1,13 +1,31 @@
+/* eslint-disable no-param-reassign */
+/** An ApiEnv is the object we create that explains how to query an api host -
+ * its host:port, protocol, timeout and authorization methods. This file contains logic
+ * both for constructing the command line flags to specify one, and for interpreting the
+ * values of those command line flags into an ApiEnv object
+ */
 import * as _ from 'lodash';
+import yargs from 'yargs';
 import logger from './logger';
 import config, { ConfigHostEntry } from './config';
-
 import { failedExit } from './cli-utils';
 
+// load .env - api keys might be in there
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
 
-const apiEnvCommandLineOptions: Record<string, any> = {
+export interface ApiEnv {
+  key: string;
+  protocol: string;
+  host: string;
+  keyEnv: string;
+  keyType?: string;
+}
+
+type YargsOptionMapping = Record<string, yargs.Options>;
+
+/** non-conifg dependent ways to configure an api env */
+const apiEnvCommandLineOptions: YargsOptionMapping = {
   host: {
     type: 'string',
     description: 'host/port',
@@ -19,14 +37,19 @@ const apiEnvCommandLineOptions: Record<string, any> = {
   },
   key: {
     type: 'string',
-    description: 'Authorization key, if not specified will try to find one in the env, in .env or, in local mode, directly in mongo',
+    description:
+      'Authorization key, if not specified will try to find one in the env, in .env or, in local mode, directly in mongo',
   },
 };
 
 /**
+ * Generates parts of the apiEnv command line parameters based on our config file.
+ * For example, if our config file has entries in the host section called "prod"
+ * and "staging", this returns options to be able to specify --prod and --staging
  *
+ * @returns
  */
-export function getApiEnvCommandLineOptions(): Record<string, any> {
+export function getApiEnvCommandLineOptions(): YargsOptionMapping {
   if (config.keyTypes) {
     apiEnvCommandLineOptions.key_type = {
       choices: config.keyTypes,
@@ -51,22 +74,14 @@ export function getApiEnvCommandLineOptions(): Record<string, any> {
   return apiEnvCommandLineOptions;
 }
 
-export interface ApiEnv {
-  key: string;
-  protocol: string;
-  host: string;
-  keyEnv: string;
-  keyType?: string;
-}
-
-type KeyParams = Pick<ApiEnv, 'keyEnv' | 'keyType'>;
-
 /**
- * @param root0
- * @param root0.keyEnv
- * @param root0.keyType
+ * Find an api key from the environment based on the parts of the ApiEnv passed in
+ *
+ * @param {string} keyEnv - the key environment, like "prod" or "staging"
+ * @param {string} keyType - the key type, like "live" or "test" (optional)
+ * @returns {string} found api key, exits if not found
  */
-function findKey({ keyEnv, keyType }: KeyParams): string {
+export function findApiKey({ keyEnv, keyType }: Pick<ApiEnv, 'keyEnv' | 'keyType'>): string {
   const envVariableName = [config.name, keyEnv, keyType, 'KEY']
     .filter((s) => !_.isEmpty(s))
     .join('_')
@@ -80,25 +95,20 @@ function findKey({ keyEnv, keyType }: KeyParams): string {
 }
 
 /**
- * @param apiEnv
- */
-export function fixApiEnvKey(apiEnv: Partial<ApiEnv>): void {
-  // eslint-disable-next-line no-param-reassign
-  apiEnv.key = apiEnv.key
-    || findKey({ keyEnv: apiEnv.keyEnv || '', keyType: apiEnv.keyType || config.keyTypes?.[0] });
-}
-
-/**
- * @param argv
+ * Construct an ApiEnv from command line args
+ * Fills in missing information from defaults and config where necessary.
+ *
+ * @param argv assume a partial apienv from commandline args
+ * @returns filled in ApiEnv
  */
 export function argvToApiEnv(argv: Partial<ApiEnv> | undefined): ApiEnv {
   let apiEnv: Partial<ApiEnv> = _.clone(argv) || {};
 
   let aliasedHostEntry: ConfigHostEntry;
-  _.forEach(config.hosts, (hostEntry: ConfigHostEntry, key: string) => {
+  _.forEach(config.hosts, (hostEntry: ConfigHostEntry, hostKey: string) => {
     // look through our config file for named host entries,
     // see if one of them like prod: {} was specified on the commandline
-    if (argv[key]) {
+    if (argv[hostKey]) {
       // This gets triggered if a user specifies more than one hostEntry command
       // line option, like --prod and --staging (if both are defined in their config)
       if (aliasedHostEntry) {
@@ -110,16 +120,16 @@ export function argvToApiEnv(argv: Partial<ApiEnv> | undefined): ApiEnv {
       // so user: { takesArg: true, host: 'api-USER-dev.foo.io'}
       // specified by --user blackmad becomes api-blackmad-dev.foo.io
       if (hostEntry.takesArg) {
-        const toReplace = key.toUpperCase();
-        // eslint-disable-next-line no-param-reassign
-        hostEntry.host = hostEntry.host.replace(toReplace, argv[key]);
+        const toReplace = hostKey.toUpperCase();
+        hostEntry.host = hostEntry.host.replace(toReplace, argv[hostKey]);
       }
 
       // keyEnv is either the env specified in the hostEntry or just the
       // name of the hostConfig. For example, localhost might specify keyEnv: staging,
       // while the hostConfig for "staging" wouldn't need to do so
-      // eslint-disable-next-line no-param-reassign
-      hostEntry.keyEnv = hostEntry.keyEnv || key;
+      hostEntry.keyEnv = hostEntry.keyEnv || hostKey;
+
+      hostEntry.keyType = hostEntry.keyType || _.first(config.keyTypes);
 
       aliasedHostEntry = hostEntry;
     }
@@ -141,7 +151,8 @@ export function argvToApiEnv(argv: Partial<ApiEnv> | undefined): ApiEnv {
   apiEnv.protocol = apiEnv?.protocol || 'http';
 
   if (config.authStyle) {
-    fixApiEnvKey(apiEnv);
+    apiEnv.key = apiEnv.key
+      || findApiKey({ keyEnv: apiEnv.keyEnv, keyType: apiEnv.keyType });
   }
 
   if (!apiEnv.host) {
