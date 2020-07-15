@@ -2,7 +2,7 @@
 /* eslint-disable no-param-reassign */
 import axios, { Method, AxiosResponse, AxiosRequestConfig } from 'axios';
 import { ApiEnv } from './apiEnv';
-import { Query } from './compare/query';
+import { Query } from './api-diff/query';
 import config from './config';
 
 type AxiosMetadata = {

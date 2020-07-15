@@ -1,8 +1,12 @@
+/* eslint-disable no-console */
+import chalk from 'chalk';
+
 /**
  * @param msg
  */
-export function failedExit(msg: string) {
-  console.error(msg);
+export function failedExit(msg: string): void {
+  console.error(chalk.red('PROCESS FAILED'));
+  console.error(chalk.yellow(msg));
   process.exit(1);
 }
 

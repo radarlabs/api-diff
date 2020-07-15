@@ -6,27 +6,29 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .ts",
-    "lint-fix": "eslint . --fix --ext .ts"
+    "lint-fix": "eslint . --fix --ext .ts",
+    "api-diff": "./node_modules/.bin/ts-node src/api-diff/api-diff.ts",
+    "api-tool": "./node_modules/.bin/ts-node src/api-tool.ts",
+    "generate-baseline": "./node_modules/.bin/ts-node src/api-diff/generate-baseline.ts",
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+  "bin": {
+    "api-diff": "./dist/api-diff.js",
+    "api-tool": "./dist/api-tool.js",
+    "generate-baseline": "./dist/generate-baseline.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/radarlabs/compare.git"
+    "url": "git+https://github.com/radarlabs/api-diff.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/radarlabs/compare/issues"
+    "url": "https://github.com/radarlabs/api-diff/issues"
   },
-  "homepage": "https://github.com/radarlabs/compare#readme",
+  "homepage": "https://github.com/radarlabs/api-diff#readme",
   "dependencies": {
-    "@types/chalk": "^2.2.0",
-    "@types/lodash": "^4.14.157",
-    "@types/md5": "^2.2.0",
-    "@types/node": "^14.0.13",
-    "@types/npm": "^2.0.31",
-    "@types/stats-lite": "^2.2.0",
-    "@types/table": "^5.0.0",
-    "@types/yargs": "^15.0.5",
     "async-csv": "^2.1.3",
     "axios": "^0.19.2",
     "bluebird": "^3.7.2",
@@ -36,7 +38,6 @@
     "csv-parser": "^2.3.2",
     "delay": "^4.3.0",
     "dotenv": "^8.2.0",
-    "eslint-config-airbnb": "^18.2.0",
     "hjson": "^3.2.1",
     "husky": "^4.2.5",
     "jsondiffpatch": "^0.4.1",
@@ -51,17 +52,26 @@
     "request-promise": "^4.2.5",
     "stats-lite": "^2.2.0",
     "table": "^5.4.6",
-    "ts-node": "^8.8.2",
-    "typescript": "^3.8.3",
     "winston": "^3.3.3",
     "yargs": "^15.1.0"
   },
   "devDependencies": {
+    "eslint-config-airbnb": "^18.2.0",
+    "@types/chalk": "^2.2.0",
+    "@types/lodash": "^4.14.157",
+    "@types/md5": "^2.2.0",
+    "@types/node": "^14.0.13",
+    "@types/npm": "^2.0.31",
+    "@types/stats-lite": "^2.2.0",
+    "@types/table": "^5.0.0",
+    "@types/yargs": "^15.0.5",
     "@typescript-eslint/eslint-plugin": "^3.4.0",
     "@typescript-eslint/parser": "^3.4.0",
     "eslint": "^7.3.1",
     "eslint-plugin-import": "^2.21.2",
-    "eslint-plugin-jsdoc": "^28.5.1"
+    "eslint-plugin-jsdoc": "^28.5.1",
+    "ts-node": "^8.8.2",
+    "typescript": "^3.8.3"
   },
   "husky": {
     "hooks": {

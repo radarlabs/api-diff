@@ -1,4 +1,4 @@
-# compare
+# api-diff
 
 This is a tool for comparing one json http server to another. It supports a wide variety of input formats as well as the ability to save a baseline run to compare against future runs.
 
@@ -11,7 +11,7 @@ It also includes a script for talking to json http services with saved configura
 ### Compare two servers
 
 ```
-./compare.sh \
+yarn api-diff \
   --new.host pelias-staging.apicom.com \ # defaults to http, port 80
   --old.host pelias-prod.apicom.com \
   --input_csv ~/geocode-acceptance-tests/input/addresses.csv \ # run these queries against our server based on their column headings, could also have used 
@@ -27,7 +27,7 @@ It also includes a script for talking to json http services with saved configura
 ### Generate a baseline
 
 ```
-./generate-baseline.sh \
+yarn generate-baseline \
    --old.host pelias-prod.api.com \ # the host to run against
    --input_csv ~/geoocde-acceptance-tests/input/addresses.csv \ # input csv file with headers corresponding to cgi params
    --key_map query=text  \ # remap the "query" header in our csv to the "text" cgi param
@@ -39,7 +39,7 @@ It also includes a script for talking to json http services with saved configura
 
 ### Compare against a baseline
 ```
-./compare.sh \
+yarn api-diff \
   --new.host pelias-staging.apicom.com \ # defaults to http, port 80
   --input_json_baseline addresses-baseline.json \
   --ignored_fields bbox geometry attribution timestamp \ 
@@ -49,14 +49,14 @@ It also includes a script for talking to json http services with saved configura
 
 ### Use api tool with a [config file](#configuration)
 ```
-COMPARE_CONFIG_FILE=config.hjson ./api.sh \ # use config.hjson
+COMPARE_CONFIG_FILE=config.hjson yarn api-tool \ # use config.hjson
   --prod \ # use the "prod" host entry from config.json
   --endpoint /geocode/forward \ # run against /geocode/endpoint
   near="40.74,-74" "query=30 jay st" # use these as query parameters
 ```
 
 ### Use compare tool with a [config file](#configuration)
-COMPARE_CONFIG_FILE=config.hjson ./compare.sh \ # use config.hjson
+COMPARE_CONFIG_FILE=config.hjson yarn api-diff \ # use config.hjson
   --old.staging \
   --new.local \
   --input_csv ~/geoocde-acceptance-tests/input/addresses.csv
@@ -64,7 +64,7 @@ COMPARE_CONFIG_FILE=config.hjson ./compare.sh \ # use config.hjson
 This also works with a url because I've defined in my config file how auth works and where to find the keys, and what kinds of keys different hosts need
 
 ```
-COMPARE_CONFIG_FILE=config.hjson ./api.sh \
+COMPARE_CONFIG_FILE=config.hjson yarn api-tool \
   "http://api.radar.io/v1/geocode/forward?query=30 jay st"
 ```
 
@@ -74,7 +74,7 @@ Because I've defined a "prod" entry in config.hjson, and put keys into .env, thi
 ## Output
 
 ### [text (console) output](https://radarlabs.github.io/compare/demos/text-diff-as-html.html)
-```./compare.sh --new.host localhost:4100  --old.host localhost:3100 --input_csv addresses.csv --endpoint /v1/search --extra_params size=1 sources=osm,gn,wof --ignored_fields bbox geometry attribution timestamp via parsed_text gid id source_id --output_mode text --color > out.txt```
+```yarn api-diff --new.host localhost:4100  --old.host localhost:3100 --input_csv addresses.csv --endpoint /v1/search --extra_params size=1 sources=osm,gn,wof --ignored_fields bbox geometry attribution timestamp via parsed_text gid id source_id --output_mode text --color > out.txt```
 
 ![start of text diff](https://radarlabs.github.io/compare/demos/text-output-2.png)
 ![end of text diff](https://radarlabs.github.io/compare/demos/text-output-1.png)
@@ -82,7 +82,7 @@ Because I've defined a "prod" entry in config.hjson, and put keys into .env, thi
 - [full output as text](https://radarlabs.github.io/compare/demos/diff.txt) - this is much prettier in a terminal due to escape characters. The header links to a version of this output wrapped in an html viewer for ansi escape codes.
 
 ### [html output](https://radarlabs.github.io/compare/demos/diff.html)
-```./compare.sh --new.host localhost:4100  --old.host localhost:3100 --input_csv addresses.csv --endpoint /v1/search --extra_params size=1 sources=osm,gn,wof --ignored_fields bbox geometry attribution timestamp via parsed_text gid id source_id --output_mode html > out.html```
+```yarn api-diff --new.host localhost:4100  --old.host localhost:3100 --input_csv addresses.csv --endpoint /v1/search --extra_params size=1 sources=osm,gn,wof --ignored_fields bbox geometry attribution timestamp via parsed_text gid id source_id --output_mode html > out.html```
 
 Note that this is an interactive evaluation form for figuring out which queries improved and which got worse. Each result is assigned an id based on the md5 hash of the query params + delta, and scores are saved to local storage. in your web browser. This means if you're doing a lot of compares, where many of the diffs are the same between runs, you won't need to re-rank them.
 

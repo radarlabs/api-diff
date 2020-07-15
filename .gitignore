@@ -114,3 +114,5 @@ config.hjson
 *.json
 *.html
 .DS_Store
+
+dist/

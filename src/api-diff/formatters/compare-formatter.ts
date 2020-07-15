@@ -41,6 +41,7 @@ export function makeResponseTimesHistogram(responseTimes: number[]): Record<stri
 }
 
 export abstract class CompareFormatter {
+  /** constructor params */
   oldApiEnv: ApiEnv;
 
   newApiEnv: ApiEnv;
@@ -51,6 +52,7 @@ export abstract class CompareFormatter {
 
   showUnchanged: boolean;
 
+  /** internal counts */
   totalQueries = 0;
 
   numQueriesRun = 0;

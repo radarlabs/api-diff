@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import * as _ from 'lodash';
 import { getApiEnvCommandLineOptions } from '../apiEnv';
-import { globalCommandLineOptions } from '../cli-utils';
+import { failedExit, globalCommandLineOptions } from '../cli-utils';
 
 export type OutputMode = 'html' | 'text' | 'json';
 
@@ -32,6 +32,10 @@ export const NEW_KEY = 'new';
  * @returns {ParsedArgs} parsed commandline args
  */
 export function parseArgv(envs: string[]): ParsedArgs {
+  if (!_.some(process.argv, (arg) => arg.startsWith('--'))) {
+    failedExit('No arguments specified');
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
   const yargs = require('yargs').strict();
 
