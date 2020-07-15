@@ -6,6 +6,8 @@
  */
 import * as _ from 'lodash';
 import yargs from 'yargs';
+import * as os from 'os';
+import * as path from 'path';
 import logger from './logger';
 import config, { ConfigHostEntry } from './config';
 import { failedExit } from './cli-utils';
@@ -13,6 +15,8 @@ import { failedExit } from './cli-utils';
 // load .env - api keys might be in there
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('dotenv').config({ path: path.join(os.homedir(), '.api-keys.env') });
 
 export interface ApiEnv {
   key: string;

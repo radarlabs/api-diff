@@ -1,5 +1,5 @@
 {
-  "name": "api-diff",
+  "name": "@blackmad/api-diff",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

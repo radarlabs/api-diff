@@ -143,7 +143,7 @@ An example config looks like this
 
 This defines a pretty common server setup. There is a production API at prod.api.com, that uses https (the default is http). It implicitly defines a "prod" key env in our config. There is a staging api at staging.api.com with a "staging" key env. Additionally, developers run local apis at localhost:8000, which use staging keys and should be communicated with over http (the default). Finally, each user has their own staging env at USER-staging.api.com which again uses staging keys.
 
-Additionally, for this config, we would add some environment variables, optionally in a .env file loaded by dotenv to make our lives even easier. That file would look like
+Additionally, for this config, we would add some environment variables, optionally in a ~/.api-keys.env file loaded by dotenv to make our lives even easier. That file would look like
 
 ```
 # keys are name + keyEnv + keyType + KEY
