@@ -147,6 +147,7 @@ function main(): Promise<void> {
     newApiEnv = argvToApiEnv(argv[NEW_KEY]);
   } else {
     argv.output_mode = 'json';
+    argv.unchanged = true;
   }
 
   const formatter = getFormatter(argv.output_mode, {

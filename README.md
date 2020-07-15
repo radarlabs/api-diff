@@ -97,7 +97,7 @@ npm install -g @blackmad/api-diff
 
 Note
 1) This will be changing to @radarlabs/api-diff real soon now
-2) to run any of the examples in this doc from this source tree, simply run `yarn command` instead of `command`, so `yarn api-diff` instead of `api-diff`
+2) to run any of the examples in this doc from this source tree, simply run `yarn --silent command` instead of `command`, so `yarn --silent api-diff` instead of `api-diff`
 
 ## Usage
 
