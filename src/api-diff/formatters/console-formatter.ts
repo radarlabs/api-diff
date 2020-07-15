@@ -4,6 +4,7 @@ import * as jsondiffpatch from 'jsondiffpatch';
 import { table } from 'table';
 import * as _ from 'lodash';
 
+import * as config from '../../config';
 import { Change } from '../change';
 import { CompareFormatter, FinishedStats, makeResponseTimesHistogram } from './compare-formatter';
 import { ApiEnv } from '../../apiEnv';
@@ -17,10 +18,24 @@ export default class ConsoleFormatter extends CompareFormatter {
     this.numQueriesChanged += 1;
 
     const apiEnvToApiSh = (apiEnv: ApiEnv): string => {
-      if (apiEnv.keyEnv) {
-        return `./api.sh --keyEnv ${apiEnv.keyEnv}`;
+      const commandParts: string[] = [];
+
+      if (config.CONFIG_FILE_ENV_VARIABLE) {
+        commandParts.push(`${config.CONFIG_FILE_ENV_VARIABLE}=${config.API_DIFF_CONFIG_FILE}`);
       }
-      return './api.sh';
+
+      if (_.some(process.argv, (arg) => arg.includes('ts-node'))) {
+        // assume this is being run from the source tree
+        commandParts.push('yarn api-tool');
+      } else {
+        // assume this is being run from npm dist
+        commandParts.push('api-tool');
+      }
+
+      if (apiEnv.keyEnv) {
+        commandParts.push(`--keyEnv ${apiEnv.keyEnv}`);
+      }
+      return commandParts.join(' ');
     };
     const outputLines = `${JSON.stringify(change.query.params)}
     ${apiEnvToApiSh(this.oldApiEnv)} ${change.oldResponse.request?.res?.responseUrl}
