@@ -26,7 +26,7 @@ Note that this is an interactive evaluation form for figuring out which queries 
 ### Compare two servers
 
 ```
- api-diff \
+api-diff \
   `# defaults to http, port 80` \
   --new.host localhost:3100 \
   --old.host localhost:4100 \
@@ -42,7 +42,7 @@ Note that this is an interactive evaluation form for figuring out which queries 
   --ignored_fields bbox geometry attribution timestamp \
   `# output an interactive html diff. other options are text and json` \
   --output_mode html \
-  > diffs.html
+  --output_file diffs.html
 ```
 
 ### Generate a baseline
@@ -74,22 +74,27 @@ Note that this is an interactive evaluation form for figuring out which queries 
 
 ### Use api tool with a [config file](#configuration)
 ```
-COMPARE_CONFIG_FILE=config.hjson  api-tool \ # use config.hjson
-  --prod \ # use the "prod" host entry from config.json
-  --endpoint /geocode/forward \ # run against /geocode/endpoint
-  near="40.74,-74" "query=30 jay st" # use these as query parameters
+# use config.hjson which defines staging & local envs
+COMPARE_CONFIG_FILE=config.hjson api-tool \
+  --prod \
+  --endpoint /geocode/forward \
+  near="40.74,-74" \
+  query="30 jay st"
 ```
 
 ### Use compare tool with a [config file](#configuration)
-COMPARE_CONFIG_FILE=config.hjson  api-diff \ # use config.hjson
+```
+# use config.hjson which defines staging & local envs
+COMPARE_CONFIG_FILE=config.hjson api-diff
   --old.staging \
   --new.local \
   --input_csv ~/geoocde-acceptance-tests/input/addresses.csv
+```
 
 This also works with a url because I've defined in my config file how auth works and where to find the keys, and what kinds of keys different hosts need
 
 ```
-COMPARE_CONFIG_FILE=config.hjson  api-tool \
+COMPARE_CONFIG_FILE=config.hjson api-tool \
   "http://api.radar.io/v1/geocode/forward?query=30 jay st"
 ```
 

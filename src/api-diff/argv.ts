@@ -127,8 +127,6 @@ function createYargs(yargs: Argv, envs: string[]) {
 
   yargs.implies('input_csv', 'endpoint');
   yargs.implies('input_params', 'endpoint');
-
-  return yargs.argv;
 }
 
 /**
@@ -151,8 +149,6 @@ export function parseArgv(): ParsedArgs {
   });
 
   const buildCompareYargs = (yargs) => {
-    createYargs(yargs, ['old', 'new']);
-
     yargs.option('color', {
       type: 'boolean',
       description: 'turns on/off colorized output, defaults to true for stdin, false for redirected output',
@@ -169,6 +165,8 @@ export function parseArgv(): ParsedArgs {
       default: false,
       description: 'whether or not to print all queries, even unchanged ones',
     });
+
+    createYargs(yargs, ['old', 'new']);
 
     yargs.usage('$0 [args] or $0 compare [args]');
   };
