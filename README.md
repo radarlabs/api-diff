@@ -8,15 +8,15 @@ It also includes a script for talking to json http services with saved configura
 
 ## Output / Demo
 
-### [text (console) output](https://radarlabs.github.io/compare/demos/text-diff-as-html.html)
+### [text (console) output](https://radarlabs.github.io/api-diff/demos/text-diff-as-html.html)
 ``` api-diff --new.host localhost:4100  --old.host localhost:3100 --input_csv addresses.csv --endpoint /v1/search --extra_params size=1 sources=osm,gn,wof --ignored_fields bbox geometry attribution timestamp via parsed_text gid id source_id --output_mode text --color > out.txt```
 
-![start of text diff](https://radarlabs.github.io/compare/demos/text-output-2.png)
-![end of text diff](https://radarlabs.github.io/compare/demos/text-output-1.png)
+![start of text diff](https://radarlabs.github.io/api-diff/demos/text-output-2.png)
+![end of text diff](https://radarlabs.github.io/api-diff/demos/text-output-1.png)
 
-- [full output as text](https://radarlabs.github.io/compare/demos/diff.txt) - this is much prettier in a terminal due to escape characters. The header links to a version of this output wrapped in an html viewer for ansi escape codes.
+- [full output as text](https://radarlabs.github.io/api-diff/demos/diff.txt) - this is much prettier in a terminal due to escape characters. The header links to a version of this output wrapped in an html viewer for ansi escape codes.
 
-### [html output](https://radarlabs.github.io/compare/demos/diff.html)
+### [html output](https://radarlabs.github.io/api-diff/demos/diff.html)
 ``` api-diff --new.host localhost:4100  --old.host localhost:3100 --input_csv addresses.csv --endpoint /v1/search --extra_params size=1 sources=osm,gn,wof --ignored_fields bbox geometry attribution timestamp via parsed_text gid id source_id --output_mode html > out.html```
 
 Note that this is an interactive evaluation form for figuring out which queries improved and which got worse. Each result is assigned an id based on the md5 hash of the query params + delta, and scores are saved to local storage. in your web browser. This means if you're doing a lot of compares, where many of the diffs are the same between runs, you won't need to re-rank them.
