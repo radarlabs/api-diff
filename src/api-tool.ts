@@ -9,7 +9,7 @@ import {
   argvToApiEnv, getApiEnvCommandLineOptions, ApiEnv, findApiKey,
 } from './apiEnv';
 import runQuery from './run-query';
-import config, { COMPARE_CONFIG_FILE } from './config';
+import config, { API_DIFF_CONFIG_FILE } from './config';
 
 const makeUsageString = (toolName: string) => `This tool has a lot of options, here are some examples:
 
@@ -74,7 +74,7 @@ if (argv._.length === 1 && argv._[0].startsWith('http')) {
   if (!apiEnv.keyEnv) {
     const hostEntry = _.find(config.hosts, (v) => v.host === url.host);
     if (!hostEntry) {
-      failedExit(`Could not find entry for host ${url.host} in ${COMPARE_CONFIG_FILE} please check your configuration`);
+      failedExit(`Could not find entry for host ${url.host} in ${API_DIFF_CONFIG_FILE} please check your configuration`);
     }
     apiEnv.keyEnv = hostEntry.keyEnv;
   }

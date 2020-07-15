@@ -75,7 +75,7 @@ api-diff \
 ### Use api tool with a [config file](#configuration)
 ```
 # use config.hjson which defines staging & local envs
-COMPARE_CONFIG_FILE=config.hjson api-tool \
+API_DIFF_CONFIG_FILE=config.hjson api-tool \
   --prod \
   --endpoint /geocode/forward \
   near="40.74,-74" \
@@ -85,7 +85,7 @@ COMPARE_CONFIG_FILE=config.hjson api-tool \
 ### Use compare tool with a [config file](#configuration)
 ```
 # use config.hjson which defines staging & local envs
-COMPARE_CONFIG_FILE=config.hjson api-diff
+API_DIFF_CONFIG_FILE=config.hjson api-diff
   --old.staging \
   --new.local \
   --input_csv ~/geoocde-acceptance-tests/input/addresses.csv
@@ -94,7 +94,7 @@ COMPARE_CONFIG_FILE=config.hjson api-diff
 This also works with a url because I've defined in my config file how auth works and where to find the keys, and what kinds of keys different hosts need
 
 ```
-COMPARE_CONFIG_FILE=config.hjson api-tool \
+API_DIFF_CONFIG_FILE=config.hjson api-tool \
   "http://api.radar.io/v1/geocode/forward?query=30 jay st"
 ```
 
@@ -118,7 +118,7 @@ At it's core, you need to specify two servers (old and new), and an input config
 
 ## Configuration
 
-All of the tools in this repo can load a configuration file that makes it easy to have saved defaults of servers to compare. A config file is specified via the environment variable COMPARE_CONFIG_FILE, wth the idea that you can have multiple configs (for different services, like an api server and a geocode server) and use shell aliases to wrap the config.
+All of the tools in this repo can load a configuration file that makes it easy to have saved defaults of servers to compare. A config file is specified via the environment variable API_DIFF_CONFIG_FILE, wth the idea that you can have multiple configs (for different services, like an api server and a geocode server) and use shell aliases to wrap the config.
 
 The config file is specified in [hjson](https://hjson.github.io/) which allows for comments and trailing commas.
 
