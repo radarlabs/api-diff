@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-/* eslint-disable no-console */
 import * as _ from 'lodash';
 import * as queryString from 'query-string';
 import * as chalk from 'chalk';
@@ -70,10 +69,9 @@ if (argv._.length === 1 && argv._[0].startsWith('http')) {
 } else {
   apiEnv = argvToApiEnv(argv);
 
-  console.log(apiEnv);
-
   argv._.forEach((datum: string) => {
     if (!datum.includes('=')) {
+      // eslint-disable-next-line no-console
       console.error(`data argument ${datum} did not have =, exiting`);
       process.exit(1);
     }
@@ -89,4 +87,5 @@ if (!endpoint) {
 
 runQuery(apiEnv, {
   params, method: argv.method, endpoint,
+// eslint-disable-next-line no-console
 }, argv.timeout).then(({ data }) => console.dir(data, { depth: null, colors: chalk.level > 0 }));
