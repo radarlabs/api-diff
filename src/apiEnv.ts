@@ -8,7 +8,6 @@ import * as _ from 'lodash';
 import yargs from 'yargs';
 import * as os from 'os';
 import * as path from 'path';
-import logger from './logger';
 import config, { ConfigHostEntry } from './config';
 import { failedExit } from './cli-utils';
 
@@ -90,7 +89,8 @@ export function findApiKey({ keyEnv, keyType }: Pick<ApiEnv, 'keyEnv' | 'keyType
     .filter((s) => !_.isEmpty(s))
     .join('_')
     .toUpperCase();
-  logger.info(`Looking for key in env ${envVariableName}`);
+  // eslint-disable-next-line no-console
+  console.error(`Looking for key in env ${envVariableName}`);
   const key = process.env[envVariableName];
   if (!key) {
     failedExit(`No key found for ${envVariableName} in .env and --key not specified`);
