@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 import * as fs from 'fs';
 import * as hjson from 'hjson';
 
-export const CONFIG_FILE_ENV_VARIABLE = 'API_DIFF_CONFIG_FILE';
+export const CONFIG_FILE_ENV_VARIABLE = 'API_DIFF_CONFIG';
 
 export const API_DIFF_CONFIG_FILE = process.env[CONFIG_FILE_ENV_VARIABLE];
 const noConfigFile = !API_DIFF_CONFIG_FILE;
