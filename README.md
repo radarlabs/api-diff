@@ -43,12 +43,16 @@ Note that this is an interactive evaluation form for figuring out which queries 
 
 ```
  api-diff generate-baseline \
-   --old.host pelias-prod.api.com \ # the host to run against
-   --input_csv ~/geoocde-acceptance-tests/input/addresses.csv \ # input csv file with headers corresponding to cgi params
-   --key_map query=text  \ # remap the "query" header in our csv to the "text" cgi param
-   --endpoint /v1/search \ # run queries against this endpoint
-   --extra_params size=1 sources=osm,oa \ # add an extra cgi param to every query, in this case, to 
-
+   `# the host to run against` \
+   --old.host localhost:3100 \
+   `# input csv file with headers corresponding to cgi params` \
+   --input_csv ~/RadarCode/geocode-acceptance-tests/input/addresses.csv \
+   `# remap the "query" header in our csv to the "text" cgi param` \
+   --key_map query=text  \
+   `# run queries against this endpoint` \
+   --endpoint /v1/search \
+   `# add extra query params to every query` \
+   --extra_params size=1 sources=osm,oa \
    > addresses-baseline.json
 ```
 

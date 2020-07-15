@@ -138,9 +138,16 @@ function main(): Promise<void> {
   const argv = parseArgv() as ParsedArgs;
 
   const oldApiEnv = argvToApiEnv(argv[OLD_KEY]);
-  const newApiEnv = argvToApiEnv(argv[NEW_KEY]);
-
   const queries = QueryReader(argv);
+
+  const inGenerateBaselineMode = argv._.includes('generate-baseline');
+  let newApiEnv: ApiEnv;
+
+  if (!inGenerateBaselineMode) {
+    newApiEnv = argvToApiEnv(argv[NEW_KEY]);
+  } else {
+    argv.output_mode = 'json';
+  }
 
   const formatter = getFormatter(argv.output_mode, {
     oldApiEnv,

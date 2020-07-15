@@ -106,6 +106,7 @@ export function findApiKey({ keyEnv, keyType }: Pick<ApiEnv, 'keyEnv' | 'keyType
  * @returns {ApiEnv} filled in ApiEnv
  */
 export function argvToApiEnv(argv: Partial<ApiEnv> | undefined): ApiEnv {
+  console.log(argv);
   let apiEnv: Partial<ApiEnv> = _.clone(argv) || {};
 
   let aliasedHostEntry: ConfigHostEntry;

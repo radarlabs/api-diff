@@ -21,6 +21,7 @@ export type ParsedArgs = {
   output_file: string;
   input_json_baseline: string;
   timeout: number;
+  _: string[];
 };
 
 export const OLD_KEY = 'old';
@@ -180,7 +181,5 @@ export function parseArgv(): ParsedArgs {
     failedExit('No arguments specified');
   }
 
-  console.log(topLevelYargs);
-
-  return topLevelYargs;
+  return topLevelYargs.argv;
 }
