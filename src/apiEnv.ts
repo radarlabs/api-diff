@@ -154,13 +154,13 @@ export function argvToApiEnv(argv: Partial<ApiEnv> | undefined): ApiEnv {
 
   apiEnv.protocol = apiEnv?.protocol || 'http';
 
+  if (!apiEnv.host) {
+    failedExit(`Could not find host via arguments specified ${JSON.stringify(argv || {}, null, 2)}`);
+  }
+
   if (config.authStyle) {
     apiEnv.key = apiEnv.key
       || findApiKey({ keyEnv: apiEnv.keyEnv, keyType: apiEnv.keyType });
-  }
-
-  if (!apiEnv.host) {
-    failedExit(`Could not find host via arguments specified ${JSON.stringify(argv, null, 2)}`);
   }
 
   return apiEnv as ApiEnv;

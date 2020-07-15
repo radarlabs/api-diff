@@ -70,6 +70,8 @@ if (argv._.length === 1 && argv._[0].startsWith('http')) {
 } else {
   apiEnv = argvToApiEnv(argv);
 
+  console.log(apiEnv);
+
   argv._.forEach((datum: string) => {
     if (!datum.includes('=')) {
       console.error(`data argument ${datum} did not have =, exiting`);
