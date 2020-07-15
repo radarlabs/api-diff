@@ -32,9 +32,9 @@ export const NEW_KEY = 'new';
  * @returns {ParsedArgs} parsed commandline args
  */
 export function parseArgv(envs: string[]): ParsedArgs {
-  if (!_.some(process.argv, (arg) => arg.startsWith('--'))) {
-    failedExit('No arguments specified');
-  }
+  // Save now if there were any args in argv, because yargs will modify it
+  // And we don't want to exit until after so we can show yargs help.
+  const noArgsSpecified = !_.some(process.argv, (arg) => arg.startsWith('--'));
 
   // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
   const yargs = require('yargs').strict();
@@ -147,7 +147,12 @@ export function parseArgv(envs: string[]): ParsedArgs {
   yargs.implies('input_csv', 'endpoint');
   yargs.implies('input_params', 'endpoint');
 
-  yargs.usage('REWRITE ME');
+  yargs.usage('$0 [args]');
+
+  if (noArgsSpecified) {
+    yargs.showHelp();
+    failedExit('No arguments specified');
+  }
 
   return yargs.argv;
 }

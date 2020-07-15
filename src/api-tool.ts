@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /* eslint-disable no-console */
 import * as _ from 'lodash';
 import * as queryString from 'query-string';

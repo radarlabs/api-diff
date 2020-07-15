@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
  * Generate baseline json to be used in future compare runs.
  *

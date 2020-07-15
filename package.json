@@ -1,6 +1,6 @@
 {
   "name": "@blackmad/api-diff",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -11,12 +11,12 @@
     "api-tool": "./node_modules/.bin/ts-node src/api-tool.ts",
     "generate-baseline": "./node_modules/.bin/ts-node src/api-diff/generate-baseline.ts",
     "build": "tsc",
-    "prepare": "npm run build"
+    "prepare": "yarn build"
   },
   "bin": {
-    "api-diff": "./dist/api-diff.js",
+    "api-diff": "./dist/api-diff/api-diff.js",
     "api-tool": "./dist/api-tool.js",
-    "generate-baseline": "./dist/generate-baseline.js"
+    "generate-baseline": "./dist/api-diff/generate-baseline.js"
   },
   "repository": {
     "type": "git",

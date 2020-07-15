@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /* eslint-disable camelcase */
 import * as Bluebird from 'bluebird';
 
