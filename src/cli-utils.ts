@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import chalk from 'chalk';
+import yargs from 'yargs';
 
 /**
  * @param msg
@@ -10,15 +11,11 @@ export function failedExit(msg: string): void {
   process.exit(1);
 }
 
-export const globalCommandLineOptions = {
+export const globalCommandLineOptions: Record<string, yargs.Options> = {
   method: {
     choices: ['GET', 'POST', 'PUT'],
     default: 'GET',
     description: 'what http method to use',
-  },
-  color: {
-    type: 'boolean',
-    description: 'turns on/off colorized output, defaults to true for stdin, false for redirected output',
   },
   timeout: {
     type: 'number',

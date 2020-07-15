@@ -42,7 +42,7 @@ Note that this is an interactive evaluation form for figuring out which queries 
 ### Generate a baseline
 
 ```
- generate-baseline \
+ api-diff generate-baseline \
    --old.host pelias-prod.api.com \ # the host to run against
    --input_csv ~/geoocde-acceptance-tests/input/addresses.csv \ # input csv file with headers corresponding to cgi params
    --key_map query=text  \ # remap the "query" header in our csv to the "text" cgi param

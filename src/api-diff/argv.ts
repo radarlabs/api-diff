@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import * as _ from 'lodash';
+import { Argv } from 'yargs';
 import { getApiEnvCommandLineOptions } from '../apiEnv';
 import { failedExit, globalCommandLineOptions } from '../cli-utils';
 
@@ -26,27 +27,18 @@ export const OLD_KEY = 'old';
 export const NEW_KEY = 'new';
 
 /**
- *
- * @param {string[]} envs list of envs to generate api env command line options for.
- *   [old, new] in compare, [old] in baseline
- * @returns {ParsedArgs} parsed commandline args
+ * @param yargs
+ * @param envs
  */
-export function parseArgv(envs: string[]): ParsedArgs {
-  // Save now if there were any args in argv, because yargs will modify it
-  // And we don't want to exit until after so we can show yargs help.
-  const noArgsSpecified = !_.some(process.argv, (arg) => arg.startsWith('--'));
-
-  // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
-  const yargs = require('yargs').strict();
-
+function createYargs(yargs: Argv, envs: string[]) {
   _.forEach(globalCommandLineOptions, (val, key) => {
     yargs.option(key, val);
   });
 
   // env is "old" + "new" in compare, and just "old" in generate-baseline
   envs.forEach((env) => {
-    // this is a workaround for yargs
-    yargs.option(env);
+    // this is a workaround for some yargs bug
+    yargs.option(env, {});
     yargs.hide(env);
 
     const envParams = [];
@@ -105,23 +97,11 @@ export function parseArgv(envs: string[]): ParsedArgs {
     description: 'concurrency of api queries per host to run',
   });
 
-  yargs.option('unchanged', {
-    type: 'boolean',
-    default: false,
-    description: 'whether or not to print all queries, even unchanged ones',
-  });
-
   yargs.option('key_map', {
     type: 'array',
     default: [],
     description:
       'a mapping of csv columns to parameter names in the format csv_header1=param1 csv_header2=param2, if all numbers, are assumed to be csv column numbers',
-  });
-
-  yargs.option('output_mode', {
-    choices: ['html', 'text', 'json'],
-    default: 'text',
-    description: 'what kind of output to generate',
   });
 
   yargs.option('output_file', {
@@ -147,12 +127,60 @@ export function parseArgv(envs: string[]): ParsedArgs {
   yargs.implies('input_csv', 'endpoint');
   yargs.implies('input_params', 'endpoint');
 
-  yargs.usage('$0 [args]');
+  return yargs.argv;
+}
+
+/**
+ * Build / parse command line args with yargs
+ *
+ * @returns {ParsedArgs} parsed commandline args
+ */
+export function parseArgv(): ParsedArgs {
+  // Save now if there were any args in argv, because yargs will modify it
+  // And we don't want to exit until after so we can show yargs help.
+  const noArgsSpecified = !_.some(process.argv, (arg) => arg.startsWith('--'));
+
+  // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
+  const topLevelYargs = require('yargs').strict();
+
+  topLevelYargs.command('generate-baseline', 'generate baseline json for future compare runs', (yargs) => {
+    createYargs(yargs, ['old']);
+
+    yargs.usage('$0 generate-baseline [args]');
+  });
+
+  const buildCompareYargs = (yargs) => {
+    createYargs(yargs, ['old', 'new']);
+
+    yargs.option('color', {
+      type: 'boolean',
+      description: 'turns on/off colorized output, defaults to true for stdin, false for redirected output',
+    });
+
+    yargs.option('output_mode', {
+      choices: ['html', 'text', 'json'],
+      default: 'text',
+      description: 'what kind of output to generate',
+    });
+
+    yargs.option('unchanged', {
+      type: 'boolean',
+      default: false,
+      description: 'whether or not to print all queries, even unchanged ones',
+    });
+
+    yargs.usage('$0 [args] or $0 compare [args]');
+  };
+
+  topLevelYargs.command('compare', 'compare two api hosts', buildCompareYargs);
+  topLevelYargs.command('*', 'default command', buildCompareYargs);
 
   if (noArgsSpecified) {
-    yargs.showHelp();
+    topLevelYargs.showHelp();
     failedExit('No arguments specified');
   }
 
-  return yargs.argv;
+  console.log(topLevelYargs);
+
+  return topLevelYargs;
 }

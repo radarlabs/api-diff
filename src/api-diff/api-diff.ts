@@ -34,7 +34,7 @@ async function compareQuery({
   argv,
 }: {
   oldApiEnv: ApiEnv;
-  newApiEnv: ApiEnv;
+  newApiEnv?: ApiEnv;
   query: Query;
   argv: CompareArgs;
 }): Promise<Change> {
@@ -43,7 +43,7 @@ async function compareQuery({
   const oldResponse = query.baselineResponse
     ? ({ data: query.baselineResponse } as AxiosResponse<unknown>)
     : await runQuery(oldApiEnv, query, argv.timeout);
-  const newResponse = await runQuery(newApiEnv, query, argv.timeout);
+  const newResponse = newApiEnv ? await runQuery(newApiEnv, query, argv.timeout) : undefined;
 
   const differ = jsondiffpatch.create({
     propertyFilter(name) {
@@ -51,7 +51,7 @@ async function compareQuery({
     },
   });
 
-  const delta = differ.diff(oldResponse.data, newResponse.data);
+  const delta = newResponse ? differ.diff(oldResponse.data, newResponse.data) : undefined;
 
   return {
     query,
@@ -103,17 +103,17 @@ async function compareQueries({
       formatter.queryCompleted(change);
 
       oldResponseTimes.push((change.oldResponse as AxiosResponseWithDuration).duration);
-      newResponseTimes.push((change.newResponse as AxiosResponseWithDuration).duration);
+      newResponseTimes.push((change.newResponse as AxiosResponseWithDuration)?.duration);
 
       if (!oldStatusCodes[change.oldResponse.status]) {
         oldStatusCodes[change.oldResponse.status] = 0;
       }
-      if (!newStatusCodes[change.newResponse.status]) {
-        newStatusCodes[change.newResponse.status] = 0;
+      if (!newStatusCodes[change.newResponse?.status]) {
+        newStatusCodes[change.newResponse?.status] = 0;
       }
 
       oldStatusCodes[change.oldResponse.status] += 1;
-      newStatusCodes[change.newResponse.status] += 1;
+      newStatusCodes[change.newResponse?.status] += 1;
     },
     { concurrency: argv.concurrency },
   );
@@ -135,7 +135,7 @@ async function compareQueries({
  * @returns {Promise<void>} on completion
  */
 function main(): Promise<void> {
-  const argv = parseArgv([OLD_KEY, NEW_KEY]) as ParsedArgs;
+  const argv = parseArgv() as ParsedArgs;
 
   const oldApiEnv = argvToApiEnv(argv[OLD_KEY]);
   const newApiEnv = argvToApiEnv(argv[NEW_KEY]);
