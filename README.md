@@ -9,7 +9,7 @@ It also includes a script for talking to json http services with saved configura
 ## Output / Demo
 
 ### [text (console) output](https://radarlabs.github.io/api-diff/demos/text-diff-as-html.html)
-``` api-diff --new.host localhost:4100  --old.host localhost:3100 --input_csv addresses.csv --endpoint /v1/search --extra_params size=1 sources=osm,gn,wof --ignored_fields bbox geometry attribution timestamp via parsed_text gid id source_id --output_mode text --color > out.txt```
+```api-diff --new.host localhost:4100  --old.host localhost:3100 --input_csv addresses.csv --endpoint /v1/search --extra_params size=1 sources=osm,gn,wof --ignored_fields bbox geometry attribution timestamp via parsed_text gid id source_id --output_mode text --color > out.txt```
 
 ![start of text diff](https://radarlabs.github.io/api-diff/demos/text-output-2.png)
 ![end of text diff](https://radarlabs.github.io/api-diff/demos/text-output-1.png)
@@ -17,7 +17,7 @@ It also includes a script for talking to json http services with saved configura
 - [full output as text](https://radarlabs.github.io/api-diff/demos/diff.txt) - this is much prettier in a terminal due to escape characters. The header links to a version of this output wrapped in an html viewer for ansi escape codes.
 
 ### [html output](https://radarlabs.github.io/api-diff/demos/diff.html)
-``` api-diff --new.host localhost:4100  --old.host localhost:3100 --input_csv addresses.csv --endpoint /v1/search --extra_params size=1 sources=osm,gn,wof --ignored_fields bbox geometry attribution timestamp via parsed_text gid id source_id --output_mode html > out.html```
+```api-diff --new.host localhost:4100  --old.host localhost:3100 --input_csv addresses.csv --endpoint /v1/search --extra_params size=1 sources=osm,gn,wof --ignored_fields bbox geometry attribution timestamp via parsed_text gid id source_id --output_mode html > out.html```
 
 Note that this is an interactive evaluation form for figuring out which queries improved and which got worse. Each result is assigned an id based on the md5 hash of the query params + delta, and scores are saved to local storage. in your web browser. This means if you're doing a lot of compares, where many of the diffs are the same between runs, you won't need to re-rank them.
 
@@ -27,15 +27,21 @@ Note that this is an interactive evaluation form for figuring out which queries 
 
 ```
  api-diff \
-  --new.host pelias-staging.apicom.com \ # defaults to http, port 80
-  --old.host pelias-prod.apicom.com \
-  --input_csv ~/geocode-acceptance-tests/input/addresses.csv \ # run these queries against our server based on their column headings, could also have used 
-  --input_queries, --input_params or --input_json_baseline
-  --key_map query=text  \ # remap column "query" to cgi parameter "text"
-  --endpoint /v1/search \ # run against /v1/search on our hosts
-  --extra_params size=1 sources=oa,osm \ # extra options to append to every query
-  --ignored_fields bbox geometry attribution timestamp \ # ignore all fields named these things in computing our diff
-  --output_mode html \ # output an interactive html diff. other options are text and json
+  `# defaults to http, port 80` \
+  --new.host localhost:3100 \
+  --old.host localhost:4100 \
+  `# csv input, use headings as query parameter keys` \
+  --input_csv ~/RadarCode/geocode-acceptance-tests/input/addresses.csv \
+  `# remap csv column "query" to query param "text"` \
+  --key_map query=text \
+  `# run against /v1/search on our hosts` \
+  --endpoint /v1/search \
+  `# extra options to append to every query` \
+  --extra_params size=1 sources=oa,osm \
+  `# ignore all fields named these things in computing our diff` \
+  --ignored_fields bbox geometry attribution timestamp \
+  `# output an interactive html diff. other options are text and json` \
+  --output_mode html \
   > diffs.html
 ```
 
