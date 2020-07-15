@@ -11,21 +11,6 @@ import {
 import runQuery from './run-query';
 import config, { API_DIFF_CONFIG_FILE } from './config';
 
-const makeUsageString = (toolName: string) => `This tool has a lot of options, here are some examples:
-
-${toolName} --prod /v1/endpoint param1=X param2=Y 
-    query /v1/endpoint in prod, with the params specified, and look for PROD_API_KEY in the environemnt or .env
-
-${toolName} --prod /v1/endpoint --key YYYY param1=X param2=Y 
-    same thing, but will use the key specified on the commandline
-
-${toolName} --local /v1/endpoint param1=X param2=Y 
-    would run against localhost, looking for LOCAL_API_KEY or reaching into mongo to try to find one
-
-${toolName} --local /v1/endpoint --env=staging param1=X param2=Y 
-    would run against localhost, but look for STAGING_API_KEY
-`;
-
 /**
  * Return parsed commandline arguments
  *
@@ -35,8 +20,6 @@ ${toolName} --local /v1/endpoint --env=staging param1=X param2=Y
 function parseArgv(): any {
   // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires
   const yargs = require('yargs').strict();
-
-  yargs.usage(makeUsageString(process.argv[0]));
 
   _.forEach(globalCommandLineOptions, (val, key) => {
     yargs.option(key, val);
@@ -87,7 +70,7 @@ if (argv._.length === 1 && argv._[0].startsWith('http')) {
 } else {
   apiEnv = argvToApiEnv(argv);
 
-  argv._.slice(1).forEach((datum: string) => {
+  argv._.forEach((datum: string) => {
     if (!datum.includes('=')) {
       console.error(`data argument ${datum} did not have =, exiting`);
       process.exit(1);
