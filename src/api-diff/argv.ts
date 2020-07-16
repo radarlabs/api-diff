@@ -62,6 +62,7 @@ function createYargs(yargs: Argv, envs: string[]) {
 
   yargs.option('extra_params', {
     type: 'array',
+    default: [],
     description:
       'Extra static parameters that will be added to each query, maybe something like limit=2 to make diffs less noisy',
   });
