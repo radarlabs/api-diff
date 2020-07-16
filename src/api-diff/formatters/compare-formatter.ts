@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import * as fs from 'fs';
+import * as stats from 'stats-lite';
 import { Change } from '../change';
 import { ApiEnv } from '../../apiEnv';
 import { ParsedArgs } from '../argv';
@@ -11,15 +12,32 @@ export type FormatterConstructorParams = {
   newApiEnv: ApiEnv;
   argv: FormatterArgv;
   totalQueries: number;
-};
+}
 
 export type PerHostFinishedStats = {
   statusCodes: Record<number, number>,
+  responseTimes: number[];
 }
 
 export type FinishedStats = {
   new?: PerHostFinishedStats,
   old: PerHostFinishedStats
+}
+
+/**
+ * Convert list of response times to a dictionary of stats
+ *
+ * @param {number[]} responseTimes list of response times in milliseconds to analyze
+ * @returns {Record<string, number>} map of stats names to value
+ */
+export function makeResponseTimesHistogram(responseTimes: number[]): Record<string, number> {
+  return {
+    p99: stats.percentile(responseTimes, 0.99),
+    p95: stats.percentile(responseTimes, 0.95),
+    p90: stats.percentile(responseTimes, 0.9),
+    p50: stats.percentile(responseTimes, 0.5),
+    median: stats.median(responseTimes),
+  };
 }
 
 export abstract class CompareFormatter {
