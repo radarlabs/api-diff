@@ -7,8 +7,8 @@ import { failedExit, globalCommandLineOptions } from '../cli-utils';
 export type OutputMode = 'html' | 'text' | 'json';
 
 export type ParsedArgs = {
-  input_params?: string;
-  input_csv?: string;
+  input_params?: string[];
+  input_csv?: string[];
   input_queries?: string;
   endpoint: string;
   extra_params: string[];
@@ -57,7 +57,7 @@ function createYargs(yargs: Argv, envs: string[]) {
 
   yargs.option('input_params', {
     type: 'array',
-    description: 'A file containing url encoded query params, requires --endpoint',
+    description: 'One of more files containing url encoded query params, requires --endpoint',
   });
 
   yargs.option('extra_params', {
@@ -77,6 +77,7 @@ function createYargs(yargs: Argv, envs: string[]) {
   });
 
   yargs.option('input_queries', {
+    type: 'array',
     description: 'One or more files containing endpoints + queries, one per line',
   });
 
