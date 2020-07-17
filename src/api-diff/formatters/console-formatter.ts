@@ -10,13 +10,7 @@ import { CompareFormatter, FinishedStats, makeResponseTimesHistogram } from './c
 import { ApiEnv } from '../../apiEnv';
 
 export default class ConsoleFormatter extends CompareFormatter {
-  numQueriesRun = 0;
-
-  numQueriesChanged = 0;
-
   logChange(change: Change): void {
-    this.numQueriesChanged += 1;
-
     const apiEnvToApiSh = (apiEnv: ApiEnv): string => {
       const commandParts: string[] = [];
 
@@ -51,16 +45,7 @@ export default class ConsoleFormatter extends CompareFormatter {
     (jsondiffpatch.console as any).log(change.delta);
   }
 
-  queryRan(): void {
-    this.numQueriesRun += 1;
-    if (this.numQueriesRun % 10 === 0) {
-      this.writeln(`IN PROGRESS. ${this.numQueriesRun}/${this.totalQueries} run`);
-    }
-  }
-
-  finished(finishedStats: FinishedStats): void {
-    this.writeln(`DONE. ${this.numQueriesChanged}/${this.numQueriesRun} changed`);
-
+  onFinished(finishedStats: FinishedStats): void {
     this.writeln(`Elapsed: ${(Date.now() - this.startDate.getTime()) / 1000} seconds`);
 
     this.writeln('');

@@ -57,6 +57,8 @@ export abstract class CompareFormatter {
 
   numQueriesRun = 0;
 
+  numQueriesChanged = 0;
+
   /** Called when a query has actually changed */
   abstract logChange(change: Change): void;
 
@@ -78,11 +80,25 @@ export abstract class CompareFormatter {
       return;
     }
 
+    if (change.delta) {
+      this.numQueriesChanged += 1;
+    }
+
     this.logChange(change);
   }
 
   /** Called when all queries are finished running */
-  abstract finished(stats: FinishedStats): void;
+  abstract onFinished(finishedStats: FinishedStats): void;
+
+  /**
+   * Called when all queries are finished running
+   *
+   * @param finishedStats
+   */
+  finished(finishedStats: FinishedStats): void {
+    console.error(`DONE. ${this.numQueriesChanged}/${this.numQueriesRun} changed`);
+    this.onFinished(finishedStats);
+  }
 
   /**
    * Helper to deal with output redirection

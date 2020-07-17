@@ -19,15 +19,9 @@ export type JsonChange = {
 
 /** Outputs compare run as json. HTML output is built on top of this format */
 export default class JsonFormatter extends CompareFormatter {
-  numQueriesRun = 0;
-
-  numQueriesChanged = 0;
-
   changes: JsonChange[] = [];
 
   logChange(change: Change): void {
-    this.numQueriesChanged += 1;
-
     this.changes.push({
       id: md5(JSON.stringify({ delta: change.delta, params: change.query.params })),
       query: change.query,
