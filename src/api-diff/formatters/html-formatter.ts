@@ -5,7 +5,7 @@ import { FinishedStats } from './compare-formatter';
 import JsonFormatter from './json-formatter';
 
 export default class HtmlFormatter extends JsonFormatter {
-  finished(finishedStats: FinishedStats): void {
+  onFinished(finishedStats: FinishedStats): void {
     const filePath = path.join(__dirname, 'compare.html');
     const html = fs.readFileSync(filePath).toString();
     this.write(
