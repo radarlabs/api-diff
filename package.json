@@ -1,6 +1,6 @@
 {
   "name": "@blackmad/api-diff",
-  "version": "1.0.15",
+  "version": "1.0.17",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -15,8 +15,7 @@
   },
   "bin": {
     "api-diff": "./dist/api-diff/api-diff.js",
-    "api-tool": "./dist/api-tool.js",
-    "generate-baseline": "./dist/api-diff/generate-baseline.js"
+    "api-tool": "./dist/api-tool.js"
   },
   "repository": {
     "type": "git",
