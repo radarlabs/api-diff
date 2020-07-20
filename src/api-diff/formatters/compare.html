@@ -357,7 +357,7 @@
         <div class="card-text">
           <div class="card request-card">
             <div class="card-header">
-              Change {{index}}/{{total}} -
+              <a name="{{id}}">Change {{index}}/{{total}}</a> -
               <a class="btn btn-outline-primary" href="{{oldUrl}}">old: {{oldHost}}</a> -
               <a class="btn btn-outline-primary" href="{{newUrl}}">new: {{newHost}}</a>
             </div>
@@ -393,7 +393,7 @@
                 <h5 class="card-title">{{key}}</h5>
                 <ul class="list-group">
                   {{#each values as |value|}}
-                  <li class="list-group-item">{{value}}</li>
+                  <li class="list-group-item"><a href="#{{value.id}}">{{value.params}}</a></li>
                   {{/each}}
                 </ul>
               </div>
@@ -409,7 +409,7 @@
       let json = {};
 
       // Function to download data to a file
-      function download({data, filename, type}) {
+      function download({ data, filename, type }) {
         var file = new Blob([data], { type: type });
         if (window.navigator.msSaveOrOpenBlob)
           // IE10+
@@ -458,7 +458,9 @@
         };
         document
           .querySelectorAll(".change")
-          .forEach((node) => summarySections[node.dataset.quality].push(node.dataset.params));
+          .forEach((node) =>
+            summarySections[node.dataset.quality].push({ params: node.dataset.params, id: node.dataset.id })
+          );
 
         const summaryTemplate = document.getElementById("summary-template").innerHTML;
         const renderSummaryTemplate = Handlebars.compile(summaryTemplate);
@@ -497,6 +499,7 @@
         var template = document.getElementById("change-template").innerHTML;
         var renderChangeTemplate = Handlebars.compile(template);
         changes.forEach((change, index) => {
+          console.log(change);
           const changeNode = createElementFromHTML(
             renderChangeTemplate({
               index: index + 1,
@@ -506,6 +509,7 @@
               newUrl: change.new.url,
               oldHost: json.old.apiEnv.host,
               newHost: json.new.apiEnv.host,
+              id: change.id,
             })
           );
 
@@ -530,8 +534,10 @@
           }
 
           change.eval = change.eval || {};
-          change.eval.quality = change.eval.quality || localStorage.getItem(change.id) || "unscored";
+          change.eval.quality =
+            change.eval.quality || localStorage.getItem(change.id) || "unscored";
           changeNode.dataset.quality = change.eval.quality;
+          changeNode.dataset.id = change.id;
           changeNode.dataset.params = JSON.stringify(change.query.params, null, 2);
 
           changeNode
@@ -555,7 +561,7 @@
           download({
             data: JSON.stringify(json, null, 2),
             filename: `ranked-diff-${new Date().toISOString()}.json`,
-            type: 'application/json'
+            type: "application/json",
           });
         });
 
