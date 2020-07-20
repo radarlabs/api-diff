@@ -1,0 +1,20 @@
+<script src="https://cdn.jsdelivr.net/npm/ansi_up@4.0.4/ansi_up.min.js"></script>
+
+<pre>
+<div id="console">
+</pre>
+
+    <script type="text/javascript">
+
+    fetch('diff.txt').then(async (response) => {
+      var ansi_up = new AnsiUp;
+
+      const text = await response.text();
+      var html = ansi_up.ansi_to_html(text);
+
+      var cdiv = document.getElementById("console");
+
+      cdiv.innerHTML = html;
+    })
+
+    </script>
