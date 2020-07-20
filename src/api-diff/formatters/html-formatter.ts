@@ -9,7 +9,7 @@ export default class HtmlFormatter extends JsonFormatter {
     const filePath = path.join(__dirname, 'compare.html');
     const html = fs.readFileSync(filePath).toString();
     this.write(
-      html.replace('JSON_GO_HERE', JSON.stringify(this.finishedDict(finishedStats), null, 2)),
+      html.replace('let json = {};', `let json = ${JSON.stringify(this.finishedDict(finishedStats), null, 2)};`),
     );
   }
 }
