@@ -1,6 +1,6 @@
 {
   "name": "@blackmad/api-diff",
-  "version": "1.0.17",
+  "version": "1.0.19",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "api-tool": "./node_modules/.bin/ts-node src/api-tool.ts",
     "generate-baseline": "./node_modules/.bin/ts-node src/api-diff/generate-baseline.ts",
     "build": "tsc && cp src/api-diff/formatters/*html dist/api-diff/formatters/ ",
-    "prepare": "yarn build"
+    "prepare": "git clean -fdx && yarn install && yarn build"
   },
   "bin": {
     "api-diff": "./dist/api-diff/api-diff.js",
