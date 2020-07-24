@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable camelcase */
 
-import * as queryString from 'query-string';
+import * as queryString from 'querystring';
 import * as fs from 'fs';
 import * as _ from 'lodash';
 import * as chalk from 'chalk';

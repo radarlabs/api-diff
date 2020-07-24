@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import * as _ from 'lodash';
-import * as queryString from 'query-string';
+import * as queryString from 'querystring';
 import * as chalk from 'chalk';
 import { failedExit, globalCommandLineOptions } from './cli-utils';
 import {
