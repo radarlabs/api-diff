@@ -16,7 +16,10 @@ import getFormatter from './formatters/get-formatter';
 import QueryReader from './query-reader';
 import { Query } from './query';
 
-type CompareArgs = Pick<ParsedArgs, 'concurrency' | 'ignored_fields' | 'extra_params' | 'timeout'>;
+type CompareArgs = Pick<
+  ParsedArgs,
+  'concurrency' | 'ignored_fields' | 'extra_params' | 'timeout' | 'retries'
+>;
 
 /**
  * Compare one query against two ApiEnvs, returning a Change object
@@ -42,8 +45,10 @@ async function compareQuery({
   // otherwise run it against the old server
   const oldResponse = query.baselineResponse
     ? ({ data: query.baselineResponse } as AxiosResponse<unknown>)
-    : await runQuery(oldApiEnv, query, argv.timeout);
-  const newResponse = newApiEnv ? await runQuery(newApiEnv, query, argv.timeout) : undefined;
+    : await runQuery(oldApiEnv, query, { timeout: argv.timeout, retries: argv.retries });
+  const newResponse = newApiEnv
+    ? await runQuery(newApiEnv, query, { timeout: argv.timeout, retries: argv.retries })
+    : undefined;
 
   const differ = jsondiffpatch.create({
     propertyFilter(name) {

@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
-/* eslint-disable no-param-reassign */
 import axios, { Method, AxiosResponse, AxiosRequestConfig } from 'axios';
+import axiosRetry from 'axios-retry';
+
 import { ApiEnv } from './apiEnv';
 import { Query } from './api-diff/query';
 import config from './config';
@@ -18,6 +19,7 @@ export type AxiosResponseWithDuration =
 
 // Response time middleware. Tracks the duration of the axios request/response
 axios.interceptors.request.use((axiosConfig: AxiosRequestConfig & WithAxiosMetadata) => {
+  // eslint-disable-next-line no-param-reassign
   axiosConfig.metadata = { startTime: Date.now() };
   return axiosConfig;
 });
@@ -26,43 +28,31 @@ axios.interceptors.response.use((response: AxiosResponseWithDuration) => {
   return response;
 });
 
+type RunQueryOptions = {
+  /** Request timeout in milliseconds */
+  timeout: number,
+  retries: number,
+}
+
 /**
  * Run one query against specified apiEnv
  *
  * @param {ApiEnv} apiEnv apiEnv to run against
  * @param {Query} query query to run
- * @param {number} timeout request timeout in milliseconds
+ * @param {RunQueryOptions} options options for runquery
  * @returns {Promise<AxiosResponse>} server response
  */
 export default async function runQuery(
   apiEnv: ApiEnv,
   query: Query,
-  timeout?: number,
+  options: RunQueryOptions,
 ): Promise<AxiosResponse> {
-  const { params, method } = query;
-  let { endpoint } = query;
+  const { params, method, endpoint } = query;
+  const { timeout, retries } = options;
 
-  // v1/xxxx ... maybe someone was lazy and didn't start with an opening slash
-  if (endpoint[0] !== '/' && !endpoint.startsWith('http:')) {
-    endpoint = `/${endpoint}`;
-  }
+  axiosRetry(axios, { retries });
 
-  // someone was lazy and didn't specify /v1
-  if (!endpoint.startsWith('/v1')) {
-    endpoint = `/v1${endpoint}`;
-  }
-
-  let url = '';
-
-  // /xxx/api.... so we need to add host
-  if (endpoint[0] === '/') {
-    url = apiEnv.host + endpoint;
-  }
-
-  // don't yet have a protocol in the url
-  if (!url.startsWith('http:')) {
-    url = `${apiEnv.protocol}://${url}`;
-  }
+  const url = `${apiEnv.protocol}://${apiEnv.host}${endpoint}`;
 
   // logger.info(`Fetching ${url}`);
 

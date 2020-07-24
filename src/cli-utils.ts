@@ -22,4 +22,9 @@ export const globalCommandLineOptions: Record<string, yargs.Options> = {
     description: 'request timeout in milliseconds',
     default: 30000,
   },
+  retries: {
+    type: 'number',
+    description: 'how many time to retry on http errors. set to 0 for none',
+    default: 2,
+  },
 };

@@ -56,13 +56,14 @@ if (argv._.length === 1 && argv._[0].startsWith('http')) {
   if (!apiEnv.keyEnv) {
     const hostEntry = _.find(config.hosts, (v) => v.host === url.host);
     if (!hostEntry) {
-      failedExit(`Could not find entry for host ${url.host} in ${API_DIFF_CONFIG_FILE} please check your configuration`);
+      failedExit(
+        `Could not find entry for host ${url.host} in ${API_DIFF_CONFIG_FILE} please check your configuration`,
+      );
     }
     apiEnv.keyEnv = hostEntry.keyEnv;
   }
 
-  apiEnv.key = apiEnv.key
-  || findApiKey({ keyEnv: apiEnv.keyEnv, keyType: apiEnv.keyType });
+  apiEnv.key = apiEnv.key || findApiKey({ keyEnv: apiEnv.keyEnv, keyType: apiEnv.keyType });
 
   endpoint = url.pathname;
   params = queryString.parse(url.search) as Record<string, string>;
@@ -85,7 +86,13 @@ if (!endpoint) {
   failedExit('no --endpoint specified and argument was not a full http url with endpoint, exiting');
 }
 
-runQuery(apiEnv, {
-  params, method: argv.method, endpoint,
-// eslint-disable-next-line no-console
-}, argv.timeout).then(({ data }) => console.dir(data, { depth: null, colors: chalk.level > 0 }));
+runQuery(
+  apiEnv,
+  {
+    params,
+    method: argv.method,
+    endpoint,
+    // eslint-disable-next-line no-console
+  },
+  { timeout: argv.timeout, retries: argv.retries },
+).then(({ data }) => console.dir(data, { depth: null, colors: chalk.level > 0 }));
