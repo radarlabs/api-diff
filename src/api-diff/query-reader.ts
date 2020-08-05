@@ -4,14 +4,24 @@
 import * as queryString from 'querystring';
 import * as fs from 'fs';
 import * as _ from 'lodash';
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 import parseCsvSync from 'csv-parse/lib/sync';
 import { failedExit } from '../cli-utils';
 import { ParsedArgs } from './argv';
 import { JsonChange } from './formatters/json-formatter';
 import { Query } from './query';
 
-type QueryReaderArgs = Pick<ParsedArgs, 'method' | 'input_json_baseline' | 'input_queries' | 'endpoint' | 'input_params' | 'input_csv' | 'key_map' | 'extra_params'>
+type QueryReaderArgs = Pick<
+  ParsedArgs,
+  | 'method'
+  | 'input_json_baseline'
+  | 'input_queries'
+  | 'endpoint'
+  | 'input_params'
+  | 'input_csv'
+  | 'key_map'
+  | 'extra_params'
+>;
 
 /**
  * Core query reader logic. Parses argv for input files, and transforms them into Query objects.
@@ -45,23 +55,25 @@ function readQueriesHelper(argv: QueryReaderArgs): Query[] {
   }
 
   if (argv.input_json_baseline) {
-    return _.flatMap(argv.input_json_baseline, ((file) => {
+    return _.flatMap(argv.input_json_baseline, (file) => {
       const contents = fs.readFileSync(file).toString();
       const json = JSON.parse(contents);
-      return json.changes.map((change: JsonChange): Query => ({
-        ...change.query,
-        baselineResponse: change.old.response,
-      }));
-    }));
-  } if (argv.endpoint && argv.input_params) {
+      return json.changes.map(
+        (change: JsonChange): Query => ({
+          ...change.query,
+          baselineResponse: change.old.response,
+        }),
+      );
+    });
+  }
+  if (argv.endpoint && argv.input_params) {
     const { endpoint } = argv;
     return _.flatMap(argv.input_params, (input_param_file: string) => fs
       .readFileSync(input_param_file)
       .toString()
       .split('\n')
       .filter((line) => !!line)
-      .map((line) => `${endpoint}?${line}`))
-      .map(lineToQuery);
+      .map((line) => `${endpoint}?${line}`)).map(lineToQuery);
   }
   if (argv.endpoint && argv.input_csv) {
     const { endpoint } = argv;
@@ -118,8 +130,7 @@ function readQueriesHelper(argv: QueryReaderArgs): Query[] {
       .readFileSync(input_queries_file)
       .toString()
       .split('\n')
-      .filter((line) => !!line))
-      .map(lineToQuery);
+      .filter((line) => !!line)).map(lineToQuery);
   }
 
   return [];

@@ -353,7 +353,7 @@
     </template>
 
     <template id="change-template">
-      <div class="change card">
+      <div class="change card" id="{{id}}">
         <div class="card-text">
           <div class="card request-card">
             <div class="card-header">
@@ -517,6 +517,10 @@
             ".delta-visual"
           ).innerHTML = jsondiffpatch.formatters.html.format(change.delta, change.old.response);
 
+          changeNode.addEventListener('click', () => {
+            selectedDiffIndex = index;
+          })
+
           changeList.append(changeNode);
 
           function scoreResult(score) {
@@ -577,13 +581,42 @@
           };
           reader.readAsText(event.target.files[0]);
         });
+
+        document.addEventListener('keypress', (e) => {
+          if (e.key === 'j') {
+            gotoDiff(+1);
+          }
+          if (e.key === 'k') {
+            gotoDiff(-1);
+          }
+        })
+      }
+
+      function gotoDiff(delta) {
+        const changes = json.changes || [];
+        if (selectedDiffIndex === 0 && delta === -1) {
+          selectedDiffIndex = json.changes.length - 1;
+        }
+        else if (selectedDiffIndex === json.changes.length - 1 && delta === 1) {
+          selectedDiffIndex = 0
+        } else {
+          selectedDiffIndex += delta;
+        }
+
+        const newChange = changes[selectedDiffIndex];
+        const newChangeId = newChange.id;
+        document.getElementById(newChangeId).scrollIntoView();
       }
 
       function rerender() {
+        selectedDiffIndex = 0;
+
         renderHeader();
         renderChanges();
         renderScoreboardAndSummary();
       }
+
+      let selectedDiffIndex = 0;
 
       attachListeners();
       rerender();
