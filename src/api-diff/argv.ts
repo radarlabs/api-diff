@@ -14,6 +14,7 @@ export type ParsedArgs = {
   extra_params: string[];
   method: string;
   ignored_fields: string[];
+  response_filter: string;
   concurrency: number;
   unchanged: boolean;
   key_map: string[];
@@ -93,6 +94,12 @@ function createYargs(yargs: Argv, envs: string[]) {
     default: [],
     description:
       'field names to ignore when diffing responses. geometry latitude longitude are common for geocode compare runs',
+  });
+
+  yargs.option('response_filter', {
+    type: 'string',
+    description:
+      'run the responses through this filter (specified in jsonpath format - https://www.npmjs.com/package/jsonpath) before diffing',
   });
 
   yargs.option('concurrency', {

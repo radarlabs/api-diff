@@ -16,6 +16,10 @@
     />
 
     <style>
+      .scoreboard a {
+        color: unset;
+      }
+
       .buttons {
         position: sticky;
         bottom: 0;
@@ -334,19 +338,19 @@
     <template id="scoreboard-template">
       <table class="scoreboard">
         <tr class="better">
-          <td>Better</td>
+          <td><a href="#summary-better">Better</a></td>
           <td>{{better}}</td>
         </tr>
         <tr class="worse">
-          <td>Worse</td>
+          <td><a href="#summary-worse">Worse</a></td>
           <td>{{worse}}</td>
         </tr>
         <tr class="neutral">
-          <td>Neutral</td>
+          <td><a href="#summary-neutral">Neutral</a></td>
           <td>{{neutral}}</td>
         </tr>
         <tr class="unscored">
-          <td>Unscored</td>
+          <td><a href="#summary-unscored">Unscored</a></td>
           <td>{{unscored}}</td>
         </tr>
       </table>
@@ -390,7 +394,7 @@
             {{#each summary as |values key|}}
             <div class="card {{key}}">
               <div class="card-body">
-                <h5 class="card-title">{{key}}</h5>
+                <h5 class="card-title" id="summary-{{key}}">{{key}}</h5>
                 <ul class="list-group">
                   {{#each values as |value|}}
                   <li class="list-group-item"><a href="#{{value.id}}">{{value.params}}</a></li>
@@ -459,7 +463,10 @@
         document
           .querySelectorAll(".change")
           .forEach((node) =>
-            summarySections[node.dataset.quality].push({ params: node.dataset.params, id: node.dataset.id })
+            summarySections[node.dataset.quality].push({
+              params: node.dataset.params,
+              id: node.dataset.id,
+            })
           );
 
         const summaryTemplate = document.getElementById("summary-template").innerHTML;
@@ -491,6 +498,21 @@
         return div.firstChild;
       }
 
+      function scoreResult(change, score) {
+        // update the result in memory for when we write it out
+        change.eval.quality = score;
+
+        // update the html node on screen
+        const changeNode = document.getElementById(change.id);
+        changeNode.dataset.quality = score;
+
+        // save our score for future diffs with the same id
+        localStorage.setItem(change.id, score);
+
+        // rerender everything
+        renderScoreboardAndSummary();
+      }
+
       function renderChanges() {
         const changes = json.changes || [];
 
@@ -517,25 +539,11 @@
             ".delta-visual"
           ).innerHTML = jsondiffpatch.formatters.html.format(change.delta, change.old.response);
 
-          changeNode.addEventListener('click', () => {
+          changeNode.addEventListener("click", () => {
             selectedDiffIndex = index;
-          })
+          });
 
           changeList.append(changeNode);
-
-          function scoreResult(score) {
-            // update the result in memory for when we write it out
-            change.eval.quality = score;
-
-            // update the html node on screen
-            changeNode.dataset.quality = score;
-
-            // save our score for future diffs with the same id
-            localStorage.setItem(change.id, score);
-
-            // rerender everything
-            renderScoreboardAndSummary();
-          }
 
           change.eval = change.eval || {};
           change.eval.quality =
@@ -546,11 +554,13 @@
 
           changeNode
             .querySelector(".better")
-            .addEventListener("click", () => scoreResult("better"));
-          changeNode.querySelector(".worse").addEventListener("click", () => scoreResult("worse"));
+            .addEventListener("click", () => scoreResult(change, "better"));
+          changeNode
+            .querySelector(".worse")
+            .addEventListener("click", () => scoreResult(change, "worse"));
           changeNode
             .querySelector(".neutral")
-            .addEventListener("click", () => scoreResult("neutral"));
+            .addEventListener("click", () => scoreResult(change, "neutral"));
         });
       }
 
@@ -582,23 +592,38 @@
           reader.readAsText(event.target.files[0]);
         });
 
-        document.addEventListener('keypress', (e) => {
-          if (e.key === 'j') {
+        document.addEventListener("keypress", (e) => {
+          if (e.key === "j") {
             gotoDiff(+1);
           }
-          if (e.key === 'k') {
+          if (e.key === "k") {
             gotoDiff(-1);
           }
-        })
+
+          const changes = json.changes || [];
+          const currentChange = changes[selectedDiffIndex];
+
+          if (e.key === "-") {
+            scoreResult(currentChange, "worse");
+            gotoDiff(+1);
+          }
+          if (e.key === "=") {
+            scoreResult(currentChange, "better");
+            gotoDiff(+1);
+          }
+          if (e.key === "n") {
+            scoreResult(currentChange, "neutral");
+            gotoDiff(+1);
+          }
+        });
       }
 
       function gotoDiff(delta) {
         const changes = json.changes || [];
         if (selectedDiffIndex === 0 && delta === -1) {
           selectedDiffIndex = json.changes.length - 1;
-        }
-        else if (selectedDiffIndex === json.changes.length - 1 && delta === 1) {
-          selectedDiffIndex = 0
+        } else if (selectedDiffIndex === json.changes.length - 1 && delta === 1) {
+          selectedDiffIndex = 0;
         } else {
           selectedDiffIndex += delta;
         }

@@ -1,10 +1,10 @@
-#!/usr/bin/env node
+/* eslint-disable no-console */
 
-/* eslint-disable camelcase */
 import * as Bluebird from 'bluebird';
-
 import * as jsondiffpatch from 'jsondiffpatch';
 import { AxiosResponse } from 'axios';
+import jp from 'jsonpath';
+
 import { ApiEnv, argvToApiEnv } from '../apiEnv';
 import runQuery, { AxiosResponseWithDuration } from '../run-query';
 import { Change } from './change';
@@ -18,7 +18,7 @@ import { Query } from './query';
 
 type CompareArgs = Pick<
   ParsedArgs,
-  'concurrency' | 'ignored_fields' | 'extra_params' | 'timeout' | 'retries'
+  'concurrency' | 'ignored_fields' | 'extra_params' | 'timeout' | 'retries' | 'response_filter'
 >;
 
 /**
@@ -45,10 +45,26 @@ async function compareQuery({
   // otherwise run it against the old server
   const oldResponse = query.baselineResponse
     ? ({ data: query.baselineResponse } as AxiosResponse<unknown>)
-    : await runQuery(oldApiEnv, query, { timeout: argv.timeout, retries: argv.retries });
+    : await runQuery(oldApiEnv, query, { timeout: argv.timeout, retries: argv.retries }).catch(
+      (e) => {
+        console.error(e);
+        throw e;
+      },
+    );
+
   const newResponse = newApiEnv
-    ? await runQuery(newApiEnv, query, { timeout: argv.timeout, retries: argv.retries })
+    ? await runQuery(newApiEnv, query, { timeout: argv.timeout, retries: argv.retries }).catch(
+      (e) => {
+        console.error(e);
+        throw e;
+      },
+    )
     : undefined;
+
+  if (argv.response_filter) {
+    oldResponse.data = jp.query(oldResponse.data, argv.response_filter);
+    newResponse.data = jp.query(newResponse.data, argv.response_filter);
+  }
 
   const differ = jsondiffpatch.create({
     propertyFilter(name) {
@@ -103,6 +119,9 @@ async function compareQueries({
         newApiEnv,
         query,
         argv,
+      }).catch((e) => {
+        console.error(e);
+        throw e;
       });
 
       formatter.queryCompleted(change);
