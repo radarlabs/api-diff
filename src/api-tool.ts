@@ -61,6 +61,7 @@ if (argv._.length === 1 && argv._[0].startsWith('http')) {
       );
     }
     apiEnv.keyEnv = hostEntry.keyEnv;
+    apiEnv.keyType = hostEntry.keyType || _.first(config.keyTypes);
   }
 
   apiEnv.key = apiEnv.key || findApiKey({ keyEnv: apiEnv.keyEnv, keyType: apiEnv.keyType });
