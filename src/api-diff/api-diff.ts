@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /* eslint-disable no-console */
 
 import * as Bluebird from 'bluebird';
@@ -161,14 +162,14 @@ async function compareQueries({
 function main(): Promise<void> {
   const argv = parseArgv() as ParsedArgs;
 
-  const oldApiEnv = argvToApiEnv(argv[OLD_KEY]);
+  const oldApiEnv = argvToApiEnv(argv[OLD_KEY], true);
   const queries = QueryReader(argv);
 
   const inGenerateBaselineMode = argv._.includes('generate-baseline');
   let newApiEnv: ApiEnv;
 
   if (!inGenerateBaselineMode) {
-    newApiEnv = argvToApiEnv(argv[NEW_KEY]);
+    newApiEnv = argvToApiEnv(argv[NEW_KEY], true);
   } else {
     argv.output_mode = 'json';
     argv.unchanged = true;

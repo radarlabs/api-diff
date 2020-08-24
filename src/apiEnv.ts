@@ -82,9 +82,13 @@ export function getApiEnvCommandLineOptions(): YargsOptionMapping {
  *
  * @param {string} keyEnv - the key environment, like "prod" or "staging"
  * @param {string} keyType - the key type, like "live" or "test" (optional)
+ * @param {boolean} exitOnFailure - whether or not to exit on failure to find key
  * @returns {string} found api key, exits if not found
  */
-export function findApiKey({ keyEnv, keyType }: Pick<ApiEnv, 'keyEnv' | 'keyType'>): string {
+export function findApiKey(
+  { keyEnv, keyType }: Pick<ApiEnv, 'keyEnv' | 'keyType'>,
+  exitOnFailure?: boolean,
+): string {
   const envVariableName = [config.name, keyEnv, keyType, 'KEY']
     .filter((s) => !_.isEmpty(s))
     .join('_')
@@ -92,7 +96,7 @@ export function findApiKey({ keyEnv, keyType }: Pick<ApiEnv, 'keyEnv' | 'keyType
   // eslint-disable-next-line no-console
   console.error(`Looking for key in env ${envVariableName}`);
   const key = process.env[envVariableName];
-  if (!key) {
+  if (!key && exitOnFailure) {
     failedExit(`No key found for ${envVariableName} in .env and --key not specified`);
   }
   return key;
@@ -103,9 +107,13 @@ export function findApiKey({ keyEnv, keyType }: Pick<ApiEnv, 'keyEnv' | 'keyType
  * Fills in missing information from defaults and config where necessary.
  *
  * @param {Partial<ApiEnv> | undefined} argv assume a partial apienv from commandline args
+ * @param exitOnFailure
  * @returns {ApiEnv} filled in ApiEnv
  */
-export function argvToApiEnv(argv: Partial<ApiEnv> | undefined): ApiEnv {
+export function argvToApiEnv(
+  argv: Partial<ApiEnv> | undefined,
+  exitOnFailure?: boolean,
+): ApiEnv {
   let apiEnv: Partial<ApiEnv> = _.clone(argv) || {};
 
   let aliasedHostEntry: ConfigHostEntry;
@@ -154,13 +162,13 @@ export function argvToApiEnv(argv: Partial<ApiEnv> | undefined): ApiEnv {
 
   apiEnv.protocol = apiEnv?.protocol || 'http';
 
-  if (!apiEnv.host) {
+  if (!apiEnv.host && exitOnFailure) {
     failedExit(`Could not find host via arguments specified ${JSON.stringify(argv || {}, null, 2)}`);
   }
 
   if (config.authStyle) {
     apiEnv.key = apiEnv.key
-      || findApiKey({ keyEnv: apiEnv.keyEnv, keyType: apiEnv.keyType });
+      || findApiKey({ keyEnv: apiEnv.keyEnv, keyType: apiEnv.keyType }, exitOnFailure);
   }
 
   return apiEnv as ApiEnv;

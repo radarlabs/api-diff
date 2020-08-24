@@ -1,6 +1,9 @@
 /* eslint-disable no-console */
-import axios, { Method, AxiosResponse, AxiosRequestConfig } from 'axios';
+import axios, {
+  Method, AxiosResponse, AxiosRequestConfig, AxiosError,
+} from 'axios';
 import axiosRetry from 'axios-retry';
+import querystring from 'querystring';
 
 import { ApiEnv } from './apiEnv';
 import { Query } from './api-diff/query';
@@ -83,17 +86,33 @@ export default async function runQuery(
       return error.response;
     }
     if (error.request) {
-      // TODO(blackmad): maybe shouldn't throw?
-      // The request was made but no response was received
-      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-      // http.ClientRequest in node.js
-      console.error(error.toJSON());
-      throw error;
-    } else {
-      // TODO(blackmad): maybe shouldn't throw?
-      // Something happened in setting up the request that triggered an Error
-      console.error('Error', error.message);
-      throw error;
+      const axiosError = error as AxiosError<any>;
+      console.error(`Error ${axiosError.code} on ${url}?${querystring.stringify(params)}`);
+
+      // likely a timeout, don't throw, keep soldiering on
+      return {
+        config: axiosError.config,
+        status: 5000,
+        statusText: 'NOTOK',
+        headers: axiosError.config.headers,
+        request: {
+          ...axiosError.request,
+          res: {
+            ...axiosError.request?.res,
+            responseUrl: url,
+          },
+        },
+        data: {
+          syntheticAxiosError: {
+            message: error.message,
+            code: error.code,
+          },
+        },
+      };
     }
+    // TODO(blackmad): maybe shouldn't throw?
+    // Something happened in setting up the request that triggered an Error
+    console.error('Error', error.message);
+    throw error;
   }
 }
