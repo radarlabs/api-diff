@@ -40,6 +40,8 @@ api-diff \
   --extra_params size=1 sources=oa,osm \
   `# ignore all fields named these things in computing our diff` \
   --ignored_fields bbox geometry attribution timestamp \
+  `# filter down responses to the first entry in the "addresses" array \
+  --response_filter '$.addresses[0]' \
   `# output an interactive html diff. other options are text and json` \
   --output_mode html \
   --output_file diffs.html
