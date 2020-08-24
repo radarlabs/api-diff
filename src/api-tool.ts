@@ -67,7 +67,7 @@ if (argv._.length === 1 && argv._[0].startsWith('http')) {
   apiEnv.key = apiEnv.key || findApiKey({ keyEnv: apiEnv.keyEnv, keyType: apiEnv.keyType });
 
   endpoint = url.pathname;
-  params = queryString.parse(url.search) as Record<string, string>;
+  params = queryString.parse(url.search.substring(1)) as Record<string, string>;
 } else {
   apiEnv = argvToApiEnv(argv);
 
