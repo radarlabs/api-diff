@@ -56,7 +56,6 @@ let params: Record<string, string> = {};
 
 let { endpoint } = argv;
 
-console.log(argv);
 if (_.last(argv._)?.toString().startsWith('http')) {
   // The user specified a full url, they probably just want to run it with the
   // right api key. So infer all the params from the passed url
@@ -76,12 +75,9 @@ if (_.last(argv._)?.toString().startsWith('http')) {
     }
     apiEnv.keyEnv = hostEntry.keyEnv;
     apiEnv.keyType = hostEntry.keyType || _.first(config.keyTypes);
-    console.log('2', apiEnv);
   }
 
   apiEnv.key = apiEnv.key || findApiKey({ keyEnv: apiEnv.keyEnv, keyType: apiEnv.keyType });
-
-  console.log('3', apiEnv);
 
   endpoint = url.pathname;
   params = queryString.parse(url.search.substring(1)) as Record<string, string>;
