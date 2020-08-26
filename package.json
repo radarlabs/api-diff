@@ -1,6 +1,6 @@
 {
   "name": "@blackmad/api-diff",
-  "version": "1.0.28",
+  "version": "1.0.29",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -28,10 +28,12 @@
   },
   "homepage": "https://github.com/radarlabs/api-diff#readme",
   "dependencies": {
+    "@types/cli-progress": "^3.8.0",
     "axios": "^0.19.2",
     "axios-retry": "^3.1.8",
     "bluebird": "^3.7.2",
     "chalk": "^4.1.0",
+    "cli-progress": "^3.8.2",
     "csv-parse": "^4.11.1",
     "csv-stringify": "^5.5.0",
     "dotenv": "^8.2.0",

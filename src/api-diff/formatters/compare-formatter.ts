@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 import * as fs from 'fs';
 import * as stats from 'stats-lite';
+import CliProgress from 'cli-progress';
+
 import { Change } from '../change';
 import { ApiEnv } from '../../apiEnv';
 import { ParsedArgs } from '../argv';
@@ -12,17 +14,17 @@ export type FormatterConstructorParams = {
   newApiEnv: ApiEnv;
   argv: FormatterArgv;
   totalQueries: number;
-}
+};
 
 export type PerHostFinishedStats = {
-  statusCodes: Record<number, number>,
+  statusCodes: Record<number, number>;
   responseTimes: number[];
-}
+};
 
 export type FinishedStats = {
-  new?: PerHostFinishedStats,
-  old: PerHostFinishedStats
-}
+  new?: PerHostFinishedStats;
+  old: PerHostFinishedStats;
+};
 
 /**
  * Convert list of response times to a dictionary of stats
@@ -59,6 +61,9 @@ export abstract class CompareFormatter {
 
   numQueriesChanged = 0;
 
+  /** cli output */
+  progressBar: CliProgress.SingleBar;
+
   /** Called when a query has actually changed */
   abstract logChange(change: Change): void;
 
@@ -72,9 +77,10 @@ export abstract class CompareFormatter {
    */
   queryCompleted(change: Change): void {
     this.numQueriesRun += 1;
-    if (this.numQueriesRun % 10 === 0) {
-      console.error(`IN PROGRESS. ${this.numQueriesRun}/${this.totalQueries} run`);
-    }
+
+    this.progressBar.update(this.numQueriesRun, {
+      numChanged: this.numQueriesChanged,
+    });
 
     if (!change.delta && !this.showUnchanged) {
       return;
@@ -130,6 +136,15 @@ export abstract class CompareFormatter {
     this.totalQueries = totalQueries;
     this.startDate = new Date();
     this.showUnchanged = argv.unchanged;
+
+    this.progressBar = new CliProgress.SingleBar({
+      etaBuffer: 250,
+      format:
+        'progress [{bar}] {percentage}% | ETA: {eta}s | {value}/{total} | {numChanged} changed',
+    });
+    this.progressBar.start(totalQueries, 0, {
+      numChanged: 0,
+    });
 
     const outputFilename = argv.output_file;
     if (outputFilename && outputFilename !== '-') {
