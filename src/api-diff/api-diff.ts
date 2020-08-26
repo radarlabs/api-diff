@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* eslint-disable no-console */
 
-import * as Bluebird from 'bluebird';
+import Bluebird from 'bluebird';
 import * as jsondiffpatch from 'jsondiffpatch';
 import { AxiosResponse } from 'axios';
 import jp from 'jsonpath';
@@ -112,9 +112,15 @@ async function compareQueries({
   const oldStatusCodes: Record<number, number> = {};
   const newStatusCodes: Record<number, number> = {};
 
-  await Bluebird.map(
+  let isCancelled = false;
+
+  const queriesPromise = Bluebird.map(
     queries,
     async (query: Query) => {
+      if (isCancelled) {
+        return;
+      }
+
       const change = await compareQuery({
         oldApiEnv,
         newApiEnv,
@@ -142,6 +148,16 @@ async function compareQueries({
     },
     { concurrency: argv.concurrency },
   );
+
+  process.on('SIGINT', () => {
+    console.error('Caught interrupt signal, stopping early ...');
+    isCancelled = true;
+  });
+
+  await queriesPromise.catch(() => {
+    console.error('Aborted diff early ... saving result ...');
+  });
+
   formatter.finished({
     old: {
       responseTimes: oldResponseTimes,
@@ -151,7 +167,7 @@ async function compareQueries({
       responseTimes: newResponseTimes,
       statusCodes: newStatusCodes,
     },
-  });
+  }).then(() => process.exit(0));
 }
 
 /** Main logic - parses command line, creates a formatter, runs queries and

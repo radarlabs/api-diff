@@ -45,7 +45,7 @@ export default class ConsoleFormatter extends CompareFormatter {
     (jsondiffpatch.console as any).log(change.delta);
   }
 
-  onFinished(finishedStats: FinishedStats): void {
+  onFinished(finishedStats: FinishedStats): Promise<void> {
     this.writeln(`Elapsed: ${(Date.now() - this.startDate.getTime()) / 1000} seconds`);
 
     this.writeln('');
@@ -78,5 +78,7 @@ export default class ConsoleFormatter extends CompareFormatter {
     });
 
     this.writeln(table(statusCodesTable));
+
+    return Promise.resolve();
   }
 }

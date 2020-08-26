@@ -94,16 +94,17 @@ export abstract class CompareFormatter {
   }
 
   /** Called when all queries are finished running */
-  abstract onFinished(finishedStats: FinishedStats): void;
+  abstract onFinished(finishedStats: FinishedStats): Promise<void>;
 
   /**
    * Called when all queries are finished running
    *
    * @param finishedStats
+   * @returns {Promise<void>} fulfilled on output finished
    */
-  finished(finishedStats: FinishedStats): void {
+  finished(finishedStats: FinishedStats): Promise<void> {
     console.error(`DONE. ${this.numQueriesChanged}/${this.numQueriesRun} changed`);
-    this.onFinished(finishedStats);
+    return this.onFinished(finishedStats);
   }
 
   /**
@@ -119,13 +120,16 @@ export abstract class CompareFormatter {
    * Helper to deal with output redirection
    *
    * @param {string} s string to output
+   * @returns {Promise<void>} promise on finished
    */
-  write(s: string): void {
-    if (this.outputStream) {
-      this.outputStream.write(s);
-    } else {
-      process.stdout.write(s);
-    }
+  write(s: string): Promise<void> {
+    const stream = this.outputStream || process.stdout;
+    return new Promise((resolve, reject) => {
+      stream.write(s);
+      stream.end();
+      stream.on('finish', () => { resolve(); });
+      stream.on('error', reject);
+    });
   }
 
   constructor({
