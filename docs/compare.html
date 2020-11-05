@@ -312,6 +312,10 @@
         padding: 2rem !important;
       }
 
+      .on-no-data {
+        display: none;
+      }
+
       .no-data .on-loaded-data {
         display: none;
       }
@@ -323,6 +327,9 @@
   </head>
 
   <body id="body">
+    <div class="on-no-data on-loaded-data jumbotron">
+      <h1>Loading ...</h1>
+    </div>
     <div class="on-no-data jumbotron">
       <h1>No Data</h1>
       <p>Load data from saved api-diff json to continue</p>
