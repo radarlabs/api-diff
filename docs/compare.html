@@ -8,6 +8,7 @@
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.19/lodash.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/1.25.0/luxon.min.js" integrity="sha512-OyrI249ZRX2hY/1CAD+edQR90flhuXqYqjNYFJAiflsKsMxpUYg5kbDDAVA8Vp0HMlPG/aAl1tFASi1h4eRoQw==" crossorigin="anonymous"></script>
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -16,8 +17,17 @@
     />
 
     <style>
+      #body {
+        background-color: #e9ecef;
+      }
+
       .scoreboard a {
         color: unset;
+      }
+
+      .scoreboard .count {
+        text-align: right;
+        padding-right: 10px !important;
       }
 
       .buttons {
@@ -35,6 +45,10 @@
         padding: 10px;
         margin: 10px;
         border: solid black 2px;
+      }
+
+      #scoreboard td {
+        padding: 4px;
       }
 
       .change[data-quality="unscored"],
@@ -69,22 +83,26 @@
 
       #scoreboardContainer {
         position: fixed;
-        top: 0;
-        right: 0;
+        top: 10px;
+        right: 10px;
         z-index: 10000;
+        display: flex;
+        flex-direction: column;
       }
 
       /* https://benjamine.github.io/jsondiffpatch/formatters-styles/html.css */
 
       .jsondiffpatch-delta {
-        font-family: "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, Courier, monospace;
+        font-family: "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco,
+          Courier, monospace;
         font-size: 12px;
         margin: 0;
         padding: 0 0 0 12px;
         display: inline-block;
       }
       .jsondiffpatch-delta pre {
-        font-family: "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, Courier, monospace;
+        font-family: "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco,
+          Courier, monospace;
         font-size: 12px;
         margin: 0;
         padding: 0;
@@ -124,23 +142,35 @@
         overflow-y: hidden;
       }
       .jsondiffpatch-unchanged-showing .jsondiffpatch-unchanged,
-      .jsondiffpatch-unchanged-showing .jsondiffpatch-movedestination > .jsondiffpatch-value {
+      .jsondiffpatch-unchanged-showing
+        .jsondiffpatch-movedestination
+        > .jsondiffpatch-value {
         max-height: 100px;
       }
       .jsondiffpatch-unchanged-hidden .jsondiffpatch-unchanged,
-      .jsondiffpatch-unchanged-hidden .jsondiffpatch-movedestination > .jsondiffpatch-value {
+      .jsondiffpatch-unchanged-hidden
+        .jsondiffpatch-movedestination
+        > .jsondiffpatch-value {
         max-height: 0;
       }
-      .jsondiffpatch-unchanged-hiding .jsondiffpatch-movedestination > .jsondiffpatch-value,
-      .jsondiffpatch-unchanged-hidden .jsondiffpatch-movedestination > .jsondiffpatch-value {
+      .jsondiffpatch-unchanged-hiding
+        .jsondiffpatch-movedestination
+        > .jsondiffpatch-value,
+      .jsondiffpatch-unchanged-hidden
+        .jsondiffpatch-movedestination
+        > .jsondiffpatch-value {
         display: block;
       }
       .jsondiffpatch-unchanged-visible .jsondiffpatch-unchanged,
-      .jsondiffpatch-unchanged-visible .jsondiffpatch-movedestination > .jsondiffpatch-value {
+      .jsondiffpatch-unchanged-visible
+        .jsondiffpatch-movedestination
+        > .jsondiffpatch-value {
         max-height: 100px;
       }
       .jsondiffpatch-unchanged-hiding .jsondiffpatch-unchanged,
-      .jsondiffpatch-unchanged-hiding .jsondiffpatch-movedestination > .jsondiffpatch-value {
+      .jsondiffpatch-unchanged-hiding
+        .jsondiffpatch-movedestination
+        > .jsondiffpatch-value {
         max-height: 0;
       }
       .jsondiffpatch-unchanged-showing .jsondiffpatch-arrow,
@@ -158,7 +188,8 @@
       .jsondiffpatch-property-name:after {
         content: ": ";
       }
-      .jsondiffpatch-child-node-type-array > .jsondiffpatch-property-name:after {
+      .jsondiffpatch-child-node-type-array
+        > .jsondiffpatch-property-name:after {
         content: ": [";
       }
       .jsondiffpatch-child-node-type-array:after {
@@ -170,7 +201,8 @@
       div.jsondiffpatch-child-node-type-array:after {
         content: "]";
       }
-      .jsondiffpatch-child-node-type-object > .jsondiffpatch-property-name:after {
+      .jsondiffpatch-child-node-type-object
+        > .jsondiffpatch-property-name:after {
         content: ": {";
       }
       .jsondiffpatch-child-node-type-object:after {
@@ -228,14 +260,16 @@
 
       /* https://benjamine.github.io/jsondiffpatch/formatters-styles/annotated.css */
       .jsondiffpatch-annotated-delta {
-        font-family: "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, Courier, monospace;
+        font-family: "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco,
+          Courier, monospace;
         font-size: 12px;
         margin: 0;
         padding: 0 0 0 12px;
         display: inline-block;
       }
       .jsondiffpatch-annotated-delta pre {
-        font-family: "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, Courier, monospace;
+        font-family: "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco,
+          Courier, monospace;
         font-size: 12px;
         margin: 0;
         padding: 0;
@@ -273,31 +307,56 @@
         color: white;
         font-weight: bold;
       }
+
+      .jumbotron {
+        padding: 2rem !important;
+      }
+
+      .no-data .on-loaded-data {
+        display: none;
+      }
+
+      .loaded-data .on-no-data {
+        display: none;
+      }
     </style>
   </head>
 
-  <body>
-    <div id="header"></div>
-    <div id="scoreboardContainer">
-      <div id="scoreboard"></div>
-      <input id="jsonFileInput" type="file" accept="application/json, text/plain" style="display: none;" />
-      <button id="load">Load</button>
-      <button id="save">Save</button>
+  <body id="body">
+    <div class="on-no-data jumbotron">
+      <h1>No Data</h1>
+      <p>Load data from saved api-diff json to continue</p>
+      <button class="load-button btn btn-primary btn-large">Load Data</button>
     </div>
-    <div id="change-list"></div>
-    <div id="summary"></div>
+    <div id="loaded" class="on-loaded-data">
+      <div id="header"></div>
+      <div id="scoreboardContainer">
+        <div id="scoreboard"></div>
+        <input
+          id="jsonFileInput"
+          type="file"
+          accept="application/json, text/plain"
+          style="display: none"
+        />
+        <!-- <button id="load" class="load-button">Load</button> -->
+        <button id="save" class="btn btn-secondary btn-sm">Save</button>
+      </div>
+      <div id="change-list"></div>
+      <div id="summary"></div>
 
-    <template id="header-template">
-      <div class="jumbotron">
-        <h1 class="display-4">Compare</h1>
-        <p class="lead">
-          <b>{{old.apiEnv.host}} (old)</b><br />vs<br /><b>{{new.apiEnv.host}} (new)</b>
-        </p>
-        <hr class="my-4" />
-        <p>
-          Started <b>{{startTime}}</b>, ran <b>{{numQueriesRun}} queries</b> in <b>{{elapsed}}s</b>
-        </p>
-        <table class="table">
+      <template id="header-template">
+        <div class="jumbotron">
+          <h2>
+            <b>{{old.apiEnv.host}} (old)</b>
+            vs
+            <b>{{new.apiEnv.host}} (new)</b>
+          </h2>
+          <hr class="my-4" />
+          <p>
+            Started <b>{{startTime}}</b>, ran
+            <b>{{numQueriesRun}} queries</b> in <b>{{elapsed}}s</b>
+          </p>
+          <!-- <table class="table">
           <tr>
             <th></th>
             <th>old</th>
@@ -328,85 +387,88 @@
             <td>{{old.responseTimes.median}}</td>
             <td>{{new.responseTimes.median}}</td>
           </tr>
+        </table> -->
+        </div>
+      </template>
+
+      <template id="scoreboard-template">
+        <table class="scoreboard">
+          <tr class="better">
+            <td><a href="#summary-better">Better</a></td>
+            <td class="count">{{better}}</td>
+          </tr>
+          <tr class="worse">
+            <td><a href="#summary-worse">Worse</a></td>
+            <td class="count">{{worse}}</td>
+          </tr>
+          <tr class="neutral">
+            <td><a href="#summary-neutral">Neutral</a></td>
+            <td class="count">{{neutral}}</td>
+          </tr>
+          <tr class="unscored">
+            <td><a href="#summary-unscored">Unscored</a></td>
+            <td class="count">{{unscored}}</td>
+          </tr>
         </table>
-        <!-- <p class="lead">
-          <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-        </p> -->
-      </div>
-    </template>
+      </template>
 
-    <template id="scoreboard-template">
-      <table class="scoreboard">
-        <tr class="better">
-          <td><a href="#summary-better">Better</a></td>
-          <td>{{better}}</td>
-        </tr>
-        <tr class="worse">
-          <td><a href="#summary-worse">Worse</a></td>
-          <td>{{worse}}</td>
-        </tr>
-        <tr class="neutral">
-          <td><a href="#summary-neutral">Neutral</a></td>
-          <td>{{neutral}}</td>
-        </tr>
-        <tr class="unscored">
-          <td><a href="#summary-unscored">Unscored</a></td>
-          <td>{{unscored}}</td>
-        </tr>
-      </table>
-    </template>
-
-    <template id="change-template">
-      <div class="change card" id="{{id}}">
-        <div class="card-text">
-          <div class="card request-card">
-            <div class="card-header">
-              <a name="{{id}}">Change {{index}}/{{total}}</a> -
-              <a class="btn btn-outline-primary" href="{{oldUrl}}">old: {{oldHost}}</a> -
-              <a class="btn btn-outline-primary" href="{{newUrl}}">new: {{newHost}}</a>
-            </div>
-            <div class="card-text p-2">
-              <b><pre>{{params}}</pre></b>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header">
-              Delta
-            </div>
-            <div class="card-text p-2"><div class="delta-visual"></div></div>
-          </div>
-        </div>
-
-        <div class="d-flex align-items-stretch buttons">
-          <button class="btn btn-danger worse">Worse</button>
-          <button class="btn btn-secondary neutral">Neutral</button>
-          <button class="btn btn-success better">Better</button>
-        </div>
-      </div>
-    </template>
-
-    <template id="summary-template">
-      <div class="card">
-        <div class="card-body">
-          <h2 class="card-title">Summary</h2>
-          <div class="summary">
-            {{#each summary as |values key|}}
-            <div class="card {{key}}">
-              <div class="card-body">
-                <h5 class="card-title" id="summary-{{key}}">{{key}}</h5>
-                <ul class="list-group">
-                  {{#each values as |value|}}
-                  <li class="list-group-item"><a href="#{{value.id}}">{{value.params}}</a></li>
-                  {{/each}}
-                </ul>
+      <template id="change-template">
+        <div class="change card" id="{{id}}">
+          <div class="card-text">
+            <div class="card request-card">
+              <div class="card-header">
+                <a name="{{id}}">Change {{index}}/{{total}}</a> -
+                <a class="btn btn-outline-primary" href="{{oldUrl}}"
+                  >old: {{oldHost}}</a
+                >
+                -
+                <a class="btn btn-outline-primary" href="{{newUrl}}"
+                  >new: {{newHost}}</a
+                >
+              </div>
+              <div class="card-text p-2">
+                <b><pre>{{params}}</pre></b>
               </div>
             </div>
-            {{/each}}
+
+            <div class="card">
+              <div class="card-header">Delta</div>
+              <div class="card-text p-2"><div class="delta-visual"></div></div>
+            </div>
+          </div>
+
+          <div class="d-flex align-items-stretch buttons">
+            <button class="btn btn-danger worse">Worse</button>
+            <button class="btn btn-secondary neutral">Neutral</button>
+            <button class="btn btn-success better">Better</button>
           </div>
         </div>
-      </div>
-    </template>
+      </template>
+
+      <template id="summary-template">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title">Summary</h2>
+            <div class="summary">
+              {{#each summary as |values key|}}
+              <div class="card {{key}}">
+                <div class="card-body">
+                  <h5 class="card-title" id="summary-{{key}}">{{key}}</h5>
+                  <ul class="list-group">
+                    {{#each values as |value|}}
+                    <li class="list-group-item">
+                      <a href="#{{value.id}}">{{value.params}}</a>
+                    </li>
+                    {{/each}}
+                  </ul>
+                </div>
+              </div>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
 
     <script>
       // prettier-ignore
@@ -448,9 +510,9 @@
         var template = document.getElementById("scoreboard-template").innerHTML;
         var renderScoreboardTemplate = Handlebars.compile(template);
 
-        document.getElementById("scoreboard").innerHTML = renderScoreboardTemplate(
-          scoreboardValues
-        );
+        document.getElementById(
+          "scoreboard"
+        ).innerHTML = renderScoreboardTemplate(scoreboardValues);
 
         // summary
 
@@ -460,16 +522,15 @@
           worse: [],
           unscored: [],
         };
-        document
-          .querySelectorAll(".change")
-          .forEach((node) =>
-            summarySections[node.dataset.quality].push({
-              params: node.dataset.params,
-              id: node.dataset.id,
-            })
-          );
+        document.querySelectorAll(".change").forEach((node) =>
+          summarySections[node.dataset.quality].push({
+            params: node.dataset.params,
+            id: node.dataset.id,
+          })
+        );
 
-        const summaryTemplate = document.getElementById("summary-template").innerHTML;
+        const summaryTemplate = document.getElementById("summary-template")
+          .innerHTML;
         const renderSummaryTemplate = Handlebars.compile(summaryTemplate);
 
         document.getElementById("summary").innerHTML = renderSummaryTemplate({
@@ -484,8 +545,11 @@
         document.getElementById("header").innerHTML = renderHeaderTemplate({
           old: json.old,
           new: json.new,
-          startTime: new Date(json.startTime).toString(),
-          elapsed: (new Date(json.endTime).getTime() - new Date(json.startTime).getTime()) / 1000,
+          startTime: luxon.DateTime.fromISO(json.startTime).toLocaleString(luxon.DateTime.DATETIME_MED),
+          elapsed:
+            (new Date(json.endTime).getTime() -
+              new Date(json.startTime).getTime()) /
+            1000,
           numQueriesRun: json.numQueriesRun,
         });
       }
@@ -537,7 +601,10 @@
 
           changeNode.querySelector(
             ".delta-visual"
-          ).innerHTML = jsondiffpatch.formatters.html.format(change.delta, change.old.response);
+          ).innerHTML = jsondiffpatch.formatters.html.format(
+            change.delta,
+            change.old.response
+          );
 
           changeNode.addEventListener("click", () => {
             selectedDiffIndex = index;
@@ -547,10 +614,16 @@
 
           change.eval = change.eval || {};
           change.eval.quality =
-            change.eval.quality || localStorage.getItem(change.id) || "unscored";
+            change.eval.quality ||
+            localStorage.getItem(change.id) ||
+            "unscored";
           changeNode.dataset.quality = change.eval.quality;
           changeNode.dataset.id = change.id;
-          changeNode.dataset.params = JSON.stringify(change.query.params, null, 2);
+          changeNode.dataset.params = JSON.stringify(
+            change.query.params,
+            null,
+            2
+          );
 
           changeNode
             .querySelector(".better")
@@ -567,7 +640,7 @@
       function attachListeners() {
         const fileInput = document.querySelector("#jsonFileInput");
 
-        document.querySelector("#load").addEventListener("click", () => {
+        document.querySelector(".load-button").addEventListener("click", () => {
           fileInput.click();
         });
 
@@ -622,7 +695,10 @@
         const changes = json.changes || [];
         if (selectedDiffIndex === 0 && delta === -1) {
           selectedDiffIndex = json.changes.length - 1;
-        } else if (selectedDiffIndex === json.changes.length - 1 && delta === 1) {
+        } else if (
+          selectedDiffIndex === json.changes.length - 1 &&
+          delta === 1
+        ) {
           selectedDiffIndex = 0;
         } else {
           selectedDiffIndex += delta;
@@ -635,6 +711,13 @@
 
       function rerender() {
         selectedDiffIndex = 0;
+
+        if (_.isEmpty(json)) {
+          document.getElementById("body").classList.add("no-data");
+        } else {
+          document.getElementById("body").classList.remove("no-data");
+          document.getElementById("body").classList.add("loaded-data");
+        }
 
         renderHeader();
         renderChanges();
