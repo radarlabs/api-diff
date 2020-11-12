@@ -6,7 +6,10 @@ import * as _ from 'lodash';
 
 import * as config from '../../config';
 import { Change } from '../change';
-import { CompareFormatter, FinishedStats, makeResponseTimesHistogram } from './compare-formatter';
+import {
+  CompareFormatter,
+  FinishedStats,
+} from './compare-formatter';
 import { ApiEnv } from '../../apiEnv';
 
 export default class ConsoleFormatter extends CompareFormatter {
@@ -15,7 +18,9 @@ export default class ConsoleFormatter extends CompareFormatter {
       const commandParts: string[] = [];
 
       if (config.CONFIG_FILE_ENV_VARIABLE && config.API_DIFF_CONFIG_FILE) {
-        commandParts.push(`${config.CONFIG_FILE_ENV_VARIABLE}=${config.API_DIFF_CONFIG_FILE}`);
+        commandParts.push(
+          `${config.CONFIG_FILE_ENV_VARIABLE}=${config.API_DIFF_CONFIG_FILE}`,
+        );
       }
 
       if (_.some(process.argv, (arg) => arg.includes('ts-node'))) {
@@ -32,8 +37,12 @@ export default class ConsoleFormatter extends CompareFormatter {
       return commandParts.join(' ');
     };
     const outputLines = `${JSON.stringify(change.query.params)}
-    ${apiEnvToApiSh(this.oldApiEnv)} ${change.oldResponse.request?.res?.responseUrl}
-    ${apiEnvToApiSh(this.newApiEnv)} ${change.newResponse.request.res.responseUrl}`;
+    ${apiEnvToApiSh(this.oldApiEnv)} ${
+      change.oldResponse.request?.res?.responseUrl
+}
+    ${apiEnvToApiSh(this.newApiEnv)} ${
+  change.newResponse.request.res.responseUrl
+}`;
 
     if (!change.delta) {
       this.writeln(chalk.cyan(`Unchanged: ${outputLines}`));
@@ -46,38 +55,47 @@ export default class ConsoleFormatter extends CompareFormatter {
   }
 
   onFinished(finishedStats: FinishedStats): Promise<void> {
-    this.writeln(`Elapsed: ${(Date.now() - this.startDate.getTime()) / 1000} seconds`);
+    this.writeln(
+      `Elapsed: ${(Date.now() - this.startDate.getTime()) / 1000} seconds`,
+    );
 
-    this.writeln('');
+    // this.writeln('');
 
-    // Response times table
-    this.writeln('Response times');
-    const oldResponseTimes = makeResponseTimesHistogram(finishedStats.old.responseTimes);
-    const newResponseTimes = makeResponseTimesHistogram(finishedStats.new.responseTimes);
+    // // Response times table
+    // this.writeln('Response times');
+    // const oldResponseTimes = makeResponseTimesHistogram(finishedStats.old.responseTimes);
+    // const newResponseTimes = makeResponseTimesHistogram(finishedStats.new.responseTimes);
 
-    const responseTimesTable = [['', 'old', 'new']];
-    _.keys(oldResponseTimes).forEach((key) => {
-      responseTimesTable.push([
-        key,
-        oldResponseTimes[key].toString(),
-        newResponseTimes[key].toString(),
-      ]);
-    });
+    // const responseTimesTable = [['', 'old', 'new']];
+    // _.keys(oldResponseTimes).forEach((key) => {
+    //   responseTimesTable.push([
+    //     key,
+    //     oldResponseTimes[key].toString(),
+    //     newResponseTimes[key].toString(),
+    //   ]);
+    // });
 
-    this.writeln(table(responseTimesTable));
+    // this.writeln(table(responseTimesTable));
 
     // Status codes table
-    this.writeln('Status codes');
-    const statusCodesTable = [['', 'old', 'new']];
-    _.keys(finishedStats.old.statusCodes).forEach((key) => {
-      statusCodesTable.push([
-        key,
-        finishedStats.old.statusCodes[key].toString(),
-        finishedStats.old.statusCodes[key].toString(),
-      ]);
-    });
+    // Only output this if there's a reason to, that we had some non-200 codes
+    if (
+      !_.isEqual(_.keys(finishedStats.new.statusCodes), ['200'])
+      || !_.isEqual(_.keys(finishedStats.old.statusCodes), ['200'])
+    ) {
+      this.writeln('Status codes');
 
-    this.writeln(table(statusCodesTable));
+      const statusCodesTable = [['', 'old', 'new']];
+      _.keys(finishedStats.old.statusCodes).forEach((key) => {
+        statusCodesTable.push([
+          key,
+          finishedStats.old.statusCodes[key].toString(),
+          finishedStats.new.statusCodes[key].toString(),
+        ]);
+      });
+
+      this.writeln(table(statusCodesTable));
+    }
 
     return Promise.resolve();
   }

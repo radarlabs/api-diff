@@ -23,6 +23,29 @@ Note that this is an interactive evaluation form for figuring out which queries 
 
 ## tl;dr
 
+### Try it out yourself!
+
+This is a contrived example because our old and new servers are the same, but they return random data, so it is a good way to quickly see diffs.
+
+
+From CSV input:
+```
+api-diff \
+  --old.host http://names.drycodes.com/ \
+  --new.host http://names.drycodes.com/ \
+  --endpoint "/10" \
+  --input_csv docs/examples/input-names-drycodes.csv
+```
+
+From a file of http paths
+
+```
+api-diff \
+  --old.host http://names.drycodes.com/ \
+  --new.host http://names.drycodes.com/ \
+  --input_queries docs/examples/input-names-drycodes.txt
+```
+
 ### Compare two servers
 
 ```
@@ -141,6 +164,9 @@ An example config looks like this
   # only required if using authStyle="param"
   # authParam: "api_key",
 
+  # optional, if using authStyle="header"
+  # authType: "Basic",
+
   # first keyType listed here will be the default if a
   # keyType is not specified in the commandline options to # compare
   keyTypes: ['test', 'live'],
@@ -180,6 +206,8 @@ APICOM_PROD_LIVE_KEY=XXXX
 APICOM_STAGING_TEST_KEY=XXXX
 APICOM_STAGING_LIVE_KEY=XXXX
 ```
+
+If your server requires authorization in request params, set authStyle="param" and authParam to the request parameter name the server expects. If your server uses the HTTP Authoization header, then set authStyle="header" and (optionally) authType to what auth type prefix the server expects, such as "Basic" or "Bearer" - this can be omitted if your server takes bare keys in the Authoization header.
 
 Our config defines two types of keys - test and live. It also defines two key environments. One for "prod" and one for "staging," the host configs for "local" and "user" are both configured to look in the "staging" key env"
 

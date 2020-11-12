@@ -4,7 +4,6 @@
 import * as queryString from 'querystring';
 import * as fs from 'fs';
 import * as _ from 'lodash';
-import chalk from 'chalk';
 import parseCsvSync from 'csv-parse/lib/sync';
 import { failedExit } from '../cli-utils';
 import { ParsedArgs } from './argv';
@@ -30,15 +29,6 @@ type QueryReaderArgs = Pick<
  * @returns {Query[]} list of queries read
  */
 function readQueriesHelper(argv: QueryReaderArgs): Query[] {
-  const hasInputFile = argv.input_params || argv.input_csv;
-  if ((argv.endpoint && !hasInputFile) || (!argv.endpoint && hasInputFile)) {
-    console.error(
-      chalk.red(
-        'Must specify both --endpoint and (--input_params or --input_csv) , perhaps you wanted --input_queries?',
-      ),
-    );
-  }
-
   /**
    * Convert a /path?params=X string to a Query
    *
