@@ -1,0 +1,3 @@
+/10?prefix=Mr.%20
+/5?nameOptions=starwarsCharacters&separator=%20
+/5?nameOptions=starwarsCharacters&separator=%20&prefix=High%20Priestess%20
