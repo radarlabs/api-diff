@@ -4,6 +4,7 @@ import axios, {
 } from 'axios';
 import axiosRetry from 'axios-retry';
 import querystring from 'querystring';
+import * as _ from 'lodash';
 
 import { ApiEnv } from './apiEnv';
 import { Query } from './api-diff/query';
@@ -64,7 +65,7 @@ export default async function runQuery(
   };
 
   if (config.authStyle === 'header') {
-    headers.Authorization = apiEnv.key;
+    headers.Authorization = [config.authType, apiEnv.key].filter((u) => !_.isEmpty(u)).join(' ');
   } else if (config.authStyle === 'param') {
     params[config.authParam] = apiEnv.key;
   }

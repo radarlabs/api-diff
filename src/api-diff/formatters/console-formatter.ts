@@ -14,7 +14,7 @@ export default class ConsoleFormatter extends CompareFormatter {
     const apiEnvToApiSh = (apiEnv: ApiEnv): string => {
       const commandParts: string[] = [];
 
-      if (config.CONFIG_FILE_ENV_VARIABLE) {
+      if (config.CONFIG_FILE_ENV_VARIABLE && config.API_DIFF_CONFIG_FILE) {
         commandParts.push(`${config.CONFIG_FILE_ENV_VARIABLE}=${config.API_DIFF_CONFIG_FILE}`);
       }
 

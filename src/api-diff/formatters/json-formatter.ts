@@ -70,7 +70,7 @@ export default class JsonFormatter extends CompareFormatter {
     };
   }
 
-  onFinished(finishedStats: FinishedStats): Promise<void> {
-    return this.write(JSON.stringify(this.finishedDict(finishedStats), null, 2));
+  async onFinished(finishedStats: FinishedStats): Promise<void> {
+    this.write(JSON.stringify(this.finishedDict(finishedStats), null, 2));
   }
 }

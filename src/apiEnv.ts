@@ -31,17 +31,12 @@ type YargsOptionMapping = Record<string, yargs.Options>;
 const apiEnvCommandLineOptions: YargsOptionMapping = {
   host: {
     type: 'string',
-    description: 'host/port',
-  },
-  protocol: {
-    choices: ['http', 'https'],
-    description:
-      'What protocol to use (if not specified in url), defaults to http for local, https otherwise',
+    description: '(http|https://)hostname(:port) - protocol and port are optional, default to http/80',
   },
   key: {
     type: 'string',
     description:
-      'Authorization key, if not specified will try to find one in the env, in .env or, in local mode, directly in mongo',
+      'Authorization key, if not specified will try to find one in the env or in ~/.api-keys.env',
   },
 };
 

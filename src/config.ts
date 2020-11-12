@@ -20,6 +20,7 @@ export type Config = {
   name: string;
   authStyle?: 'header' | 'param';
   authParam?: string;
+  authType?: string;
   keyTypes?: string[];
   hosts?: Record<string, ConfigHostEntry>;
 };

@@ -103,6 +103,7 @@ export abstract class CompareFormatter {
    * @returns {Promise<void>} fulfilled on output finished
    */
   finished(finishedStats: FinishedStats): Promise<void> {
+    this.progressBar.stop();
     console.error(`DONE. ${this.numQueriesChanged}/${this.numQueriesRun} changed`);
     return this.onFinished(finishedStats);
   }
@@ -120,16 +121,10 @@ export abstract class CompareFormatter {
    * Helper to deal with output redirection
    *
    * @param {string} s string to output
-   * @returns {Promise<void>} promise on finished
    */
-  write(s: string): Promise<void> {
+  write(s: string): void {
     const stream = this.outputStream || process.stdout;
-    return new Promise((resolve, reject) => {
-      stream.write(s);
-      stream.end();
-      stream.on('finish', () => { resolve(); });
-      stream.on('error', reject);
-    });
+    stream.write(s);
   }
 
   constructor({

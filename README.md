@@ -67,7 +67,7 @@ api-diff \
 ### Compare against a baseline
 ```
  api-diff \
-  --new.host pelias-staging.apicom.com \ # defaults to http, port 80
+  --new.host https://pelias-staging.apicom.com \
   --input_json_baseline addresses-baseline.json \
   --ignored_fields bbox geometry attribution timestamp \ 
   --output_mode html \ 
@@ -90,7 +90,7 @@ API_DIFF_CONFIG=config.hjson api-tool \
 API_DIFF_CONFIG=config.hjson api-diff
   --old.staging \
   --new.local \
-  --input_csv ~/geoocde-acceptance-tests/input/addresses.csv
+  --input_csv ~/geocode-acceptance-tests/input/addresses.csv
 ```
 
 This also works with a url because I've defined in my config file how auth works and where to find the keys, and what kinds of keys different hosts need
@@ -134,7 +134,8 @@ An example config looks like this
   # param means the key will be sent as a cgi param with 
   #     the key authParam defined below 
   # header means the key will be sent in the http 
-  #     Authorization header.
+  #     Authorization header. If your server expects a header like "Bearer XXXXXXX",
+  #     then set the api key to that entire string.
   authStyle: "header",
 
   # only required if using authStyle="param"
@@ -146,21 +147,19 @@ An example config looks like this
 
   hosts: {
     prod: {
-      host: 'prod.api.com',
+      host: 'https://prod.api.com',
       aliases: ['production'],
-      protocol: 'https',
     }
     staging: {
-      host: 'staging.api.com',
-      protocol: 'https',
+      host: 'https://staging.api.com',
     },
     local: {
-      host: 'localhost:8000',
+      host: 'http://localhost:8000',
       keyEnv: 'staging',
     },
     user: {
       takesArg: true,
-      host: 'USER-staging.api.com'
+      host: 'https://USER-staging.api.com'
       keyEnv: 'staging',
     },
   }
@@ -169,7 +168,9 @@ An example config looks like this
 
 This defines a pretty common server setup. There is a production API at prod.api.com, that uses https (the default is http). It implicitly defines a "prod" key env in our config. There is a staging api at staging.api.com with a "staging" key env. Additionally, developers run local apis at localhost:8000, which use staging keys and should be communicated with over http (the default). Finally, each user has their own staging env at USER-staging.api.com which again uses staging keys.
 
-Additionally, for this config, we would add some environment variables, optionally in a ~/.api-keys.env file loaded by dotenv to make our lives even easier. That file would look like
+### Authorization
+
+api-diff looks in the shell environment for api keys if needed. It loads `~/.api-keys.env` into its env. For this config, that file would look like:
 
 ```
 # keys are name + keyEnv + keyType + KEY
@@ -188,9 +189,10 @@ For compare, two servers must be specified, with --new.X and --old.X options. Fo
 Servers can be specified in two ways:
 
 - by using host entries from our config file. So `--old.prod`, `--old.staging`, `--old.user blackmad` etc would all work based on our examples (similarly, `--new.staging`, `--new.prod`, etc)
-- a combination of `--old.host` (required), `--old.protocol` (defaults to http), and `--old.key` (only if auth is needed). And similarly, `--new.host`, `--new.protocol` and `--new.key`
+- a combination of `--old.host` (required), `--old.key` (only if auth is needed). And similarly, `--new.host`, and `--new.key`
 
 These can be mixed! 
+
 
 ### Reading queries
 

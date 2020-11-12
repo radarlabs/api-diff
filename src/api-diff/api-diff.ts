@@ -167,7 +167,7 @@ async function compareQueries({
       responseTimes: newResponseTimes,
       statusCodes: newStatusCodes,
     },
-  }).then(() => process.exit(0));
+  });
 }
 
 /** Main logic - parses command line, creates a formatter, runs queries and

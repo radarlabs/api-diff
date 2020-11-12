@@ -8,18 +8,20 @@
   # only required if using authStyle="param"
   # authParam: "api_key",
 
+  # optional, if using authStyle="header"
+  # authType: "Basic",
+
   # first keyType listed here will be the default if a
   # keyType is not specified in the commandline options to compare
   keyTypes: ['test', 'live'],
 
   hosts: {
     prod: {
-      host: 'prod.api.com',
+      host: 'https://prod.api.com',
       aliases: ['production'],
-      protocol: 'https',
     }
     staging: {
-      host: 'staging.api.com'
+      host: 'http://staging.api.com'
     },
     local: {
       host: 'localhost:8000',

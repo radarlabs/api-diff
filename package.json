@@ -46,7 +46,7 @@
     "stats-lite": "^2.2.0",
     "table": "^5.4.6",
     "winston": "^3.3.3",
-    "wtfnode": "^0.8.1",
+    "wtfnode": "^0.8.3",
     "yargs": "^15.1.0"
   },
   "devDependencies": {
