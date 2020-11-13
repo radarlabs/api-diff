@@ -13,7 +13,13 @@ import {
 import { ApiEnv } from '../../apiEnv';
 
 export default class ConsoleFormatter extends CompareFormatter {
+  changes: Change[] = [];
+
   logChange(change: Change): void {
+    this.changes.push(change);
+  }
+
+  writeChangeToConsole(change: Change): void {
     const apiEnvToApiSh = (apiEnv: ApiEnv): string => {
       const commandParts: string[] = [];
 
@@ -55,6 +61,8 @@ export default class ConsoleFormatter extends CompareFormatter {
   }
 
   onFinished(finishedStats: FinishedStats): Promise<void> {
+    this.changes.forEach((change) => this.writeChangeToConsole(change));
+
     this.writeln(
       `Elapsed: ${(Date.now() - this.startDate.getTime()) / 1000} seconds`,
     );

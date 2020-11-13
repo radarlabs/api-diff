@@ -12,8 +12,6 @@ It also includes a script for talking to json http services with saved configura
 
 ![start of text diff](https://radarlabs.github.io/api-diff/text-output-2.png)
 
-- [full output as text](https://radarlabs.github.io/api-diff/diff.txt) - this is much prettier in a terminal due to escape characters. The header links to a version of this output wrapped in an html viewer for ansi escape codes.
-
 ### [html output](https://radarlabs.github.io/api-diff/diff.html)
 
 Note that this is an interactive evaluation form for figuring out which queries improved and which got worse. Each result is assigned an id based on the md5 hash of the query params + delta, and scores are saved to local storage. in your web browser. This means if you're doing a lot of compares, where many of the diffs are the same between runs, you won't need to re-rank them.
@@ -27,10 +25,11 @@ This is a contrived example because our old and new servers are the same, but th
 
 From CSV input:
 ```
-api-diff \
+api-diff \                                 ✔ 
   --old.host http://names.drycodes.com/ \
   --new.host http://names.drycodes.com/ \
   --endpoint "/10" \
+  --extra_params separator=" " nameOptions=starwarsCharacters \
   --input_csv docs/examples/input-names-drycodes.csv
 ```
 

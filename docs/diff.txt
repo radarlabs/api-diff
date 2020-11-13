@@ -1,0 +1,3947 @@
+[33mChanged: {"text":"10721 Westpark Dr, Houston, TX"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=10721+Westpark+Dr,+Houston,+TX[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=10721+Westpark+Dr,+Houston,+TX[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        1: {
+          end: [31m17[39m => [32m14[39m
+          value: [31m"Westpark Dr"[39m => [32m"Westpark"[39m
+        },
+        [32m2: [39m[32m{[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Houston",[39m
+[32m          "start": 19,[39m
+[32m          "end": 26[39m
+[32m        }[39m
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "TX",[39m
+[32m          "start": 28,[39m
+[32m          "end": 30[39m
+[32m        }[39m
+      ]
+      score: [31m0.4583333333333333[39m => [32m0.75[39m
+    },
+    [32m1: [39m[32m{[39m
+[32m      "score": 0.4583333333333333,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "housenumber",[39m
+[32m          "value": "10721",[39m
+[32m          "start": 0,[39m
+[32m          "end": 5[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "street",[39m
+[32m          "value": "Westpark",[39m
+[32m          "start": 6,[39m
+[32m          "end": 14[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "region",[39m
+[32m          "value": "Dr",[39m
+[32m          "start": 15,[39m
+[32m          "end": 17[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+  ]
+}
+[33mChanged: {"text":"701 Pierce Ave. Sharpsville, PA 16150"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=701+Pierce+Ave.+Sharpsville,+PA+16150[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=701+Pierce+Ave.+Sharpsville,+PA+16150[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m37[39m => [32m27[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m32[39m => [32m16[39m
+          value: [31m"16150"[39m => [32m"Sharpsville"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "PA",[39m
+[32m          "start": 29,[39m
+[32m          "end": 31[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "16150",[39m
+[32m          "start": 32,[39m
+[32m          "end": 37[39m
+[32m        }[39m
+      ]
+      score: [31m0.5806451612903226[39m => [32m0.9419354838709677[39m
+    }
+  ]
+}
+[33mChanged: {"text":"34 Hobart St in Southington, CT"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=34+Hobart+St+in+Southington,+CT[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=34+Hobart+St+in+Southington,+CT[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        0: {
+          end: [31m12[39m => [32m2[39m
+          label: [31m"street"[39m => [32m"housenumber"[39m
+          start: [31m3[39m => [32m0[39m
+          value: [31m"Hobart St"[39m => [32m"34"[39m
+        },
+        1: {
+          end: [31m27[39m => [32m12[39m
+          start: [31m16[39m => [32m3[39m
+          value: [31m"Southington"[39m => [32m"Hobart St"[39m
+        },
+        [32m2: [39m[32m{[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Southington",[39m
+[32m          "start": 16,[39m
+[32m          "end": 27[39m
+[32m        }[39m
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "CT",[39m
+[32m          "start": 29,[39m
+[32m          "end": 31[39m
+[32m        }[39m
+      ]
+      score: [31m0.5664[39m => [32m0.6424[39m
+    }
+  ]
+}
+[33mChanged: {"text":"412 King Philip St Raynham, MA"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=412+King+Philip+St+Raynham,+MA[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=412+King+Philip+St+Raynham,+MA[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        [32m2: [39m[32m{[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Raynham",[39m
+[32m          "start": 19,[39m
+[32m          "end": 26[39m
+[32m        }[39m
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "MA",[39m
+[32m          "start": 28,[39m
+[32m          "end": 30[39m
+[32m        }[39m
+      ]
+      score: [31m0.625[39m => [32m0.9199999999999999[39m
+    },
+    [32m1: [39m[32m{[39m
+[32m      "score": 0.9116666666666666,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "housenumber",[39m
+[32m          "value": "412",[39m
+[32m          "start": 0,[39m
+[32m          "end": 3[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "street",[39m
+[32m          "value": "King Philip St",[39m
+[32m          "start": 4,[39m
+[32m          "end": 18[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Raynham",[39m
+[32m          "start": 19,[39m
+[32m          "end": 26[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "country",[39m
+[32m          "value": "MA",[39m
+[32m          "start": 28,[39m
+[32m          "end": 30[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+  ]
+}
+[33mChanged: {"text":"5716 W Celmark Rd Cicero, IL 60804"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=5716+W+Celmark+Rd+Cicero,+IL+60804[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=5716+W+Celmark+Rd+Cicero,+IL+60804[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m34[39m => [32m24[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m29[39m => [32m18[39m
+          value: [31m"60804"[39m => [32m"Cicero"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "IL",[39m
+[32m          "start": 26,[39m
+[32m          "end": 28[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "60804",[39m
+[32m          "start": 29,[39m
+[32m          "end": 34[39m
+[32m        }[39m
+      ]
+      score: [31m0.7037037037037037[39m => [32m0.9407407407407407[39m
+    }
+  ]
+}
+[33mChanged: {"text":"67 Webster St. North Tonawanda, NY 14120"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=67+Webster+St.+North+Tonawanda,+NY+14120[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=67+Webster+St.+North+Tonawanda,+NY+14120[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        1: {
+          end: [31m20[39m => [32m14[39m
+          value: [31m"Webster St. North"[39m => [32m"Webster St."[39m
+        },
+        2: {
+          end: [31m40[39m => [32m30[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m35[39m => [32m15[39m
+          value: [31m"14120"[39m => [32m"North Tonawanda"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "NY",[39m
+[32m          "start": 32,[39m
+[32m          "end": 34[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "14120",[39m
+[32m          "start": 35,[39m
+[32m          "end": 40[39m
+[32m        }[39m
+      ]
+      score: [31m0.5757575757575757[39m => [32m0.9454545454545454[39m
+    },
+    [32m1: [39m[32m{[39m
+[32m      "score": 0.9454545454545454,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "housenumber",[39m
+[32m          "value": "67",[39m
+[32m          "start": 0,[39m
+[32m          "end": 2[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "street",[39m
+[32m          "value": "Webster St. North",[39m
+[32m          "start": 3,[39m
+[32m          "end": 20[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Tonawanda",[39m
+[32m          "start": 21,[39m
+[32m          "end": 30[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "region",[39m
+[32m          "value": "NY",[39m
+[32m          "start": 32,[39m
+[32m          "end": 34[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "14120",[39m
+[32m          "start": 35,[39m
+[32m          "end": 40[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+  ]
+}
+[33mChanged: {"text":"4011 Chapman Hwy, Suite J Knoxville, TN 37920"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=4011+Chapman+Hwy,+Suite+J+Knoxville,+TN+37920[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=4011+Chapman+Hwy,+Suite+J+Knoxville,+TN+37920[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m45[39m => [32m23[39m
+          label: [31m"postcode"[39m => [32m"unit_type"[39m
+          start: [31m40[39m => [32m18[39m
+          value: [31m"37920"[39m => [32m"Suite"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "unit",[39m
+[32m          "value": "J",[39m
+[32m          "start": 24,[39m
+[32m          "end": 25[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Knoxville",[39m
+[32m          "start": 26,[39m
+[32m          "end": 35[39m
+[32m        }[39m
+        [32m5: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "TN",[39m
+[32m          "start": 37,[39m
+[32m          "end": 39[39m
+[32m        }[39m
+        [32m6: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "37920",[39m
+[32m          "start": 40,[39m
+[32m          "end": 45[39m
+[32m        }[39m
+      ]
+      score: [31m0.5277777777777778[39m => [32m0.9388888888888888[39m
+    }
+  ]
+}
+[33mChanged: {"text":"4452 Park Blvd., Suite 310, San Diego, CA 92116"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=4452+Park+Blvd.,+Suite+310,+San+Diego,+CA+92116[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=4452+Park+Blvd.,+Suite+310,+San+Diego,+CA+92116[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m47[39m => [32m22[39m
+          label: [31m"postcode"[39m => [32m"unit_type"[39m
+          start: [31m42[39m => [32m17[39m
+          value: [31m"92116"[39m => [32m"Suite"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "unit",[39m
+[32m          "value": "310",[39m
+[32m          "start": 23,[39m
+[32m          "end": 26[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "locality",[39m
+[32m          "value": "San Diego",[39m
+[32m          "start": 28,[39m
+[32m          "end": 37[39m
+[32m        }[39m
+        [32m5: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "CA",[39m
+[32m          "start": 39,[39m
+[32m          "end": 41[39m
+[32m        }[39m
+        [32m6: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "92116",[39m
+[32m          "start": 42,[39m
+[32m          "end": 47[39m
+[32m        }[39m
+      ]
+      score: [31m0.5[39m => [32m0.943888888888889[39m
+    }
+  ]
+}
+[33mChanged: {"text":"9330 Broadway St, Ste 324, Pearland, TX 77584-7895"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=9330+Broadway+St,+Ste+324,+Pearland,+TX+77584-7895[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=9330+Broadway+St,+Ste+324,+Pearland,+TX+77584-7895[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m50[39m => [32m21[39m
+          label: [31m"postcode"[39m => [32m"unit_type"[39m
+          start: [31m40[39m => [32m18[39m
+          value: [31m"77584-7895"[39m => [32m"Ste"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "unit",[39m
+[32m          "value": "324",[39m
+[32m          "start": 22,[39m
+[32m          "end": 25[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Pearland",[39m
+[32m          "start": 27,[39m
+[32m          "end": 35[39m
+[32m        }[39m
+        [32m5: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "TX",[39m
+[32m          "start": 37,[39m
+[32m          "end": 39[39m
+[32m        }[39m
+        [32m6: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "77584-7895",[39m
+[32m          "start": 40,[39m
+[32m          "end": 50[39m
+[32m        }[39m
+      ]
+      score: [31m0.6[39m => [32m0.945[39m
+    },
+    [32m1: [39m[32m{[39m
+[32m      "score": 0.9079999999999999,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "street",[39m
+[32m          "value": "9330 Broadway",[39m
+[32m          "start": 0,[39m
+[32m          "end": 13[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "unit_type",[39m
+[32m          "value": "Ste",[39m
+[32m          "start": 18,[39m
+[32m          "end": 21[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "unit",[39m
+[32m          "value": "324",[39m
+[32m          "start": 22,[39m
+[32m          "end": 25[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Pearland",[39m
+[32m          "start": 27,[39m
+[32m          "end": 35[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "region",[39m
+[32m          "value": "TX",[39m
+[32m          "start": 37,[39m
+[32m          "end": 39[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "77584-7895",[39m
+[32m          "start": 40,[39m
+[32m          "end": 50[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+  ]
+}
+[33mChanged: {"text":"901-0587 Sunglass Hut 11201 W 95th St Overland Park, KS 66214"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=901-0587+Sunglass+Hut+11201+W+95th+St+Overland+Park,+KS+66214[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=901-0587+Sunglass+Hut+11201+W+95th+St+Overland+Park,+KS+66214[39m
+{
+  solutions: [
+    [31m0: [39m[31m{[39m
+[31m      "score": 0.32000000000000006,[39m
+[31m      "classifications": [[39m
+[31m        {[39m
+[31m          "label": "postcode",[39m
+[31m          "value": "901-0587",[39m
+[31m          "start": 0,[39m
+[31m          "end": 8[39m
+[31m        },[39m
+[31m        {[39m
+[31m          "label": "housenumber",[39m
+[31m          "value": "11201",[39m
+[31m          "start": 22,[39m
+[31m          "end": 27[39m
+[31m        },[39m
+[31m        {[39m
+[31m          "label": "street",[39m
+[31m          "value": "W 95th St",[39m
+[31m          "start": 28,[39m
+[31m          "end": 37[39m
+[31m        }[39m
+[31m      ][39m
+[31m    }[39m
+  ]
+}
+[33mChanged: {"text":"6912 County Rd W West Bend, WI 53090"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=6912+County+Rd+W+West+Bend,+WI+53090[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=6912+County+Rd+W+West+Bend,+WI+53090[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m36[39m => [32m26[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m31[39m => [32m17[39m
+          value: [31m"53090"[39m => [32m"West Bend"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "WI",[39m
+[32m          "start": 28,[39m
+[32m          "end": 30[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "53090",[39m
+[32m          "start": 31,[39m
+[32m          "end": 36[39m
+[32m        }[39m
+      ]
+      score: [31m0.6428571428571429[39m => [32m0.9471428571428572[39m
+    }
+  ]
+}
+[33mChanged: {"text":"900 4345 Kiefer Ave Warren, MI 48091"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=900+4345+Kiefer+Ave+Warren,+MI+48091[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=900+4345+Kiefer+Ave+Warren,+MI+48091[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m36[39m => [32m26[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m31[39m => [32m20[39m
+          value: [31m"48091"[39m => [32m"Warren"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "MI",[39m
+[32m          "start": 28,[39m
+[32m          "end": 30[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "48091",[39m
+[32m          "start": 31,[39m
+[32m          "end": 36[39m
+[32m        }[39m
+      ]
+      score: [31m0.6206896551724138[39m => [32m0.8268965517241379[39m
+    }
+  ]
+}
+[33mChanged: {"text":"422 Summer St Arlington, MA 02474"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=422+Summer+St+Arlington,+MA+02474[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=422+Summer+St+Arlington,+MA+02474[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m33[39m => [32m23[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m28[39m => [32m14[39m
+          value: [31m"02474"[39m => [32m"Arlington"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "MA",[39m
+[32m          "start": 25,[39m
+[32m          "end": 27[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "02474",[39m
+[32m          "start": 28,[39m
+[32m          "end": 33[39m
+[32m        }[39m
+      ]
+      score: [31m0.5925925925925926[39m => [32m0.9466666666666667[39m
+    }
+  ]
+}
+[33mChanged: {"text":"1057 Broad St. Sumter, South Carolina 29150"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=1057+Broad+St.+Sumter,+South+Carolina+29150[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=1057+Broad+St.+Sumter,+South+Carolina+29150[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m43[39m => [32m21[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m38[39m => [32m15[39m
+          value: [31m"29150"[39m => [32m"Sumter"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "South Carolina",[39m
+[32m          "start": 23,[39m
+[32m          "end": 37[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "29150",[39m
+[32m          "start": 38,[39m
+[32m          "end": 43[39m
+[32m        }[39m
+      ]
+      score: [31m0.4722222222222222[39m => [32m0.9488888888888888[39m
+    },
+    [32m1: [39m[32m{[39m
+[32m      "score": 0.6433333333333333,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "housenumber",[39m
+[32m          "value": "1057",[39m
+[32m          "start": 0,[39m
+[32m          "end": 4[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "street",[39m
+[32m          "value": "Broad St.",[39m
+[32m          "start": 5,[39m
+[32m          "end": 14[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Carolina",[39m
+[32m          "start": 29,[39m
+[32m          "end": 37[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "29150",[39m
+[32m          "start": 38,[39m
+[32m          "end": 43[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+  ]
+}
+[33mChanged: {"text":"7900 Forsyth Boulevard St. Louis, Missouri 63105"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=7900+Forsyth+Boulevard+St.+Louis,+Missouri+63105[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=7900+Forsyth+Boulevard+St.+Louis,+Missouri+63105[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        1: {
+          end: [31m26[39m => [32m22[39m
+          value: [31m"Forsyth Boulevard St."[39m => [32m"Forsyth Boulevard"[39m
+        },
+        2: {
+          end: [31m48[39m => [32m32[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m43[39m => [32m23[39m
+          value: [31m"63105"[39m => [32m"St. Louis"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "Missouri",[39m
+[32m          "start": 34,[39m
+[32m          "end": 42[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "63105",[39m
+[32m          "start": 43,[39m
+[32m          "end": 48[39m
+[32m        }[39m
+      ]
+      score: [31m0.6829268292682927[39m => [32m0.9199999999999999[39m
+    }
+  ]
+}
+[33mChanged: {"text":"3378 Kelley Avenue, New Orleans, LA 33770"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=3378+Kelley+Avenue,+New+Orleans,+LA+33770[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=3378+Kelley+Avenue,+New+Orleans,+LA+33770[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m41[39m => [32m31[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m36[39m => [32m20[39m
+          value: [31m"33770"[39m => [32m"New Orleans"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "33770",[39m
+[32m          "start": 36,[39m
+[32m          "end": 41[39m
+[32m        }[39m
+      ]
+      score: [31m0.6363636363636364[39m => [32m0.8618181818181818[39m
+    }
+  ]
+}
+[33mChanged: {"text":"513-0066 GIBSON AVE Brentwood, New York"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=513-0066+GIBSON+AVE+Brentwood,+New+York[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=513-0066+GIBSON+AVE+Brentwood,+New+York[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        [32m2: [39m[32m{[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Brentwood",[39m
+[32m          "start": 20,[39m
+[32m          "end": 29[39m
+[32m        }[39m
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "New York",[39m
+[32m          "start": 31,[39m
+[32m          "end": 39[39m
+[32m        }[39m
+      ]
+      score: [31m0.5151515151515151[39m => [32m0.9509090909090909[39m
+    }
+  ]
+}
+[33mChanged: {"text":"900 General Commercial 515 E Beale Street Kingman, AZ 86401"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=900+General+Commercial+515+E+Beale+Street+Kingman,+AZ+86401[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=900+General+Commercial+515+E+Beale+Street+Kingman,+AZ+86401[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m59[39m => [32m49[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m54[39m => [32m42[39m
+          value: [31m"86401"[39m => [32m"Kingman"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "AZ",[39m
+[32m          "start": 51,[39m
+[32m          "end": 53[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "86401",[39m
+[32m          "start": 54,[39m
+[32m          "end": 59[39m
+[32m        }[39m
+      ]
+      score: [31m0.40816326530612246[39m => [32m0.586938775510204[39m
+    }
+  ]
+}
+[33mChanged: {"text":"000 470 Mississippi River Boulevard N , Saint Paul, MN"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=000+470+Mississippi+River+Boulevard+N+,+Saint+Paul,+MN[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=000+470+Mississippi+River+Boulevard+N+,+Saint+Paul,+MN[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        0: {
+          end: [31m3[39m => [32m7[39m
+          label: [31m"postcode"[39m => [32m"housenumber"[39m
+          start: [31m0[39m => [32m4[39m
+          value: [31m"000"[39m => [32m"470"[39m
+        },
+        1: {
+          end: [31m7[39m => [32m37[39m
+          label: [31m"housenumber"[39m => [32m"street"[39m
+          start: [31m4[39m => [32m8[39m
+          value: [31m"470"[39m => [32m"Mississippi River Boulevard N"[39m
+        },
+        2: {
+          end: [31m35[39m => [32m50[39m
+          label: [31m"street"[39m => [32m"locality"[39m
+          start: [31m8[39m => [32m40[39m
+          value: [31m"Mississippi River Boulevard"[39m => [32m"Saint Paul"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "MN",[39m
+[32m          "start": 52,[39m
+[32m          "end": 54[39m
+[32m        }[39m
+      ]
+      score: [31m0.7209302325581395[39m => [32m0.8576744186046511[39m
+    },
+    [32m1: [39m[32m{[39m
+[32m      "score": 0.8530232558139533,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "housenumber",[39m
+[32m          "value": "470",[39m
+[32m          "start": 4,[39m
+[32m          "end": 7[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "street",[39m
+[32m          "value": "Mississippi River Boulevard N",[39m
+[32m          "start": 8,[39m
+[32m          "end": 37[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Saint Paul",[39m
+[32m          "start": 40,[39m
+[32m          "end": 50[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "country",[39m
+[32m          "value": "MN",[39m
+[32m          "start": 52,[39m
+[32m          "end": 54[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+    [32m2: [39m[32m{[39m
+[32m      "score": 0.8530232558139533,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "housenumber",[39m
+[32m          "value": "470",[39m
+[32m          "start": 4,[39m
+[32m          "end": 7[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "street",[39m
+[32m          "value": "Mississippi River Boulevard N",[39m
+[32m          "start": 8,[39m
+[32m          "end": 37[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Saint",[39m
+[32m          "start": 40,[39m
+[32m          "end": 45[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "region",[39m
+[32m          "value": "Paul",[39m
+[32m          "start": 46,[39m
+[32m          "end": 50[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "country",[39m
+[32m          "value": "MN",[39m
+[32m          "start": 52,[39m
+[32m          "end": 54[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+    [32m3: [39m[32m{[39m
+[32m      "score": 0.8530232558139533,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "housenumber",[39m
+[32m          "value": "470",[39m
+[32m          "start": 4,[39m
+[32m          "end": 7[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "street",[39m
+[32m          "value": "Mississippi River Boulevard N",[39m
+[32m          "start": 8,[39m
+[32m          "end": 37[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "region",[39m
+[32m          "value": "Saint Paul",[39m
+[32m          "start": 40,[39m
+[32m          "end": 50[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "country",[39m
+[32m          "value": "MN",[39m
+[32m          "start": 52,[39m
+[32m          "end": 54[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+  ]
+}
+[33mChanged: {"text":"312 SW Greenwich Drive, Ste 633 Lee's Summit, MO 64082"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=312+SW+Greenwich+Drive,+Ste+633+Lee's+Summit,+MO+64082[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=312+SW+Greenwich+Drive,+Ste+633+Lee's+Summit,+MO+64082[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m54[39m => [32m27[39m
+          label: [31m"postcode"[39m => [32m"unit_type"[39m
+          start: [31m49[39m => [32m24[39m
+          value: [31m"64082"[39m => [32m"Ste"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "unit",[39m
+[32m          "value": "633",[39m
+[32m          "start": 28,[39m
+[32m          "end": 31[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Lee's Summit",[39m
+[32m          "start": 32,[39m
+[32m          "end": 44[39m
+[32m        }[39m
+        [32m5: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "MO",[39m
+[32m          "start": 46,[39m
+[32m          "end": 48[39m
+[32m        }[39m
+        [32m6: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "64082",[39m
+[32m          "start": 49,[39m
+[32m          "end": 54[39m
+[32m        }[39m
+      ]
+      score: [31m0.5581395348837209[39m => [32m0.9553488372093023[39m
+    }
+  ]
+}
+[33mChanged: {"text":"2101 East Olsen Road, Thousand Oaks, CA 91360"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=2101+East+Olsen+Road,+Thousand+Oaks,+CA+91360[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=2101+East+Olsen+Road,+Thousand+Oaks,+CA+91360[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m45[39m => [32m35[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m40[39m => [32m22[39m
+          value: [31m"91360"[39m => [32m"Thousand Oaks"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "CA",[39m
+[32m          "start": 37,[39m
+[32m          "end": 39[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "91360",[39m
+[32m          "start": 40,[39m
+[32m          "end": 45[39m
+[32m        }[39m
+      ]
+      score: [31m0.6111111111111112[39m => [32m0.9455555555555555[39m
+    }
+  ]
+}
+[33mChanged: {"text":"44 River Oaks Center Dr Calumet City, IL 60409"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=44+River+Oaks+Center+Dr+Calumet+City,+IL+60409[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=44+River+Oaks+Center+Dr+Calumet+City,+IL+60409[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        1: {
+          end: [31m20[39m => [32m23[39m
+          value: [31m"River Oaks Center"[39m => [32m"River Oaks Center Dr"[39m
+        },
+        2: {
+          end: [31m46[39m => [32m36[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m41[39m => [32m24[39m
+          value: [31m"60409"[39m => [32m"Calumet City"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "IL",[39m
+[32m          "start": 38,[39m
+[32m          "end": 40[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "60409",[39m
+[32m          "start": 41,[39m
+[32m          "end": 46[39m
+[32m        }[39m
+      ]
+      score: [31m0.5945945945945946[39m => [32m0.9264864864864866[39m
+    },
+    [32m1: [39m[32m{[39m
+[32m      "score": 0.6,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "housenumber",[39m
+[32m          "value": "44",[39m
+[32m          "start": 0,[39m
+[32m          "end": 2[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "street",[39m
+[32m          "value": "River Oaks Center",[39m
+[32m          "start": 3,[39m
+[32m          "end": 20[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "region",[39m
+[32m          "value": "Dr",[39m
+[32m          "start": 21,[39m
+[32m          "end": 23[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "60409",[39m
+[32m          "start": 41,[39m
+[32m          "end": 46[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+  ]
+}
+[33mChanged: {"text":"3823 L Honoapiilani Rd, Lahaina, HI 96761"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=3823+L+Honoapiilani+Rd,+Lahaina,+HI+96761[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=3823+L+Honoapiilani+Rd,+Lahaina,+HI+96761[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m41[39m => [32m31[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m36[39m => [32m24[39m
+          value: [31m"96761"[39m => [32m"Lahaina"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "HI",[39m
+[32m          "start": 33,[39m
+[32m          "end": 35[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "96761",[39m
+[32m          "start": 36,[39m
+[32m          "end": 41[39m
+[32m        }[39m
+      ]
+      score: [31m0.7272727272727273[39m => [32m0.9151515151515152[39m
+    }
+  ]
+}
+[33mChanged: {"text":"3916 W College Ave Appleton, Wisconsin 54914"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=3916+W+College+Ave+Appleton,+Wisconsin+54914[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=3916+W+College+Ave+Appleton,+Wisconsin+54914[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m44[39m => [32m27[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m39[39m => [32m19[39m
+          value: [31m"54914"[39m => [32m"Appleton"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "Wisconsin",[39m
+[32m          "start": 29,[39m
+[32m          "end": 38[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "54914",[39m
+[32m          "start": 39,[39m
+[32m          "end": 44[39m
+[32m        }[39m
+      ]
+      score: [31m0.5405405405405406[39m => [32m0.9535135135135135[39m
+    }
+  ]
+}
+[33mChanged: {"text":"6776090 2545 Fire Rd Ste #3 Egg Harbor Township,NJ 08234"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=6776090+2545+Fire+Rd+Ste+%233+Egg+Harbor+Township,NJ+08234[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=6776090+2545+Fire+Rd+Ste+%233+Egg+Harbor+Township,NJ+08234[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        0: {
+          end: [31m7[39m => [32m12[39m
+          label: [31m"postcode"[39m => [32m"housenumber"[39m
+          start: [31m0[39m => [32m8[39m
+          value: [31m"6776090"[39m => [32m"2545"[39m
+        },
+        1: {
+          end: [31m12[39m => [32m20[39m
+          label: [31m"housenumber"[39m => [32m"street"[39m
+          start: [31m8[39m => [32m13[39m
+          value: [31m"2545"[39m => [32m"Fire Rd"[39m
+        },
+        2: {
+          end: [31m20[39m => [32m24[39m
+          label: [31m"street"[39m => [32m"unit_type"[39m
+          start: [31m13[39m => [32m21[39m
+          value: [31m"Fire Rd"[39m => [32m"Ste"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "unit",[39m
+[32m          "value": "#3",[39m
+[32m          "start": 25,[39m
+[32m          "end": 27[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Egg Harbor",[39m
+[32m          "start": 28,[39m
+[32m          "end": 38[39m
+[32m        }[39m
+        [32m5: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "NJ",[39m
+[32m          "start": 48,[39m
+[32m          "end": 50[39m
+[32m        }[39m
+        [32m6: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "08234",[39m
+[32m          "start": 51,[39m
+[32m          "end": 56[39m
+[32m        }[39m
+      ]
+      score: [31m0.3695652173913043[39m => [32m0.6417391304347826[39m
+    }
+  ]
+}
+[33mChanged: {"text":"5004 N Bay Rd, Miami Beach, FL 33140"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=5004+N+Bay+Rd,+Miami+Beach,+FL+33140[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=5004+N+Bay+Rd,+Miami+Beach,+FL+33140[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m36[39m => [32m26[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m31[39m => [32m15[39m
+          value: [31m"33140"[39m => [32m"Miami Beach"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "FL",[39m
+[32m          "start": 28,[39m
+[32m          "end": 30[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "33140",[39m
+[32m          "start": 31,[39m
+[32m          "end": 36[39m
+[32m        }[39m
+      ]
+      score: [31m0.5555555555555556[39m => [32m0.9807407407407408[39m
+    }
+  ]
+}
+[33mChanged: {"text":"191 Lighthouse Ave Ste A-1 Monterey CA 93940"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=191+Lighthouse+Ave+Ste+A-1+Monterey+CA+93940[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=191+Lighthouse+Ave+Ste+A-1+Monterey+CA+93940[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m44[39m => [32m22[39m
+          label: [31m"postcode"[39m => [32m"unit_type"[39m
+          start: [31m39[39m => [32m19[39m
+          value: [31m"93940"[39m => [32m"Ste"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "unit",[39m
+[32m          "value": "A-1",[39m
+[32m          "start": 23,[39m
+[32m          "end": 26[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Monterey",[39m
+[32m          "start": 27,[39m
+[32m          "end": 35[39m
+[32m        }[39m
+        [32m5: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "CA",[39m
+[32m          "start": 36,[39m
+[32m          "end": 38[39m
+[32m        }[39m
+        [32m6: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "93940",[39m
+[32m          "start": 39,[39m
+[32m          "end": 44[39m
+[32m        }[39m
+      ]
+      score: [31m0.5675675675675675[39m => [32m0.9367567567567566[39m
+    }
+  ]
+}
+[33mChanged: {"text":"2219 TERRACE WAY, Columbia, SC 29205"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=2219+TERRACE+WAY,+Columbia,+SC+29205[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=2219+TERRACE+WAY,+Columbia,+SC+29205[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m36[39m => [32m26[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m31[39m => [32m18[39m
+          value: [31m"29205"[39m => [32m"Columbia"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "SC",[39m
+[32m          "start": 28,[39m
+[32m          "end": 30[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "29205",[39m
+[32m          "start": 31,[39m
+[32m          "end": 36[39m
+[32m        }[39m
+      ]
+      score: [31m0.6551724137931034[39m => [32m0.9241379310344826[39m
+    },
+    [32m1: [39m[32m{[39m
+[32m      "score": 0.843448275862069,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "street",[39m
+[32m          "value": "2219 TERRACE",[39m
+[32m          "start": 0,[39m
+[32m          "end": 12[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Columbia",[39m
+[32m          "start": 18,[39m
+[32m          "end": 26[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "region",[39m
+[32m          "value": "SC",[39m
+[32m          "start": 28,[39m
+[32m          "end": 30[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "29205",[39m
+[32m          "start": 31,[39m
+[32m          "end": 36[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+  ]
+}
+[33mChanged: {"text":"12795 16th Avenue North Minneapolis, MN 55441"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=12795+16th+Avenue+North+Minneapolis,+MN+55441[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=12795+16th+Avenue+North+Minneapolis,+MN+55441[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        1: {
+          end: [31m17[39m => [32m23[39m
+          value: [31m"16th Avenue"[39m => [32m"16th Avenue North"[39m
+        },
+        2: {
+          end: [31m45[39m => [32m35[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m40[39m => [32m24[39m
+          value: [31m"55441"[39m => [32m"Minneapolis"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "MN",[39m
+[32m          "start": 37,[39m
+[32m          "end": 39[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "55441",[39m
+[32m          "start": 40,[39m
+[32m          "end": 45[39m
+[32m        }[39m
+      ]
+      score: [31m0.42105263157894735[39m => [32m0.8473684210526317[39m
+    }
+  ]
+}
+[33mChanged: {"text":"721 West Grand Avenue, Chicago, IL, 60654"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=721+West+Grand+Avenue,+Chicago,+IL,+60654[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=721+West+Grand+Avenue,+Chicago,+IL,+60654[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m41[39m => [32m30[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m36[39m => [32m23[39m
+          value: [31m"60654"[39m => [32m"Chicago"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "IL",[39m
+[32m          "start": 32,[39m
+[32m          "end": 34[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "60654",[39m
+[32m          "start": 36,[39m
+[32m          "end": 41[39m
+[32m        }[39m
+      ]
+      score: [31m0.71875[39m => [32m0.94375[39m
+    }
+  ]
+}
+[33mChanged: {"text":"222 N. Tennessee St. McKinney, Texas 75069"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=222+N.+Tennessee+St.+McKinney,+Texas+75069[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=222+N.+Tennessee+St.+McKinney,+Texas+75069[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m42[39m => [32m29[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m37[39m => [32m21[39m
+          value: [31m"75069"[39m => [32m"McKinney"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "Texas",[39m
+[32m          "start": 31,[39m
+[32m          "end": 36[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "75069",[39m
+[32m          "start": 37,[39m
+[32m          "end": 42[39m
+[32m        }[39m
+      ]
+      score: [31m0.6285714285714286[39m => [32m0.952[39m
+    }
+  ]
+}
+[33mChanged: {"text":"18441 NW 2nd Avenue Miami, FL 33169"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=18441+NW+2nd+Avenue+Miami,+FL+33169[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=18441+NW+2nd+Avenue+Miami,+FL+33169[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m35[39m => [32m25[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m30[39m => [32m20[39m
+          value: [31m"33169"[39m => [32m"Miami"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "FL",[39m
+[32m          "start": 27,[39m
+[32m          "end": 29[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "33169",[39m
+[32m          "start": 30,[39m
+[32m          "end": 35[39m
+[32m        }[39m
+      ]
+      score: [31m0.6071428571428572[39m => [32m0.8099999999999999[39m
+    }
+  ]
+}
+[33mChanged: {"text":"1505 Belvedere Road West Palm Beach, FL 33406"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=1505+Belvedere+Road+West+Palm+Beach,+FL+33406[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=1505+Belvedere+Road+West+Palm+Beach,+FL+33406[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m45[39m => [32m35[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m40[39m => [32m25[39m
+          value: [31m"33406"[39m => [32m"Palm Beach"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "FL",[39m
+[32m          "start": 37,[39m
+[32m          "end": 39[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "33406",[39m
+[32m          "start": 40,[39m
+[32m          "end": 45[39m
+[32m        }[39m
+      ]
+      score: [31m0.6108108108108109[39m => [32m0.9340540540540541[39m
+    },
+    [32m1: [39m[32m{[39m
+[32m      "score": 0.9259459459459459,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "housenumber",[39m
+[32m          "value": "1505",[39m
+[32m          "start": 0,[39m
+[32m          "end": 4[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "street",[39m
+[32m          "value": "Belvedere Road",[39m
+[32m          "start": 5,[39m
+[32m          "end": 19[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "locality",[39m
+[32m          "value": "West Palm Beach",[39m
+[32m          "start": 20,[39m
+[32m          "end": 35[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "region",[39m
+[32m          "value": "FL",[39m
+[32m          "start": 37,[39m
+[32m          "end": 39[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "33406",[39m
+[32m          "start": 40,[39m
+[32m          "end": 45[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+  ]
+}
+[33mChanged: {"text":"500 LOT 29 Waters Edge DR, Penhook, VA 24137"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=500+LOT+29+Waters+Edge+DR,+Penhook,+VA+24137[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=500+LOT+29+Waters+Edge+DR,+Penhook,+VA+24137[39m
+{
+  solutions: [
+    [31m0: [39m[31m{[39m
+[31m      "score": 0.5588235294117647,[39m
+[31m      "classifications": [[39m
+[31m        {[39m
+[31m          "label": "housenumber",[39m
+[31m          "value": "29",[39m
+[31m          "start": 8,[39m
+[31m          "end": 10[39m
+[31m        },[39m
+[31m        {[39m
+[31m          "label": "street",[39m
+[31m          "value": "Waters Edge DR",[39m
+[31m          "start": 11,[39m
+[31m          "end": 25[39m
+[31m        },[39m
+[31m        {[39m
+[31m          "label": "postcode",[39m
+[31m          "value": "24137",[39m
+[31m          "start": 39,[39m
+[31m          "end": 44[39m
+[31m        }[39m
+[31m      ][39m
+[31m    }[39m
+  ]
+}
+[33mChanged: {"text":"140 S Railroad St, Cambridge, ID 83610"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=140+S+Railroad+St,+Cambridge,+ID+83610[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=140+S+Railroad+St,+Cambridge,+ID+83610[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m38[39m => [32m28[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m33[39m => [32m19[39m
+          value: [31m"83610"[39m => [32m"Cambridge"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "ID",[39m
+[32m          "start": 30,[39m
+[32m          "end": 32[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "83610",[39m
+[32m          "start": 33,[39m
+[32m          "end": 38[39m
+[32m        }[39m
+      ]
+      score: [31m0.6333333333333333[39m => [32m0.956[39m
+    }
+  ]
+}
+[33mChanged: {"text":"4167 Cheshire Station Plaza Dale City, VA 22193-2200"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=4167+Cheshire+Station+Plaza+Dale+City,+VA+22193-2200[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=4167+Cheshire+Station+Plaza+Dale+City,+VA+22193-2200[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m52[39m => [32m37[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m42[39m => [32m28[39m
+          value: [31m"22193-2200"[39m => [32m"Dale City"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "VA",[39m
+[32m          "start": 39,[39m
+[32m          "end": 41[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "22193-2200",[39m
+[32m          "start": 42,[39m
+[32m          "end": 52[39m
+[32m        }[39m
+      ]
+      score: [31m0.7727272727272727[39m => [32m0.9181818181818183[39m
+    }
+  ]
+}
+[33mChanged: {"text":"000 5513 Montclair Dr, Colleyville, TX 76034"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=000+5513+Montclair+Dr,+Colleyville,+TX+76034[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=000+5513+Montclair+Dr,+Colleyville,+TX+76034[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m44[39m => [32m34[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m39[39m => [32m23[39m
+          value: [31m"76034"[39m => [32m"Colleyville"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "TX",[39m
+[32m          "start": 36,[39m
+[32m          "end": 38[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "76034",[39m
+[32m          "start": 39,[39m
+[32m          "end": 44[39m
+[32m        }[39m
+      ]
+      score: [31m0.5555555555555556[39m => [32m0.8505555555555554[39m
+    }
+  ]
+}
+[33mChanged: {"text":"4 2837 W Sunset Blvd, Los Angeles, CA"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=4+2837+W+Sunset+Blvd,+Los+Angeles,+CA[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=4+2837+W+Sunset+Blvd,+Los+Angeles,+CA[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        [32m2: [39m[32m{[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Los Angeles",[39m
+[32m          "start": 22,[39m
+[32m          "end": 33[39m
+[32m        }[39m
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "CA",[39m
+[32m          "start": 35,[39m
+[32m          "end": 37[39m
+[32m        }[39m
+      ]
+      score: [31m0.5357142857142857[39m => [32m0.9028571428571429[39m
+    },
+    [32m1: [39m[32m{[39m
+[32m      "score": 0.8957142857142858,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "housenumber",[39m
+[32m          "value": "2837",[39m
+[32m          "start": 2,[39m
+[32m          "end": 6[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "street",[39m
+[32m          "value": "W Sunset Blvd",[39m
+[32m          "start": 7,[39m
+[32m          "end": 20[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Los Angeles",[39m
+[32m          "start": 22,[39m
+[32m          "end": 33[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "country",[39m
+[32m          "value": "CA",[39m
+[32m          "start": 35,[39m
+[32m          "end": 37[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+  ]
+}
+[33mChanged: {"text":"1021 2nd Avenue North Suite #6 North Myrtle Beach, SC 29582"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=1021+2nd+Avenue+North+Suite+%236+North+Myrtle+Beach,+SC+29582[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=1021+2nd+Avenue+North+Suite+%236+North+Myrtle+Beach,+SC+29582[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        1: {
+          end: [31m15[39m => [32m21[39m
+          value: [31m"2nd Avenue"[39m => [32m"2nd Avenue North"[39m
+        },
+        2: {
+          end: [31m59[39m => [32m27[39m
+          label: [31m"postcode"[39m => [32m"unit_type"[39m
+          start: [31m54[39m => [32m22[39m
+          value: [31m"29582"[39m => [32m"Suite"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "unit",[39m
+[32m          "value": "#6",[39m
+[32m          "start": 28,[39m
+[32m          "end": 30[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "locality",[39m
+[32m          "value": "North Myrtle Beach",[39m
+[32m          "start": 31,[39m
+[32m          "end": 49[39m
+[32m        }[39m
+        [32m5: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "SC",[39m
+[32m          "start": 51,[39m
+[32m          "end": 53[39m
+[32m        }[39m
+        [32m6: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "29582",[39m
+[32m          "start": 54,[39m
+[32m          "end": 59[39m
+[32m        }[39m
+      ]
+      score: [31m0.375[39m => [32m0.9566666666666667[39m
+    }
+  ]
+}
+[33mChanged: {"text":"1600 WEST BALBOA BLVD. NEWPORT BEACH, CA 92663"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=1600+WEST+BALBOA+BLVD.+NEWPORT+BEACH,+CA+92663[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=1600+WEST+BALBOA+BLVD.+NEWPORT+BEACH,+CA+92663[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m46[39m => [32m36[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m41[39m => [32m23[39m
+          value: [31m"92663"[39m => [32m"NEWPORT BEACH"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "CA",[39m
+[32m          "start": 38,[39m
+[32m          "end": 40[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "92663",[39m
+[32m          "start": 41,[39m
+[32m          "end": 46[39m
+[32m        }[39m
+      ]
+      score: [31m0.631578947368421[39m => [32m0.9421052631578947[39m
+    }
+  ]
+}
+[33mChanged: {"text":"7046 SCHINKE ROAD SHIOCTON, WI 54170"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=7046+SCHINKE+ROAD+SHIOCTON,+WI+54170[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=7046+SCHINKE+ROAD+SHIOCTON,+WI+54170[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m36[39m => [32m26[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m31[39m => [32m18[39m
+          value: [31m"54170"[39m => [32m"SHIOCTON"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "WI",[39m
+[32m          "start": 28,[39m
+[32m          "end": 30[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "54170",[39m
+[32m          "start": 31,[39m
+[32m          "end": 36[39m
+[32m        }[39m
+      ]
+      score: [31m0.6666666666666666[39m => [32m0.9206666666666666[39m
+    }
+  ]
+}
+[33mChanged: {"text":"303 Bancario Rd. Marion, AR 72634"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=303+Bancario+Rd.+Marion,+AR+72634[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=303+Bancario+Rd.+Marion,+AR+72634[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m33[39m => [32m23[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m28[39m => [32m17[39m
+          value: [31m"72634"[39m => [32m"Marion"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "AR",[39m
+[32m          "start": 25,[39m
+[32m          "end": 27[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "72634",[39m
+[32m          "start": 28,[39m
+[32m          "end": 33[39m
+[32m        }[39m
+      ]
+      score: [31m0.7037037037037037[39m => [32m0.9266666666666666[39m
+    }
+  ]
+}
+[33mChanged: {"text":"7588 Squirrel Hill Rd, Minocqua, WI 54548"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=7588+Squirrel+Hill+Rd,+Minocqua,+WI+54548[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=7588+Squirrel+Hill+Rd,+Minocqua,+WI+54548[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m41[39m => [32m31[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m36[39m => [32m23[39m
+          value: [31m"54548"[39m => [32m"Minocqua"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "WI",[39m
+[32m          "start": 33,[39m
+[32m          "end": 35[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "54548",[39m
+[32m          "start": 36,[39m
+[32m          "end": 41[39m
+[32m        }[39m
+      ]
+      score: [31m0.696969696969697[39m => [32m0.9199999999999999[39m
+    }
+  ]
+}
+[33mChanged: {"text":"339 Market St Lewisburg, PA 17837"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=339+Market+St+Lewisburg,+PA+17837[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=339+Market+St+Lewisburg,+PA+17837[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m33[39m => [32m23[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m28[39m => [32m14[39m
+          value: [31m"17837"[39m => [32m"Lewisburg"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "PA",[39m
+[32m          "start": 25,[39m
+[32m          "end": 27[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "17837",[39m
+[32m          "start": 28,[39m
+[32m          "end": 33[39m
+[32m        }[39m
+      ]
+      score: [31m0.5925925925925926[39m => [32m0.9466666666666667[39m
+    }
+  ]
+}
+[33mChanged: {"text":"29 Years CONTACT 2351 S Laurelwood Ln, Tupelo, MS 38801"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=29+Years+CONTACT+2351+S+Laurelwood+Ln,+Tupelo,+MS+38801[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=29+Years+CONTACT+2351+S+Laurelwood+Ln,+Tupelo,+MS+38801[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m55[39m => [32m45[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m50[39m => [32m39[39m
+          value: [31m"38801"[39m => [32m"Tupelo"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "MS",[39m
+[32m          "start": 47,[39m
+[32m          "end": 49[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "38801",[39m
+[32m          "start": 50,[39m
+[32m          "end": 55[39m
+[32m        }[39m
+      ]
+      score: [31m0.5[39m => [32m0.6372727272727272[39m
+    }
+  ]
+}
+[33mChanged: {"text":"607 Abbott AveHillsboro, TX, 76645"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=607+Abbott+AveHillsboro,+TX,+76645[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=607+Abbott+AveHillsboro,+TX,+76645[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        0: {
+          end: [31m3[39m => [32m10[39m
+          label: [31m"housenumber"[39m => [32m"locality"[39m
+          start: [31m0[39m => [32m4[39m
+          value: [31m"607"[39m => [32m"Abbott"[39m
+        },
+        1: {
+          end: [31m34[39m => [32m27[39m
+          label: [31m"postcode"[39m => [32m"region"[39m
+          start: [31m29[39m => [32m25[39m
+          value: [31m"76645"[39m => [32m"TX"[39m
+        },
+        [32m2: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "76645",[39m
+[32m          "start": 29,[39m
+[32m          "end": 34[39m
+[32m        }[39m
+      ]
+      score: [31m0.2857142857142857[39m => [32m0.4642857142857143[39m
+    }
+  ]
+}
+[33mChanged: {"text":"07-01 115B Stancil Dr., Greenville, NC"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=07-01+115B+Stancil+Dr.,+Greenville,+NC[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=07-01+115B+Stancil+Dr.,+Greenville,+NC[39m
+{
+  solutions: [
+    [32m0: [39m[32m{[39m
+[32m      "score": 0.7806451612903226,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "housenumber",[39m
+[32m          "value": "115B",[39m
+[32m          "start": 6,[39m
+[32m          "end": 10[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "street",[39m
+[32m          "value": "Stancil Dr.",[39m
+[32m          "start": 11,[39m
+[32m          "end": 22[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Greenville",[39m
+[32m          "start": 24,[39m
+[32m          "end": 34[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "region",[39m
+[32m          "value": "NC",[39m
+[32m          "start": 36,[39m
+[32m          "end": 38[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+  ]
+}
+[33mChanged: {"text":"1235 Thomas Beck Road Des Moines, IA 50315"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=1235+Thomas+Beck+Road+Des+Moines,+IA+50315[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=1235+Thomas+Beck+Road+Des+Moines,+IA+50315[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m42[39m => [32m36[39m
+          label: [31m"postcode"[39m => [32m"region"[39m
+          start: [31m37[39m => [32m34[39m
+          value: [31m"50315"[39m => [32m"IA"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "50315",[39m
+[32m          "start": 37,[39m
+[32m          "end": 42[39m
+[32m        }[39m
+      ]
+      score: [31m0.6764705882352942[39m => [32m0.6576470588235295[39m
+    }
+  ]
+}
+[33mChanged: {"text":"5670 DOUGLAS ROAD THAYER, KS 66776"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=5670+DOUGLAS+ROAD+THAYER,+KS+66776[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=5670+DOUGLAS+ROAD+THAYER,+KS+66776[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m34[39m => [32m24[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m29[39m => [32m18[39m
+          value: [31m"66776"[39m => [32m"THAYER"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "KS",[39m
+[32m          "start": 26,[39m
+[32m          "end": 28[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "66776",[39m
+[32m          "start": 29,[39m
+[32m          "end": 34[39m
+[32m        }[39m
+      ]
+      score: [31m0.7142857142857143[39m => [32m0.9149999999999999[39m
+    }
+  ]
+}
+[33mChanged: {"text":"2115 Barkley Blvd. Suite 101 Bellingham, WA 98226 United States"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=2115+Barkley+Blvd.+Suite+101+Bellingham,+WA+98226+United+States[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=2115+Barkley+Blvd.+Suite+101+Bellingham,+WA+98226+United+States[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m49[39m => [32m24[39m
+          label: [31m"postcode"[39m => [32m"unit_type"[39m
+          start: [31m44[39m => [32m19[39m
+          value: [31m"98226"[39m => [32m"Suite"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "unit",[39m
+[32m          "value": "101",[39m
+[32m          "start": 25,[39m
+[32m          "end": 28[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Bellingham",[39m
+[32m          "start": 29,[39m
+[32m          "end": 39[39m
+[32m        }[39m
+        [32m5: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "WA",[39m
+[32m          "start": 41,[39m
+[32m          "end": 43[39m
+[32m        }[39m
+        [32m6: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "98226",[39m
+[32m          "start": 44,[39m
+[32m          "end": 49[39m
+[32m        }[39m
+        [32m7: [39m[32m{[39m
+[32m          "label": "country",[39m
+[32m          "value": "United States",[39m
+[32m          "start": 50,[39m
+[32m          "end": 63[39m
+[32m        }[39m
+      ]
+      score: [31m0.39622641509433965[39m => [32m0.9290566037735848[39m
+    }
+  ]
+}
+[33mChanged: {"text":"5325 Nieman Rd Shawnee, Kansas"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=5325+Nieman+Rd+Shawnee,+Kansas[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=5325+Nieman+Rd+Shawnee,+Kansas[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        [32m2: [39m[32m{[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Shawnee",[39m
+[32m          "start": 15,[39m
+[32m          "end": 22[39m
+[32m        }[39m
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "Kansas",[39m
+[32m          "start": 24,[39m
+[32m          "end": 30[39m
+[32m        }[39m
+      ]
+      score: [31m0.48[39m => [32m0.9264[39m
+    }
+  ]
+}
+[33mChanged: {"text":"294 Sand Creek Rd, Albany, NY 12205"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=294+Sand+Creek+Rd,+Albany,+NY+12205[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=294+Sand+Creek+Rd,+Albany,+NY+12205[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m35[39m => [32m25[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m30[39m => [32m19[39m
+          value: [31m"12205"[39m => [32m"Albany"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "NY",[39m
+[32m          "start": 27,[39m
+[32m          "end": 29[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "12205",[39m
+[32m          "start": 30,[39m
+[32m          "end": 35[39m
+[32m        }[39m
+      ]
+      score: [31m0.7037037037037037[39m => [32m0.9348148148148149[39m
+    }
+  ]
+}
+[33mChanged: {"text":"163 Pine Street, Lowell, MA 01851"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=163+Pine+Street,+Lowell,+MA+01851[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=163+Pine+Street,+Lowell,+MA+01851[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m33[39m => [32m23[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m28[39m => [32m17[39m
+          value: [31m"01851"[39m => [32m"Lowell"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "MA",[39m
+[32m          "start": 25,[39m
+[32m          "end": 27[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "01851",[39m
+[32m          "start": 28,[39m
+[32m          "end": 33[39m
+[32m        }[39m
+      ]
+      score: [31m0.6923076923076923[39m => [32m0.9307692307692308[39m
+    },
+    [32m1: [39m[32m{[39m
+[32m      "score": 0.7315384615384616,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "street",[39m
+[32m          "value": "163 Pine",[39m
+[32m          "start": 0,[39m
+[32m          "end": 8[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Lowell",[39m
+[32m          "start": 17,[39m
+[32m          "end": 23[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "region",[39m
+[32m          "value": "MA",[39m
+[32m          "start": 25,[39m
+[32m          "end": 27[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "01851",[39m
+[32m          "start": 28,[39m
+[32m          "end": 33[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+  ]
+}
+[33mChanged: {"text":"2 Baths 1980 sqft 135 Derby Rd Revere, MA 02151"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=2+Baths+1980+sqft+135+Derby+Rd+Revere,+MA+02151[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=2+Baths+1980+sqft+135+Derby+Rd+Revere,+MA+02151[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m47[39m => [32m37[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m42[39m => [32m31[39m
+          value: [31m"02151"[39m => [32m"Revere"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "MA",[39m
+[32m          "start": 39,[39m
+[32m          "end": 41[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "02151",[39m
+[32m          "start": 42,[39m
+[32m          "end": 47[39m
+[32m        }[39m
+      ]
+      score: [31m0.40540540540540543[39m => [32m0.5875675675675676[39m
+    },
+    [32m1: [39m[32m{[39m
+[32m      "score": 0.44702702702702707,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "housenumber",[39m
+[32m          "value": "135",[39m
+[32m          "start": 18,[39m
+[32m          "end": 21[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "street",[39m
+[32m          "value": "Derby Rd",[39m
+[32m          "start": 22,[39m
+[32m          "end": 30[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Revere",[39m
+[32m          "start": 31,[39m
+[32m          "end": 37[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "country",[39m
+[32m          "value": "MA",[39m
+[32m          "start": 39,[39m
+[32m          "end": 41[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+  ]
+}
+[33mChanged: {"text":"16 MARTIN WINN PEARSON 2545 DESERT COVE AVE PHOENIX, AZ 85028"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=16+MARTIN+WINN+PEARSON+2545+DESERT+COVE+AVE+PHOENIX,+AZ+85028[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=16+MARTIN+WINN+PEARSON+2545+DESERT+COVE+AVE+PHOENIX,+AZ+85028[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m61[39m => [32m51[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m56[39m => [32m44[39m
+          value: [31m"85028"[39m => [32m"PHOENIX"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "AZ",[39m
+[32m          "start": 53,[39m
+[32m          "end": 55[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "85028",[39m
+[32m          "start": 56,[39m
+[32m          "end": 61[39m
+[32m        }[39m
+      ]
+      score: [31m0.44[39m => [32m0.5704[39m
+    }
+  ]
+}
+[33mChanged: {"text":"735 Pierce Ave., Macon, GA 31204"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=735+Pierce+Ave.,+Macon,+GA+31204[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=735+Pierce+Ave.,+Macon,+GA+31204[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m32[39m => [32m22[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m27[39m => [32m17[39m
+          value: [31m"31204"[39m => [32m"Macon"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "GA",[39m
+[32m          "start": 24,[39m
+[32m          "end": 26[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "31204",[39m
+[32m          "start": 27,[39m
+[32m          "end": 32[39m
+[32m        }[39m
+      ]
+      score: [31m0.72[39m => [32m0.9279999999999999[39m
+    }
+  ]
+}
+[33mChanged: {"text":"2013 COPYRIGHT 2018 DREAM MEDICAL"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=2013+COPYRIGHT+2018+DREAM+MEDICAL[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=2013+COPYRIGHT+2018+DREAM+MEDICAL[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        0: {
+          end: [31m4[39m => [32m19[39m
+          label: [31m"housenumber"[39m => [32m"postcode"[39m
+          start: [31m0[39m => [32m15[39m
+          value: [31m"2013"[39m => [32m"2018"[39m
+        },
+        [31m1: [39m[31m{[39m
+[31m          "label": "postcode",[39m
+[31m          "value": "2018",[39m
+[31m          "start": 15,[39m
+[31m          "end": 19[39m
+[31m        }[39m
+      ]
+      score: [31m0.27586206896551724[39m => [32m0.13793103448275862[39m
+    }
+  ]
+}
+[33mChanged: {"text":"2345 Commonwealth Avenue, Auburndale, MA 02466"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=2345+Commonwealth+Avenue,+Auburndale,+MA+02466[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=2345+Commonwealth+Avenue,+Auburndale,+MA+02466[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m46[39m => [32m36[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m41[39m => [32m26[39m
+          value: [31m"02466"[39m => [32m"Auburndale"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "MA",[39m
+[32m          "start": 38,[39m
+[32m          "end": 40[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "02466",[39m
+[32m          "start": 41,[39m
+[32m          "end": 46[39m
+[32m        }[39m
+      ]
+      score: [31m0.6923076923076923[39m => [32m0.9066666666666666[39m
+    }
+  ]
+}
+[33mChanged: {"text":"1210 Stanbridge Street Suite 600 Norristown, Pennsylvania 19401"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=1210+Stanbridge+Street+Suite+600+Norristown,+Pennsylvania+19401[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=1210+Stanbridge+Street+Suite+600+Norristown,+Pennsylvania+19401[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m63[39m => [32m28[39m
+          label: [31m"postcode"[39m => [32m"unit_type"[39m
+          start: [31m58[39m => [32m23[39m
+          value: [31m"19401"[39m => [32m"Suite"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "unit",[39m
+[32m          "value": "600",[39m
+[32m          "start": 29,[39m
+[32m          "end": 32[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Norristown",[39m
+[32m          "start": 33,[39m
+[32m          "end": 43[39m
+[32m        }[39m
+        [32m5: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "Pennsylvania",[39m
+[32m          "start": 45,[39m
+[32m          "end": 57[39m
+[32m        }[39m
+        [32m6: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "19401",[39m
+[32m          "start": 58,[39m
+[32m          "end": 63[39m
+[32m        }[39m
+      ]
+      score: [31m0.45454545454545453[39m => [32m0.9403636363636363[39m
+    }
+  ]
+}
+[33mChanged: {"text":"6733 Kirby Oaks 10250 Latting Rd Cordova TN Memphis TN"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=6733+Kirby+Oaks+10250+Latting+Rd+Cordova+TN+Memphis+TN[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=6733+Kirby+Oaks+10250+Latting+Rd+Cordova+TN+Memphis+TN[39m
+{
+  solutions: [
+    [31m0: [39m[31m{[39m
+[31m      "score": 0.4,[39m
+[31m      "classifications": [[39m
+[31m        {[39m
+[31m          "label": "housenumber",[39m
+[31m          "value": "6733",[39m
+[31m          "start": 0,[39m
+[31m          "end": 4[39m
+[31m        },[39m
+[31m        {[39m
+[31m          "label": "street",[39m
+[31m          "value": "Kirby Oaks",[39m
+[31m          "start": 5,[39m
+[31m          "end": 15[39m
+[31m        },[39m
+[31m        {[39m
+[31m          "label": "postcode",[39m
+[31m          "value": "10250",[39m
+[31m          "start": 16,[39m
+[31m          "end": 21[39m
+[31m        }[39m
+[31m      ][39m
+[31m    }[39m
+  ]
+}
+[33mChanged: {"text":"1806 Newman Rd Freeland, WA 98249"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=1806+Newman+Rd+Freeland,+WA+98249[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=1806+Newman+Rd+Freeland,+WA+98249[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m33[39m => [32m23[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m28[39m => [32m15[39m
+          value: [31m"98249"[39m => [32m"Freeland"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "WA",[39m
+[32m          "start": 25,[39m
+[32m          "end": 27[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "98249",[39m
+[32m          "start": 28,[39m
+[32m          "end": 33[39m
+[32m        }[39m
+      ]
+      score: [31m0.6296296296296297[39m => [32m0.9318518518518518[39m
+    }
+  ]
+}
+[33mChanged: {"text":"871 Hopmeadow St., Simsbury, CT 06070"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=871+Hopmeadow+St.,+Simsbury,+CT+06070[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=871+Hopmeadow+St.,+Simsbury,+CT+06070[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m37[39m => [32m31[39m
+          label: [31m"postcode"[39m => [32m"region"[39m
+          start: [31m32[39m => [32m29[39m
+          value: [31m"06070"[39m => [32m"CT"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "06070",[39m
+[32m          "start": 32,[39m
+[32m          "end": 37[39m
+[32m        }[39m
+      ]
+      score: [31m0.6666666666666666[39m => [32m0.6613333333333333[39m
+    }
+  ]
+}
+[33mChanged: {"text":"1990 20 Chapel Street, Brookline, Massachusetts"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=1990+20+Chapel+Street,+Brookline,+Massachusetts[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=1990+20+Chapel+Street,+Brookline,+Massachusetts[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        0: {
+          end: [31m4[39m => [32m7[39m
+          label: [31m"postcode"[39m => [32m"housenumber"[39m
+          start: [31m0[39m => [32m5[39m
+          value: [31m"1990"[39m => [32m"20"[39m
+        },
+        1: {
+          end: [31m7[39m => [32m21[39m
+          label: [31m"housenumber"[39m => [32m"street"[39m
+          start: [31m5[39m => [32m8[39m
+          value: [31m"20"[39m => [32m"Chapel Street"[39m
+        },
+        2: {
+          end: [31m21[39m => [32m32[39m
+          label: [31m"street"[39m => [32m"locality"[39m
+          start: [31m8[39m => [32m23[39m
+          value: [31m"Chapel Street"[39m => [32m"Brookline"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "Massachusetts",[39m
+[32m          "start": 34,[39m
+[32m          "end": 47[39m
+[32m        }[39m
+      ]
+      score: [31m0.45[39m => [32m0.8460000000000001[39m
+    }
+  ]
+}
+[33mChanged: {"text":"211 Linder Drive Camp Nelson, CA 93265"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=211+Linder+Drive+Camp+Nelson,+CA+93265[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=211+Linder+Drive+Camp+Nelson,+CA+93265[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        1: {
+          end: [31m21[39m => [32m16[39m
+          value: [31m"Linder Drive Camp"[39m => [32m"Linder Drive"[39m
+        },
+        2: {
+          end: [31m38[39m => [32m28[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m33[39m => [32m17[39m
+          value: [31m"93265"[39m => [32m"Camp Nelson"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "CA",[39m
+[32m          "start": 30,[39m
+[32m          "end": 32[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "93265",[39m
+[32m          "start": 33,[39m
+[32m          "end": 38[39m
+[32m        }[39m
+      ]
+      score: [31m0.7419354838709677[39m => [32m0.9361290322580645[39m
+    },
+    [32m1: [39m[32m{[39m
+[32m      "score": 0.9225806451612903,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "housenumber",[39m
+[32m          "value": "211",[39m
+[32m          "start": 0,[39m
+[32m          "end": 3[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "street",[39m
+[32m          "value": "Linder Drive Camp",[39m
+[32m          "start": 4,[39m
+[32m          "end": 21[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Nelson",[39m
+[32m          "start": 22,[39m
+[32m          "end": 28[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "region",[39m
+[32m          "value": "CA",[39m
+[32m          "start": 30,[39m
+[32m          "end": 32[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "93265",[39m
+[32m          "start": 33,[39m
+[32m          "end": 38[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+  ]
+}
+[33mChanged: {"text":"12 Ivy Court , BLACKWOOD, NJ"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=12+Ivy+Court+,+BLACKWOOD,+NJ[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=12+Ivy+Court+,+BLACKWOOD,+NJ[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        [32m2: [39m[32m{[39m
+[32m          "label": "locality",[39m
+[32m          "value": "BLACKWOOD",[39m
+[32m          "start": 15,[39m
+[32m          "end": 24[39m
+[32m        }[39m
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "NJ",[39m
+[32m          "start": 26,[39m
+[32m          "end": 28[39m
+[32m        }[39m
+      ]
+      score: [31m0.47619047619047616[39m => [32m0.9314285714285714[39m
+    }
+  ]
+}
+[33mChanged: {"text":"2 MLS 8819292 29 920 Champions Way McDonough, GA"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=2+MLS+8819292+29+920+Champions+Way+McDonough,+GA[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=2+MLS+8819292+29+920+Champions+Way+McDonough,+GA[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        0: {
+          end: [31m13[39m => [32m20[39m
+          label: [31m"postcode"[39m => [32m"housenumber"[39m
+          start: [31m6[39m => [32m17[39m
+          value: [31m"8819292"[39m => [32m"920"[39m
+        },
+        1: {
+          end: [31m20[39m => [32m34[39m
+          label: [31m"housenumber"[39m => [32m"street"[39m
+          start: [31m17[39m => [32m21[39m
+          value: [31m"920"[39m => [32m"Champions Way"[39m
+        },
+        2: {
+          end: [31m34[39m => [32m44[39m
+          label: [31m"street"[39m => [32m"locality"[39m
+          start: [31m21[39m => [32m35[39m
+          value: [31m"Champions Way"[39m => [32m"McDonough"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "GA",[39m
+[32m          "start": 46,[39m
+[32m          "end": 48[39m
+[32m        }[39m
+      ]
+      score: [31m0.5641025641025641[39m => [32m0.6112820512820513[39m
+    },
+    [32m1: [39m[32m{[39m
+[32m      "score": 0.6061538461538462,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "housenumber",[39m
+[32m          "value": "920",[39m
+[32m          "start": 17,[39m
+[32m          "end": 20[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "street",[39m
+[32m          "value": "Champions Way",[39m
+[32m          "start": 21,[39m
+[32m          "end": 34[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "locality",[39m
+[32m          "value": "McDonough",[39m
+[32m          "start": 35,[39m
+[32m          "end": 44[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "country",[39m
+[32m          "value": "GA",[39m
+[32m          "start": 46,[39m
+[32m          "end": 48[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+  ]
+}
+[33mChanged: {"text":"1289 E Hillsdale Blvd Suite 10 Foster City, CA 94404"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=1289+E+Hillsdale+Blvd+Suite+10+Foster+City,+CA+94404[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=1289+E+Hillsdale+Blvd+Suite+10+Foster+City,+CA+94404[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m52[39m => [32m27[39m
+          label: [31m"postcode"[39m => [32m"unit_type"[39m
+          start: [31m47[39m => [32m22[39m
+          value: [31m"94404"[39m => [32m"Suite"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "unit",[39m
+[32m          "value": "10",[39m
+[32m          "start": 28,[39m
+[32m          "end": 30[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Foster City",[39m
+[32m          "start": 31,[39m
+[32m          "end": 42[39m
+[32m        }[39m
+        [32m5: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "CA",[39m
+[32m          "start": 44,[39m
+[32m          "end": 46[39m
+[32m        }[39m
+        [32m6: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "94404",[39m
+[32m          "start": 47,[39m
+[32m          "end": 52[39m
+[32m        }[39m
+      ]
+      score: [31m0.5476190476190477[39m => [32m0.9838095238095238[39m
+    }
+  ]
+}
+[33mChanged: {"text":"244 East Main Street, Bergenfield, NJ 07621"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=244+East+Main+Street,+Bergenfield,+NJ+07621[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=244+East+Main+Street,+Bergenfield,+NJ+07621[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m43[39m => [32m33[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m38[39m => [32m22[39m
+          value: [31m"07621"[39m => [32m"Bergenfield"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "NJ",[39m
+[32m          "start": 35,[39m
+[32m          "end": 37[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "07621",[39m
+[32m          "start": 38,[39m
+[32m          "end": 43[39m
+[32m        }[39m
+      ]
+      score: [31m0.6285714285714286[39m => [32m0.952[39m
+    }
+  ]
+}
+[33mChanged: {"text":"000 4150 Bonita Way Deerfield Beach, FL 33064"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=000+4150+Bonita+Way+Deerfield+Beach,+FL+33064[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=000+4150+Bonita+Way+Deerfield+Beach,+FL+33064[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m45[39m => [32m35[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m40[39m => [32m20[39m
+          value: [31m"33064"[39m => [32m"Deerfield Beach"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "FL",[39m
+[32m          "start": 37,[39m
+[32m          "end": 39[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "33064",[39m
+[32m          "start": 40,[39m
+[32m          "end": 45[39m
+[32m        }[39m
+      ]
+      score: [31m0.4864864864864865[39m => [32m0.8643243243243244[39m
+    },
+    [32m1: [39m[32m{[39m
+[32m      "score": 0.8086486486486487,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "housenumber",[39m
+[32m          "value": "4150",[39m
+[32m          "start": 4,[39m
+[32m          "end": 8[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "street",[39m
+[32m          "value": "Bonita Way Deerfield Beach",[39m
+[32m          "start": 9,[39m
+[32m          "end": 35[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "region",[39m
+[32m          "value": "FL",[39m
+[32m          "start": 37,[39m
+[32m          "end": 39[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "33064",[39m
+[32m          "start": 40,[39m
+[32m          "end": 45[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+  ]
+}
+[33mChanged: {"text":"15 6BL JOHNATHON D 16 SPERRIN DRIVE, LURGA"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=15+6BL+JOHNATHON+D+16+SPERRIN+DRIVE,+LURGA[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=15+6BL+JOHNATHON+D+16+SPERRIN+DRIVE,+LURGA[39m
+{
+  solutions: [
+    0: {
+      score: [31m0.4117647058823529[39m => [32m0.34823529411764703[39m
+    }
+  ]
+}
+[33mChanged: {"text":"450 West Ohio Street, Indianapolis, IN 46202"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=450+West+Ohio+Street,+Indianapolis,+IN+46202[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=450+West+Ohio+Street,+Indianapolis,+IN+46202[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m44[39m => [32m34[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m39[39m => [32m22[39m
+          value: [31m"46202"[39m => [32m"Indianapolis"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "46202",[39m
+[32m          "start": 39,[39m
+[32m          "end": 44[39m
+[32m        }[39m
+      ]
+      score: [31m0.6111111111111112[39m => [32m0.8977777777777778[39m
+    }
+  ]
+}
+[33mChanged: {"text":"13028 Wicker Avenue, Cedar Lake, IN 46303"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=13028+Wicker+Avenue,+Cedar+Lake,+IN+46303[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=13028+Wicker+Avenue,+Cedar+Lake,+IN+46303[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m41[39m => [32m31[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m36[39m => [32m21[39m
+          value: [31m"46303"[39m => [32m"Cedar Lake"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "46303",[39m
+[32m          "start": 36,[39m
+[32m          "end": 41[39m
+[32m        }[39m
+      ]
+      score: [31m0.5454545454545454[39m => [32m0.7527272727272728[39m
+    }
+  ]
+}
+[33mChanged: {"text":"15 N Water Street Lewisburg, PA 17837"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=15+N+Water+Street+Lewisburg,+PA+17837[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=15+N+Water+Street+Lewisburg,+PA+17837[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m37[39m => [32m27[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m32[39m => [32m18[39m
+          value: [31m"17837"[39m => [32m"Lewisburg"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "PA",[39m
+[32m          "start": 29,[39m
+[32m          "end": 31[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "17837",[39m
+[32m          "start": 32,[39m
+[32m          "end": 37[39m
+[32m        }[39m
+      ]
+      score: [31m0.6333333333333333[39m => [32m0.9919999999999999[39m
+    }
+  ]
+}
+[33mChanged: {"text":"819 S Federal Hwy. Suite 103 Stuart, Florida 34994"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=819+S+Federal+Hwy.+Suite+103+Stuart,+Florida+34994[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=819+S+Federal+Hwy.+Suite+103+Stuart,+Florida+34994[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m50[39m => [32m24[39m
+          label: [31m"postcode"[39m => [32m"unit_type"[39m
+          start: [31m45[39m => [32m19[39m
+          value: [31m"34994"[39m => [32m"Suite"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "unit",[39m
+[32m          "value": "103",[39m
+[32m          "start": 25,[39m
+[32m          "end": 28[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Stuart",[39m
+[32m          "start": 29,[39m
+[32m          "end": 35[39m
+[32m        }[39m
+        [32m5: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "Florida",[39m
+[32m          "start": 37,[39m
+[32m          "end": 44[39m
+[32m        }[39m
+        [32m6: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "34994",[39m
+[32m          "start": 45,[39m
+[32m          "end": 50[39m
+[32m        }[39m
+      ]
+      score: [31m0.4878048780487805[39m => [32m0.9648780487804879[39m
+    }
+  ]
+}
+[33mChanged: {"text":"7351 Fm 1960 Rd E Humble, TX"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=7351+Fm+1960+Rd+E+Humble,+TX[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=7351+Fm+1960+Rd+E+Humble,+TX[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        0: {
+          label: [31m"postcode"[39m => [32m"housenumber"[39m
+        },
+        1: {
+          end: [31m15[39m => [32m12[39m
+          start: [31m8[39m => [32m5[39m
+          value: [31m"1960 Rd"[39m => [32m"Fm 1960"[39m
+        },
+        2: {
+          label: [31m"street"[39m => [32m"locality"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "TX",[39m
+[32m          "start": 26,[39m
+[32m          "end": 28[39m
+[32m        }[39m
+      ]
+      score: [31m0.4076190476190476[39m => [32m0.6495238095238095[39m
+    },
+    [32m1: [39m[32m{[39m
+[32m      "score": 0.42857142857142855,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "1960",[39m
+[32m          "start": 8,[39m
+[32m          "end": 12[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Humble",[39m
+[32m          "start": 18,[39m
+[32m          "end": 24[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "region",[39m
+[32m          "value": "TX",[39m
+[32m          "start": 26,[39m
+[32m          "end": 28[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+    [32m2: [39m[32m{[39m
+[32m      "score": 0.2857142857142857,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "region",[39m
+[32m          "value": "Fm",[39m
+[32m          "start": 5,[39m
+[32m          "end": 7[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "1960",[39m
+[32m          "start": 8,[39m
+[32m          "end": 12[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+  ]
+}
+[33mChanged: {"text":"655 Madison Avenue - New York, 10065-8043"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=655+Madison+Avenue+-+New+York,+10065-8043[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=655+Madison+Avenue+-+New+York,+10065-8043[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m41[39m => [32m29[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m31[39m => [32m21[39m
+          value: [31m"10065-8043"[39m => [32m"New York"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "10065-8043",[39m
+[32m          "start": 31,[39m
+[32m          "end": 41[39m
+[32m        }[39m
+      ]
+      score: [31m0.7647058823529411[39m => [32m0.9017647058823529[39m
+    },
+    [32m1: [39m[32m{[39m
+[32m      "score": 0.9017647058823529,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "housenumber",[39m
+[32m          "value": "655",[39m
+[32m          "start": 0,[39m
+[32m          "end": 3[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "street",[39m
+[32m          "value": "Madison Avenue",[39m
+[32m          "start": 4,[39m
+[32m          "end": 18[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "region",[39m
+[32m          "value": "New York",[39m
+[32m          "start": 21,[39m
+[32m          "end": 29[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "10065-8043",[39m
+[32m          "start": 31,[39m
+[32m          "end": 41[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+  ]
+}
+[33mChanged: {"text":"32 Jones St, New York, NY 10014"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=32+Jones+St,+New+York,+NY+10014[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=32+Jones+St,+New+York,+NY+10014[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m31[39m => [32m21[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m26[39m => [32m13[39m
+          value: [31m"10014"[39m => [32m"New York"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "NY",[39m
+[32m          "start": 23,[39m
+[32m          "end": 25[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "10014",[39m
+[32m          "start": 26,[39m
+[32m          "end": 31[39m
+[32m        }[39m
+      ]
+      score: [31m0.6086956521739131[39m => [32m0.9452173913043478[39m
+    },
+    [32m1: [39m[32m{[39m
+[32m      "score": 0.8582608695652173,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "housenumber",[39m
+[32m          "value": "32",[39m
+[32m          "start": 0,[39m
+[32m          "end": 2[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "street",[39m
+[32m          "value": "Jones St",[39m
+[32m          "start": 3,[39m
+[32m          "end": 11[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "region",[39m
+[32m          "value": "New York",[39m
+[32m          "start": 13,[39m
+[32m          "end": 21[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "10014",[39m
+[32m          "start": 26,[39m
+[32m          "end": 31[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+  ]
+}
+[33mChanged: {"text":"333-5740 ACE Hardware 14069 Ridge Road North Royalton, OH 44133"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=333-5740+ACE+Hardware+14069+Ridge+Road+North+Royalton,+OH+44133[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=333-5740+ACE+Hardware+14069+Ridge+Road+North+Royalton,+OH+44133[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        0: {
+          label: [31m"postcode"[39m => [32m"housenumber"[39m
+        },
+        1: {
+          end: [31m27[39m => [32m33[39m
+          label: [31m"housenumber"[39m => [32m"street"[39m
+          start: [31m22[39m => [32m9[39m
+          value: [31m"14069"[39m => [32m"ACE Hardware 14069 Ridge"[39m
+        },
+        2: {
+          end: [31m44[39m => [32m53[39m
+          label: [31m"street"[39m => [32m"locality"[39m
+          start: [31m28[39m => [32m39[39m
+          value: [31m"Ridge Road North"[39m => [32m"North Royalton"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "OH",[39m
+[32m          "start": 55,[39m
+[32m          "end": 57[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "44133",[39m
+[32m          "start": 58,[39m
+[32m          "end": 63[39m
+[32m        }[39m
+      ]
+      score: [31m0.38113207547169814[39m => [32m0.8611320754716982[39m
+    }
+  ]
+}
+[33mChanged: {"text":"11 N 9th Ct, Indianola IA 50125"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=11+N+9th+Ct,+Indianola+IA+50125[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=11+N+9th+Ct,+Indianola+IA+50125[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m31[39m => [32m22[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m26[39m => [32m13[39m
+          value: [31m"50125"[39m => [32m"Indianola"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "IA",[39m
+[32m          "start": 23,[39m
+[32m          "end": 25[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "50125",[39m
+[32m          "start": 26,[39m
+[32m          "end": 31[39m
+[32m        }[39m
+      ]
+      score: [31m0.5416666666666666[39m => [32m0.995[39m
+    },
+    [32m1: [39m[32m{[39m
+[32m      "score": 0.5033333333333333,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "housenumber",[39m
+[32m          "value": "11",[39m
+[32m          "start": 0,[39m
+[32m          "end": 2[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "street",[39m
+[32m          "value": "N 9th",[39m
+[32m          "start": 3,[39m
+[32m          "end": 8[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "region",[39m
+[32m          "value": "Ct",[39m
+[32m          "start": 9,[39m
+[32m          "end": 11[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "50125",[39m
+[32m          "start": 26,[39m
+[32m          "end": 31[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+  ]
+}
+[33mChanged: {"text":"5827 S Transit Rd, Lockport, NY 14094"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=5827+S+Transit+Rd,+Lockport,+NY+14094[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=5827+S+Transit+Rd,+Lockport,+NY+14094[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m37[39m => [32m27[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m32[39m => [32m19[39m
+          value: [31m"14094"[39m => [32m"Lockport"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "NY",[39m
+[32m          "start": 29,[39m
+[32m          "end": 31[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "14094",[39m
+[32m          "start": 32,[39m
+[32m          "end": 37[39m
+[32m        }[39m
+      ]
+      score: [31m0.6551724137931034[39m => [32m0.9448275862068966[39m
+    }
+  ]
+}
+[33mChanged: {"text":"6360 Sunset Boulevard Los Angeles, CA 90028"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=6360+Sunset+Boulevard+Los+Angeles,+CA+90028[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=6360+Sunset+Boulevard+Los+Angeles,+CA+90028[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m43[39m => [32m33[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m38[39m => [32m22[39m
+          value: [31m"90028"[39m => [32m"Los Angeles"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "CA",[39m
+[32m          "start": 35,[39m
+[32m          "end": 37[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "90028",[39m
+[32m          "start": 38,[39m
+[32m          "end": 43[39m
+[32m        }[39m
+      ]
+      score: [31m0.6666666666666666[39m => [32m0.9138888888888889[39m
+    }
+  ]
+}
+[33mChanged: {"text":"86 Dana Avenue 86 Dana Avenue, Albany, NY 12208"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=86+Dana+Avenue+86+Dana+Avenue,+Albany,+NY+12208[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=86+Dana+Avenue+86+Dana+Avenue,+Albany,+NY+12208[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m47[39m => [32m37[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m42[39m => [32m31[39m
+          value: [31m"12208"[39m => [32m"Albany"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "NY",[39m
+[32m          "start": 39,[39m
+[32m          "end": 41[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "12208",[39m
+[32m          "start": 42,[39m
+[32m          "end": 47[39m
+[32m        }[39m
+      ]
+      score: [31m0.4594594594594595[39m => [32m0.627027027027027[39m
+    },
+    [32m1: [39m[32m{[39m
+[32m      "score": 0.627027027027027,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "street",[39m
+[32m          "value": "Dana Avenue",[39m
+[32m          "start": 3,[39m
+[32m          "end": 14[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "housenumber",[39m
+[32m          "value": "86",[39m
+[32m          "start": 15,[39m
+[32m          "end": 17[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Albany",[39m
+[32m          "start": 31,[39m
+[32m          "end": 37[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "region",[39m
+[32m          "value": "NY",[39m
+[32m          "start": 39,[39m
+[32m          "end": 41[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "12208",[39m
+[32m          "start": 42,[39m
+[32m          "end": 47[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+    [32m2: [39m[32m{[39m
+[32m      "score": 0.627027027027027,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "housenumber",[39m
+[32m          "value": "86",[39m
+[32m          "start": 15,[39m
+[32m          "end": 17[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "street",[39m
+[32m          "value": "Dana Avenue",[39m
+[32m          "start": 18,[39m
+[32m          "end": 29[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Albany",[39m
+[32m          "start": 31,[39m
+[32m          "end": 37[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "region",[39m
+[32m          "value": "NY",[39m
+[32m          "start": 39,[39m
+[32m          "end": 41[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "12208",[39m
+[32m          "start": 42,[39m
+[32m          "end": 47[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+  ]
+}
+[33mChanged: {"text":"4621 Speedway Drive Fort Wayne, Indiana 46825"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=4621+Speedway+Drive+Fort+Wayne,+Indiana+46825[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=4621+Speedway+Drive+Fort+Wayne,+Indiana+46825[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m45[39m => [32m30[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m40[39m => [32m20[39m
+          value: [31m"46825"[39m => [32m"Fort Wayne"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "Indiana",[39m
+[32m          "start": 32,[39m
+[32m          "end": 39[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "46825",[39m
+[32m          "start": 40,[39m
+[32m          "end": 45[39m
+[32m        }[39m
+      ]
+      score: [31m0.5789473684210527[39m => [32m0.9278947368421052[39m
+    }
+  ]
+}
+[33mChanged: {"text":"5869 Lake Worth Road Greenacres, FL 33463"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=5869+Lake+Worth+Road+Greenacres,+FL+33463[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=5869+Lake+Worth+Road+Greenacres,+FL+33463[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m41[39m => [32m31[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m36[39m => [32m21[39m
+          value: [31m"33463"[39m => [32m"Greenacres"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "FL",[39m
+[32m          "start": 33,[39m
+[32m          "end": 35[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "33463",[39m
+[32m          "start": 36,[39m
+[32m          "end": 41[39m
+[32m        }[39m
+      ]
+      score: [31m0.6470588235294118[39m => [32m0.9270588235294117[39m
+    }
+  ]
+}
+[33mChanged: {"text":"85 High St, Kirkcaldy KY"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=85+High+St,+Kirkcaldy+KY[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=85+High+St,+Kirkcaldy+KY[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        [32m2: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "KY",[39m
+[32m          "start": 22,[39m
+[32m          "end": 24[39m
+[32m        }[39m
+      ]
+      score: [31m0.42105263157894735[39m => [32m0.4694736842105263[39m
+    }
+  ]
+}
+[33mChanged: {"text":"2026 N Lawrence St, Philadelphia, PA 19122"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=2026+N+Lawrence+St,+Philadelphia,+PA+19122[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=2026+N+Lawrence+St,+Philadelphia,+PA+19122[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m42[39m => [32m32[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m37[39m => [32m20[39m
+          value: [31m"19122"[39m => [32m"Philadelphia"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "PA",[39m
+[32m          "start": 34,[39m
+[32m          "end": 36[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "19122",[39m
+[32m          "start": 37,[39m
+[32m          "end": 42[39m
+[32m        }[39m
+      ]
+      score: [31m0.5882352941176471[39m => [32m0.9817647058823528[39m
+    }
+  ]
+}
+[33mChanged: {"text":"3051 White Blvd Pearl, MS 39208"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=3051+White+Blvd+Pearl,+MS+39208[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=3051+White+Blvd+Pearl,+MS+39208[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m31[39m => [32m21[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m26[39m => [32m16[39m
+          value: [31m"39208"[39m => [32m"Pearl"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "MS",[39m
+[32m          "start": 23,[39m
+[32m          "end": 25[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "39208",[39m
+[32m          "start": 26,[39m
+[32m          "end": 31[39m
+[32m        }[39m
+      ]
+      score: [31m0.72[39m => [32m0.9192[39m
+    }
+  ]
+}
+[33mChanged: {"text":"2085 Vitex Lane North Palm Beach, FL 33408"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=2085+Vitex+Lane+North+Palm+Beach,+FL+33408[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=2085+Vitex+Lane+North+Palm+Beach,+FL+33408[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        1: {
+          end: [31m21[39m => [32m15[39m
+          value: [31m"Vitex Lane North"[39m => [32m"Vitex Lane"[39m
+        },
+        2: {
+          end: [31m42[39m => [32m32[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m37[39m => [32m16[39m
+          value: [31m"33408"[39m => [32m"North Palm Beach"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "FL",[39m
+[32m          "start": 34,[39m
+[32m          "end": 36[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "33408",[39m
+[32m          "start": 37,[39m
+[32m          "end": 42[39m
+[32m        }[39m
+      ]
+      score: [31m0.5941176470588236[39m => [32m0.9405882352941176[39m
+    },
+    [32m1: [39m[32m{[39m
+[32m      "score": 0.9388235294117647,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "housenumber",[39m
+[32m          "value": "2085",[39m
+[32m          "start": 0,[39m
+[32m          "end": 4[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "street",[39m
+[32m          "value": "Vitex Lane North",[39m
+[32m          "start": 5,[39m
+[32m          "end": 21[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Palm Beach",[39m
+[32m          "start": 22,[39m
+[32m          "end": 32[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "region",[39m
+[32m          "value": "FL",[39m
+[32m          "start": 34,[39m
+[32m          "end": 36[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "33408",[39m
+[32m          "start": 37,[39m
+[32m          "end": 42[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+  ]
+}
+[33mChanged: {"text":"100 Overseas Hwy Key Largo, FL 33037"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=100+Overseas+Hwy+Key+Largo,+FL+33037[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=100+Overseas+Hwy+Key+Largo,+FL+33037[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        1: {
+          end: [31m20[39m => [32m16[39m
+          value: [31m"Overseas Hwy Key"[39m => [32m"Overseas Hwy"[39m
+        },
+        2: {
+          end: [31m36[39m => [32m26[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m31[39m => [32m17[39m
+          value: [31m"33037"[39m => [32m"Key Largo"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "FL",[39m
+[32m          "start": 28,[39m
+[32m          "end": 30[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "33037",[39m
+[32m          "start": 31,[39m
+[32m          "end": 36[39m
+[32m        }[39m
+      ]
+      score: [31m0.7586206896551724[39m => [32m0.9317241379310345[39m
+    },
+    [32m1: [39m[32m{[39m
+[32m      "score": 0.9227586206896551,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "housenumber",[39m
+[32m          "value": "100",[39m
+[32m          "start": 0,[39m
+[32m          "end": 3[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "street",[39m
+[32m          "value": "Overseas Hwy Key",[39m
+[32m          "start": 4,[39m
+[32m          "end": 20[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "locality",[39m
+[32m          "value": "Largo",[39m
+[32m          "start": 21,[39m
+[32m          "end": 26[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "region",[39m
+[32m          "value": "FL",[39m
+[32m          "start": 28,[39m
+[32m          "end": 30[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "33037",[39m
+[32m          "start": 31,[39m
+[32m          "end": 36[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+    [32m2: [39m[32m{[39m
+[32m      "score": 0.8951724137931035,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "housenumber",[39m
+[32m          "value": "100",[39m
+[32m          "start": 0,[39m
+[32m          "end": 3[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "street",[39m
+[32m          "value": "Overseas Hwy Key Largo",[39m
+[32m          "start": 4,[39m
+[32m          "end": 26[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "region",[39m
+[32m          "value": "FL",[39m
+[32m          "start": 28,[39m
+[32m          "end": 30[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "33037",[39m
+[32m          "start": 31,[39m
+[32m          "end": 36[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+  ]
+}
+[33mChanged: {"text":"76 W BARON Way 76 W BARON Way SILVERTHORNE, CO 80498"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=76+W+BARON+Way+76+W+BARON+Way+SILVERTHORNE,+CO+80498[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=76+W+BARON+Way+76+W+BARON+Way+SILVERTHORNE,+CO+80498[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m52[39m => [32m42[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m47[39m => [32m30[39m
+          value: [31m"80498"[39m => [32m"SILVERTHORNE"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "CO",[39m
+[32m          "start": 44,[39m
+[32m          "end": 46[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "80498",[39m
+[32m          "start": 47,[39m
+[32m          "end": 52[39m
+[32m        }[39m
+      ]
+      score: [31m0.3902439024390244[39m => [32m0.7053658536585367[39m
+    },
+    [32m1: [39m[32m{[39m
+[32m      "score": 0.7053658536585367,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "street",[39m
+[32m          "value": "W BARON Way",[39m
+[32m          "start": 3,[39m
+[32m          "end": 14[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "housenumber",[39m
+[32m          "value": "76",[39m
+[32m          "start": 15,[39m
+[32m          "end": 17[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "locality",[39m
+[32m          "value": "SILVERTHORNE",[39m
+[32m          "start": 30,[39m
+[32m          "end": 42[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "region",[39m
+[32m          "value": "CO",[39m
+[32m          "start": 44,[39m
+[32m          "end": 46[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "80498",[39m
+[32m          "start": 47,[39m
+[32m          "end": 52[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+    [32m2: [39m[32m{[39m
+[32m      "score": 0.7053658536585367,[39m
+[32m      "classifications": [[39m
+[32m        {[39m
+[32m          "label": "housenumber",[39m
+[32m          "value": "76",[39m
+[32m          "start": 15,[39m
+[32m          "end": 17[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "street",[39m
+[32m          "value": "W BARON Way",[39m
+[32m          "start": 18,[39m
+[32m          "end": 29[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "locality",[39m
+[32m          "value": "SILVERTHORNE",[39m
+[32m          "start": 30,[39m
+[32m          "end": 42[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "region",[39m
+[32m          "value": "CO",[39m
+[32m          "start": 44,[39m
+[32m          "end": 46[39m
+[32m        },[39m
+[32m        {[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "80498",[39m
+[32m          "start": 47,[39m
+[32m          "end": 52[39m
+[32m        }[39m
+[32m      ][39m
+[32m    }[39m
+  ]
+}
+[33mChanged: {"text":"1325 Market St, Dayton, TN 37321"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=1325+Market+St,+Dayton,+TN+37321[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=1325+Market+St,+Dayton,+TN+37321[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m32[39m => [32m22[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m27[39m => [32m16[39m
+          value: [31m"37321"[39m => [32m"Dayton"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "TN",[39m
+[32m          "start": 24,[39m
+[32m          "end": 26[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "37321",[39m
+[32m          "start": 27,[39m
+[32m          "end": 32[39m
+[32m        }[39m
+      ]
+      score: [31m0.68[39m => [32m0.9264[39m
+    }
+  ]
+}
+[33mChanged: {"text":"1368 S Poinciana Blvd, Kissimmee, FL 34746"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=1368+S+Poinciana+Blvd,+Kissimmee,+FL+34746[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=1368+S+Poinciana+Blvd,+Kissimmee,+FL+34746[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m42[39m => [32m32[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m37[39m => [32m23[39m
+          value: [31m"34746"[39m => [32m"Kissimmee"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "FL",[39m
+[32m          "start": 34,[39m
+[32m          "end": 36[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "34746",[39m
+[32m          "start": 37,[39m
+[32m          "end": 42[39m
+[32m        }[39m
+      ]
+      score: [31m0.6764705882352942[39m => [32m0.9388235294117647[39m
+    }
+  ]
+}
+[33mChanged: {"text":"2 Middletown Lincroft Rd Lincroft, NJ 07738"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=2+Middletown+Lincroft+Rd+Lincroft,+NJ+07738[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=2+Middletown+Lincroft+Rd+Lincroft,+NJ+07738[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m43[39m => [32m33[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m38[39m => [32m25[39m
+          value: [31m"07738"[39m => [32m"Lincroft"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "NJ",[39m
+[32m          "start": 35,[39m
+[32m          "end": 37[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "07738",[39m
+[32m          "start": 38,[39m
+[32m          "end": 43[39m
+[32m        }[39m
+      ]
+      score: [31m0.7222222222222222[39m => [32m0.911111111111111[39m
+    }
+  ]
+}
+[33mChanged: {"text":"86-9908 South Cedar DRIVE IN"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=86-9908+South+Cedar+DRIVE+IN[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=86-9908+South+Cedar+DRIVE+IN[39m
+{
+  solutions: [
+    0: {
+      score: [31m0.9166666666666666[39m => [32m0.8416666666666666[39m
+    }
+  ]
+}
+[33mChanged: {"text":"3 mi US Bank 9700 Page Ave St. Louis, MO 63132"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=3+mi+US+Bank+9700+Page+Ave+St.+Louis,+MO+63132[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=3+mi+US+Bank+9700+Page+Ave+St.+Louis,+MO+63132[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        0: {
+          end: [31m17[39m => [32m12[39m
+          label: [31m"housenumber"[39m => [32m"venue"[39m
+          start: [31m13[39m => [32m2[39m
+          value: [31m"9700"[39m => [32m"mi US Bank"[39m
+        },
+        1: {
+          end: [31m30[39m => [32m17[39m
+          label: [31m"street"[39m => [32m"housenumber"[39m
+          start: [31m18[39m => [32m13[39m
+          value: [31m"Page Ave St."[39m => [32m"9700"[39m
+        },
+        2: {
+          end: [31m46[39m => [32m26[39m
+          label: [31m"postcode"[39m => [32m"street"[39m
+          start: [31m41[39m => [32m18[39m
+          value: [31m"63132"[39m => [32m"Page Ave"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "locality",[39m
+[32m          "value": "St. Louis",[39m
+[32m          "start": 27,[39m
+[32m          "end": 36[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "MO",[39m
+[32m          "start": 38,[39m
+[32m          "end": 40[39m
+[32m        }[39m
+        [32m5: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "63132",[39m
+[32m          "start": 41,[39m
+[32m          "end": 46[39m
+[32m        }[39m
+      ]
+      score: [31m0.5428571428571428[39m => [32m0.8782857142857142[39m
+    }
+  ]
+}
+[33mChanged: {"text":"3525 S. Bowen Rd. Arlington, TX 76016"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=3525+S.+Bowen+Rd.+Arlington,+TX+76016[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=3525+S.+Bowen+Rd.+Arlington,+TX+76016[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m37[39m => [32m27[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m32[39m => [32m18[39m
+          value: [31m"76016"[39m => [32m"Arlington"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "TX",[39m
+[32m          "start": 29,[39m
+[32m          "end": 31[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "76016",[39m
+[32m          "start": 32,[39m
+[32m          "end": 37[39m
+[32m        }[39m
+      ]
+      score: [31m0.6333333333333333[39m => [32m0.9466666666666667[39m
+    }
+  ]
+}
+[33mChanged: {"text":"525-3576 Target 7505 Laguna Blvd Elk Grove, CA 95758"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=525-3576+Target+7505+Laguna+Blvd+Elk+Grove,+CA+95758[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=525-3576+Target+7505+Laguna+Blvd+Elk+Grove,+CA+95758[39m
+{
+  solutions: [
+    [31m0: [39m[31m{[39m
+[31m      "score": 0.5116279069767442,[39m
+[31m      "classifications": [[39m
+[31m        {[39m
+[31m          "label": "postcode",[39m
+[31m          "value": "525-3576",[39m
+[31m          "start": 0,[39m
+[31m          "end": 8[39m
+[31m        },[39m
+[31m        {[39m
+[31m          "label": "housenumber",[39m
+[31m          "value": "7505",[39m
+[31m          "start": 16,[39m
+[31m          "end": 20[39m
+[31m        },[39m
+[31m        {[39m
+[31m          "label": "street",[39m
+[31m          "value": "Laguna Blvd",[39m
+[31m          "start": 21,[39m
+[31m          "end": 32[39m
+[31m        }[39m
+[31m      ][39m
+[31m    }[39m
+  ]
+}
+[33mChanged: {"text":"405 South Ocean Boulevard Myrtle Beach, SC 29577 United States"}[39m
+[33m    api-tool http://localhost:4000/parser/parse?text=405+South+Ocean+Boulevard+Myrtle+Beach,+SC+29577+United+States[39m
+[33m    api-tool http://localhost:3000/parser/parse?text=405+South+Ocean+Boulevard+Myrtle+Beach,+SC+29577+United+States[39m
+{
+  solutions: [
+    0: {
+      classifications: [
+        2: {
+          end: [31m48[39m => [32m38[39m
+          label: [31m"postcode"[39m => [32m"locality"[39m
+          start: [31m43[39m => [32m26[39m
+          value: [31m"29577"[39m => [32m"Myrtle Beach"[39m
+        },
+        [32m3: [39m[32m{[39m
+[32m          "label": "region",[39m
+[32m          "value": "SC",[39m
+[32m          "start": 40,[39m
+[32m          "end": 42[39m
+[32m        }[39m
+        [32m4: [39m[32m{[39m
+[32m          "label": "postcode",[39m
+[32m          "value": "29577",[39m
+[32m          "start": 43,[39m
+[32m          "end": 48[39m
+[32m        }[39m
+        [32m5: [39m[32m{[39m
+[32m          "label": "country",[39m
+[32m          "value": "United States",[39m
+[32m          "start": 49,[39m
+[32m          "end": 62[39m
+[32m        }[39m
+      ]
+      score: [31m0.5192307692307693[39m => [32m0.933076923076923[39m
+    }
+  ]
+}
+Elapsed: 0.272 seconds
