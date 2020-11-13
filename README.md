@@ -13,6 +13,7 @@ It also includes a script for talking to json http services with saved configura
 ![start of text diff](https://radarlabs.github.io/api-diff/text-output-2.png)
 
 ### [html output](https://radarlabs.github.io/api-diff/diff.html)
+![html diff](http://images.ctfassets.net/f2vbu16fzuly/2izT1q1tXM4UO5VmaLAcnB/f47165fe0bd1c3a01abca54d975b6938/Screen_Shot_2020-11-13_at_8.55.29_AM.png)
 
 Note that this is an interactive evaluation form for figuring out which queries improved and which got worse. Each result is assigned an id based on the md5 hash of the query params + delta, and scores are saved to local storage. in your web browser. This means if you're doing a lot of compares, where many of the diffs are the same between runs, you won't need to re-rank them.
 
