@@ -5,6 +5,8 @@ import Bluebird from 'bluebird';
 import * as jsondiffpatch from 'jsondiffpatch';
 import { AxiosResponse } from 'axios';
 import jp from 'jsonpath';
+import * as _ from 'lodash';
+import chalk from 'chalk';
 
 import { ApiEnv, argvToApiEnv } from '../apiEnv';
 import runQuery, { AxiosResponseWithDuration } from '../run-query';
@@ -19,7 +21,12 @@ import { Query } from './query';
 
 type CompareArgs = Pick<
   ParsedArgs,
-  'concurrency' | 'ignored_fields' | 'extra_params' | 'timeout' | 'retries' | 'response_filter'
+  | 'concurrency'
+  | 'ignored_fields'
+  | 'extra_params'
+  | 'timeout'
+  | 'retries'
+  | 'response_filter'
 >;
 
 /**
@@ -46,25 +53,37 @@ async function compareQuery({
   // otherwise run it against the old server
   const oldResponse = query.baselineResponse
     ? ({ data: query.baselineResponse } as AxiosResponse<unknown>)
-    : await runQuery(oldApiEnv, query, { timeout: argv.timeout, retries: argv.retries }).catch(
-      (e) => {
-        console.error(e);
-        throw e;
-      },
-    );
+    : await runQuery(oldApiEnv, query, {
+      timeout: argv.timeout,
+      retries: argv.retries,
+    }).catch((e) => {
+      console.error(e);
+      throw e;
+    });
 
   const newResponse = newApiEnv
-    ? await runQuery(newApiEnv, query, { timeout: argv.timeout, retries: argv.retries }).catch(
-      (e) => {
-        console.error(e);
-        throw e;
-      },
-    )
+    ? await runQuery(newApiEnv, query, {
+      timeout: argv.timeout,
+      retries: argv.retries,
+    }).catch((e) => {
+      console.error(e);
+      throw e;
+    })
     : undefined;
 
   if (argv.response_filter) {
+    const hadData = !_.isEmpty(oldResponse.data) || !_.isEmpty(newResponse.data);
+
     oldResponse.data = jp.query(oldResponse.data, argv.response_filter);
     newResponse.data = jp.query(newResponse.data, argv.response_filter);
+
+    if (hadData && _.isEmpty(oldResponse.data) && _.isEmpty(newResponse.data)) {
+      console.error(
+        chalk.yellow(
+          `\nAfter filtering, old and new response are both falsy. Are you sure your filter is correct? ${argv.response_filter}`,
+        ),
+      );
+    }
   }
 
   const differ = jsondiffpatch.create({
@@ -73,7 +92,9 @@ async function compareQuery({
     },
   });
 
-  const delta = newResponse ? differ.diff(oldResponse.data, newResponse.data) : undefined;
+  const delta = newResponse
+    ? differ.diff(oldResponse.data, newResponse.data)
+    : undefined;
 
   return {
     query,
@@ -133,8 +154,12 @@ async function compareQueries({
 
       formatter.queryCompleted(change);
 
-      oldResponseTimes.push((change.oldResponse as AxiosResponseWithDuration).duration);
-      newResponseTimes.push((change.newResponse as AxiosResponseWithDuration)?.duration);
+      oldResponseTimes.push(
+        (change.oldResponse as AxiosResponseWithDuration).duration,
+      );
+      newResponseTimes.push(
+        (change.newResponse as AxiosResponseWithDuration)?.duration,
+      );
 
       if (!oldStatusCodes[change.oldResponse.status]) {
         oldStatusCodes[change.oldResponse.status] = 0;
