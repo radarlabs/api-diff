@@ -128,9 +128,7 @@ Because I've defined a "prod" entry in config.hjson, and put keys into .env, thi
 npm install -g @radarlabs/api-diff
 ```
 
-Note
-1) This will be changing to @radarlabs/api-diff real soon now
-2) to run any of the examples in this doc from this source tree, simply run `yarn --silent command` instead of `command`, so `yarn --silent api-diff` instead of `api-diff`
+To run any of the examples in this doc from this source tree, simply run `yarn --silent command` instead of `command`, so `yarn --silent api-diff` instead of `api-diff`
 
 ## Usage
 
