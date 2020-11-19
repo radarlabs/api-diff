@@ -125,7 +125,7 @@ Because I've defined a "prod" entry in config.hjson, and put keys into .env, thi
 ## Installation
 
 ```
-npm install -g @blackmad/api-diff
+npm install -g @radarlabs/api-diff
 ```
 
 Note
