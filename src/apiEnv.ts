@@ -31,7 +31,8 @@ type YargsOptionMapping = Record<string, yargs.Options>;
 const apiEnvCommandLineOptions: YargsOptionMapping = {
   host: {
     type: 'string',
-    description: '(http|https://)hostname(:port) - protocol and port are optional, default to http/80',
+    description:
+      '(http|https://)hostname(:port) - protocol and port are optional, default to http/80',
   },
   key: {
     type: 'string',
@@ -48,6 +49,13 @@ const apiEnvCommandLineOptions: YargsOptionMapping = {
  * @returns {YargsOptionMapping} mapping of string to yargs option config
  */
 export function getApiEnvCommandLineOptions(): YargsOptionMapping {
+  const keyEnvs = _.flatMap(config.hosts, (hostEntry, hostEnv) => {
+    if (hostEntry.keyEnv === hostEnv) {
+      return [hostEnv];
+    }
+    return [];
+  });
+
   if (config.keyTypes) {
     apiEnvCommandLineOptions.key_type = {
       choices: config.keyTypes,
@@ -56,9 +64,18 @@ export function getApiEnvCommandLineOptions(): YargsOptionMapping {
     };
   }
 
+  apiEnvCommandLineOptions.key_env = {
+    choices: keyEnvs,
+    description:
+      'authorization key env to use, defaults to the env specified by the host entry',
+  };
+
   if (config.hosts) {
     apiEnvCommandLineOptions.env = {
-      choices: [..._.keys(config.hosts), ..._.flatMap(config.hosts, (v) => v.aliases || [])],
+      choices: [
+        ..._.keys(config.hosts),
+        ..._.flatMap(config.hosts, (v) => v.aliases || []),
+      ],
       description: 'api host to talk to',
     };
 
@@ -92,7 +109,9 @@ export function findApiKey(
   console.error(`Looking for key in env ${envVariableName}`);
   const key = process.env[envVariableName];
   if (!key && exitOnFailure) {
-    failedExit(`No key found for ${envVariableName} in .env and --key not specified`);
+    failedExit(
+      `No key found for ${envVariableName} in .env and --key not specified`,
+    );
   }
   return key;
 }
@@ -119,7 +138,9 @@ export function argvToApiEnv(
       // This gets triggered if a user specifies more than one hostEntry command
       // line option, like --prod and --staging (if both are defined in their config)
       if (aliasedHostEntry) {
-        throw new Error(`Can only specify one of ${_.keys(config.hosts).join(',')}`);
+        throw new Error(
+          `Can only specify one of ${_.keys(config.hosts).join(',')}`,
+        );
       }
 
       // If this entry takes an argument, replace uppercase(hostConfigEntryName)
@@ -134,7 +155,7 @@ export function argvToApiEnv(
       // keyEnv is either the env specified in the hostEntry or just the
       // name of the hostConfig. For example, localhost might specify keyEnv: staging,
       // while the hostConfig for "staging" wouldn't need to do so
-      hostEntry.keyEnv = hostEntry.keyEnv || hostKey;
+      hostEntry.keyEnv = argv.keyEnv || hostEntry.keyEnv || hostKey;
 
       hostEntry.keyType = hostEntry.keyType || _.first(config.keyTypes);
 
@@ -158,12 +179,21 @@ export function argvToApiEnv(
   apiEnv.protocol = apiEnv?.protocol || 'http';
 
   if (!apiEnv.host && exitOnFailure) {
-    failedExit(`Could not find host via arguments specified ${JSON.stringify(argv || {}, null, 2)}`);
+    failedExit(
+      `Could not find host via arguments specified ${JSON.stringify(
+        argv || {},
+        null,
+        2,
+      )}`,
+    );
   }
 
   if (config.authStyle) {
     apiEnv.key = apiEnv.key
-      || findApiKey({ keyEnv: apiEnv.keyEnv, keyType: apiEnv.keyType }, exitOnFailure);
+      || findApiKey(
+        { keyEnv: apiEnv.keyEnv, keyType: apiEnv.keyType },
+        exitOnFailure,
+      );
   }
 
   return apiEnv as ApiEnv;

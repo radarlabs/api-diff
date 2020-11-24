@@ -48,7 +48,7 @@ async function compareQuery({
   newApiEnv?: ApiEnv;
   query: Query;
   argv: CompareArgs;
-}): Promise<Change> {
+}): Promise<Change | undefined> {
   // if the query has a baseline response (running from a golden json file), use that
   // otherwise run it against the old server
   const oldResponse = query.baselineResponse
@@ -74,8 +74,12 @@ async function compareQuery({
   if (argv.response_filter) {
     const hadData = !_.isEmpty(oldResponse.data) || !_.isEmpty(newResponse.data);
 
-    oldResponse.data = jp.query(oldResponse.data, argv.response_filter);
-    newResponse.data = jp.query(newResponse.data, argv.response_filter);
+    try {
+      oldResponse.data = jp.query(oldResponse.data, argv.response_filter);
+      newResponse.data = jp.query(newResponse.data, argv.response_filter);
+    } catch (e) {
+      console.error(e);
+    }
 
     if (hadData && _.isEmpty(oldResponse.data) && _.isEmpty(newResponse.data)) {
       console.error(
@@ -151,6 +155,10 @@ async function compareQueries({
         console.error(e);
         throw e;
       });
+
+      if (!change) {
+        return;
+      }
 
       formatter.queryCompleted(change);
 
