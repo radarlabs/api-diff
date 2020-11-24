@@ -125,10 +125,23 @@ export function findApiKey(
  * @returns {ApiEnv} filled in ApiEnv
  */
 export function argvToApiEnv(
-  argv: Partial<ApiEnv> | undefined,
+  argv?: any,
   exitOnFailure?: boolean,
 ): ApiEnv {
-  let apiEnv: Partial<ApiEnv> = _.clone(argv) || {};
+  let apiEnv: Partial<ApiEnv> = {};
+
+  if (argv.key) {
+    apiEnv.key = argv.key;
+  }
+  if (argv.host) {
+    apiEnv.host = argv.host;
+  }
+  if (argv.key_env) {
+    apiEnv.keyEnv = argv.key_env;
+  }
+  if (argv.keyType) {
+    apiEnv.keyType = argv.key_type;
+  }
 
   let aliasedHostEntry: ConfigHostEntry;
   _.forEach(config.hosts, (hostEntry: ConfigHostEntry, hostKey: string) => {
@@ -155,7 +168,7 @@ export function argvToApiEnv(
       // keyEnv is either the env specified in the hostEntry or just the
       // name of the hostConfig. For example, localhost might specify keyEnv: staging,
       // while the hostConfig for "staging" wouldn't need to do so
-      hostEntry.keyEnv = argv.keyEnv || hostEntry.keyEnv || hostKey;
+      hostEntry.keyEnv = hostEntry.keyEnv || hostKey;
 
       hostEntry.keyType = hostEntry.keyType || _.first(config.keyTypes);
 
