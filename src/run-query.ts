@@ -1,6 +1,9 @@
 /* eslint-disable no-console */
 import axios, {
-  Method, AxiosResponse, AxiosRequestConfig, AxiosError,
+  Method,
+  AxiosResponse,
+  AxiosRequestConfig,
+  AxiosError,
 } from 'axios';
 import axiosRetry from 'axios-retry';
 import querystring from 'querystring';
@@ -11,22 +14,25 @@ import { Query } from './api-diff/query';
 import config from './config';
 
 type AxiosMetadata = {
-  startTime: number
-}
+  startTime: number;
+};
 
 type WithAxiosMetadata = {
-  metadata: AxiosMetadata
-}
+  metadata: AxiosMetadata;
+};
 
-export type AxiosResponseWithDuration =
-  AxiosResponse & {config: WithAxiosMetadata} & { duration: number}
+export type AxiosResponseWithDuration = AxiosResponse & {
+  config: WithAxiosMetadata;
+} & { duration: number };
 
 // Response time middleware. Tracks the duration of the axios request/response
-axios.interceptors.request.use((axiosConfig: AxiosRequestConfig & WithAxiosMetadata) => {
-  // eslint-disable-next-line no-param-reassign
-  axiosConfig.metadata = { startTime: Date.now() };
-  return axiosConfig;
-});
+axios.interceptors.request.use(
+  (axiosConfig: AxiosRequestConfig & WithAxiosMetadata) => {
+    // eslint-disable-next-line no-param-reassign
+    axiosConfig.metadata = { startTime: Date.now() };
+    return axiosConfig;
+  },
+);
 axios.interceptors.response.use((response: AxiosResponseWithDuration) => {
   response.duration = Date.now() - response.config.metadata.startTime;
   return response;
@@ -34,9 +40,9 @@ axios.interceptors.response.use((response: AxiosResponseWithDuration) => {
 
 type RunQueryOptions = {
   /** Request timeout in milliseconds */
-  timeout: number,
-  retries: number,
-}
+  timeout: number;
+  retries: number;
+};
 
 /**
  * Run one query against specified apiEnv
@@ -65,7 +71,9 @@ export default async function runQuery(
   };
 
   if (config.authStyle === 'header') {
-    headers.Authorization = [config.authType, apiEnv.key].filter((u) => !_.isEmpty(u)).join(' ');
+    headers.Authorization = [config.authType, apiEnv.key]
+      .filter((u) => !_.isEmpty(u))
+      .join(' ');
   } else if (config.authStyle === 'param') {
     params[config.authParam] = apiEnv.key;
   }
@@ -74,7 +82,10 @@ export default async function runQuery(
     const response = await axios(url, {
       headers,
       params: method === 'GET' ? params : undefined,
-      data: method === 'POST' ? params : undefined,
+      data:
+        method === 'POST' || method === 'PUT' || method === 'UPDATE'
+          ? params
+          : undefined,
       method: method as Method,
       timeout,
     });
@@ -83,12 +94,16 @@ export default async function runQuery(
     if (error.response) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx
-      console.error(`Got error code: ${error.response.status} for ${error.response.request?.res.responseUrl}`);
+      console.error(
+        `Got error code: ${error.response.status} for ${error.response.request?.res.responseUrl}`,
+      );
       return error.response;
     }
     if (error.request) {
       const axiosError = error as AxiosError<any>;
-      console.error(`Error ${axiosError.code} on ${url}?${querystring.stringify(params)}`);
+      console.error(
+        `Error ${axiosError.code} on ${url}?${querystring.stringify(params)}`,
+      );
 
       // likely a timeout, don't throw, keep soldiering on
       return {
