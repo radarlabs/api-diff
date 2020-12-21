@@ -4,6 +4,7 @@
  * both for constructing the command line flags to specify one, and for interpreting the
  * values of those command line flags into an ApiEnv object
  */
+import * as queryString from 'querystring';
 import * as _ from 'lodash';
 import yargs from 'yargs';
 import * as os from 'os';
@@ -23,6 +24,7 @@ export interface ApiEnv {
   host: string;
   keyEnv: string;
   keyType?: string;
+  extraParams?: Record<string, string>;
 }
 
 type YargsOptionMapping = Record<string, yargs.Options>;
@@ -38,6 +40,12 @@ const apiEnvCommandLineOptions: YargsOptionMapping = {
     type: 'string',
     description:
       'Authorization key, if not specified will try to find one in the env or in ~/.api-keys.env',
+  },
+  extra_params: {
+    type: 'array',
+    default: [],
+    description:
+      'Extra static parameters that will be added to each query sent to this host, used for testing differences caused by slightly different query params',
   },
 };
 
@@ -141,6 +149,9 @@ export function argvToApiEnv(
   }
   if (argv.keyType) {
     apiEnv.keyType = argv.key_type;
+  }
+  if (argv.extra_params) {
+    apiEnv.extraParams = queryString.parse(argv.extra_params.join('&')) as Record<string, string>;
   }
 
   let aliasedHostEntry: ConfigHostEntry;

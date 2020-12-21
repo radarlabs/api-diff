@@ -53,7 +53,10 @@ async function compareQuery({
   // otherwise run it against the old server
   const oldResponse = query.baselineResponse
     ? ({ data: query.baselineResponse } as AxiosResponse<unknown>)
-    : await runQuery(oldApiEnv, query, {
+    : await runQuery(oldApiEnv, {
+      ...query,
+      params: { ...query.params, ...oldApiEnv.extraParams },
+    }, {
       timeout: argv.timeout,
       retries: argv.retries,
     }).catch((e) => {
@@ -62,7 +65,10 @@ async function compareQuery({
     });
 
   const newResponse = newApiEnv
-    ? await runQuery(newApiEnv, query, {
+    ? await runQuery(newApiEnv, {
+      ...query,
+      params: { ...query.params, ...newApiEnv.extraParams },
+    }, {
       timeout: argv.timeout,
       retries: argv.retries,
     }).catch((e) => {
