@@ -15,6 +15,7 @@ export type ParsedArgs = {
   method: string;
   ignored_fields: string[];
   response_filter: string;
+  response_filter_function: string;
   concurrency: number;
   unchanged: boolean;
   key_map: string[];
@@ -100,6 +101,12 @@ function createYargs(yargs: Argv, envs: string[]) {
     type: 'string',
     description:
       'run the responses through this filter (specified in jsonpath format - https://www.npmjs.com/package/jsonpath) before diffing',
+  });
+
+  yargs.option('response_filter_function', {
+    type: 'string',
+    description:
+      'path to a .ts or .js file to load (using default export) to filter the api response',
   });
 
   yargs.option('concurrency', {

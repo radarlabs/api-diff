@@ -27,6 +27,7 @@ type CompareArgs = Pick<
   | 'timeout'
   | 'retries'
   | 'response_filter'
+  | 'response_filter_function'
 >;
 
 /**
@@ -53,36 +54,52 @@ async function compareQuery({
   // otherwise run it against the old server
   const oldResponse = query.baselineResponse
     ? ({ data: query.baselineResponse } as AxiosResponse<unknown>)
-    : await runQuery(oldApiEnv, {
-      ...query,
-      params: { ...query.params, ...oldApiEnv.extraParams },
-    }, {
-      timeout: argv.timeout,
-      retries: argv.retries,
-    }).catch((e) => {
+    : await runQuery(
+      oldApiEnv,
+      {
+        ...query,
+        params: { ...query.params, ...oldApiEnv.extraParams },
+      },
+      {
+        timeout: argv.timeout,
+        retries: argv.retries,
+      },
+    ).catch((e) => {
       console.error(e);
       throw e;
     });
 
   const newResponse = newApiEnv
-    ? await runQuery(newApiEnv, {
-      ...query,
-      params: { ...query.params, ...newApiEnv.extraParams },
-    }, {
-      timeout: argv.timeout,
-      retries: argv.retries,
-    }).catch((e) => {
+    ? await runQuery(
+      newApiEnv,
+      {
+        ...query,
+        params: { ...query.params, ...newApiEnv.extraParams },
+      },
+      {
+        timeout: argv.timeout,
+        retries: argv.retries,
+      },
+    ).catch((e) => {
       console.error(e);
       throw e;
     })
     : undefined;
 
-  if (argv.response_filter) {
+  if (argv.response_filter || argv.response_filter_function) {
     const hadData = !_.isEmpty(oldResponse.data) || !_.isEmpty(newResponse.data);
 
     try {
-      oldResponse.data = jp.query(oldResponse.data, argv.response_filter);
-      newResponse.data = jp.query(newResponse.data, argv.response_filter);
+      if (argv.response_filter_function) {
+        /* eslint-disable import/no-dynamic-require, global-require,
+              @typescript-eslint/no-var-requires */
+        const filter = require(argv.response_filter_function);
+        oldResponse.data = filter(oldResponse.data);
+        newResponse.data = filter(newResponse.data);
+      } else {
+        oldResponse.data = jp.query(oldResponse.data, argv.response_filter);
+        newResponse.data = jp.query(newResponse.data, argv.response_filter);
+      }
     } catch (e) {
       console.error(e);
     }
