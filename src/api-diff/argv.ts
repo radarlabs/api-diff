@@ -21,7 +21,7 @@ export type ParsedArgs = {
   key_map: string[];
   output_mode: OutputMode;
   output_file: string;
-  input_json_baseline: string;
+  input_json_baseline: string[];
   timeout: number;
   retries: number;
   _: string[];

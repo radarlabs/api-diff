@@ -119,3 +119,4 @@ dist/
 *.html
 !./docs/compare.html
 !./src/api-diff/formatters/compare.html
+.metals

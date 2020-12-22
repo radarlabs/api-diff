@@ -2,7 +2,11 @@
 
 import md5 from 'md5';
 import { Change } from '../change';
-import { CompareFormatter, FinishedStats, makeResponseTimesHistogram } from './compare-formatter';
+import {
+  CompareFormatter,
+  FinishedStats,
+  makeResponseTimesHistogram,
+} from './compare-formatter';
 
 /** One half of a compare response in output */
 type ApiEnvResponse = {
@@ -23,7 +27,9 @@ export default class JsonFormatter extends CompareFormatter {
 
   logChange(change: Change): void {
     this.changes.push({
-      id: md5(JSON.stringify({ delta: change.delta, params: change.query.params })),
+      id: md5(
+        JSON.stringify({ delta: change.delta, params: change.query.params }),
+      ),
       query: change.query,
       delta: change.delta,
       old: {
@@ -55,14 +61,21 @@ export default class JsonFormatter extends CompareFormatter {
       totalQueries: this.totalQueries,
       numQueriesRun: this.numQueriesRun,
       old: {
-        apiEnv: this.oldApiEnv,
-        responseTimes: makeResponseTimesHistogram(finishedStats.old.responseTimes),
+        apiEnv: {
+          ...this.oldApiEnv,
+          key: undefined,
+        },
+        responseTimes: makeResponseTimesHistogram(
+          finishedStats.old.responseTimes,
+        ),
         statusCodes: finishedStats.old.statusCodes,
       },
       new: this.newApiEnv
         ? {
-          apiEnv: this.newApiEnv,
-          responseTimes: makeResponseTimesHistogram(finishedStats.new.responseTimes),
+          apiEnv: { ...this.newApiEnv, key: undefined },
+          responseTimes: makeResponseTimesHistogram(
+            finishedStats.new.responseTimes,
+          ),
           statusCodes: finishedStats.new.statusCodes,
         }
         : undefined,
