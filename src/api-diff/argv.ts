@@ -24,6 +24,7 @@ export type ParsedArgs = {
   input_json_baseline: string[];
   timeout: number;
   retries: number;
+  limit_queries: number;
   _: string[];
 };
 
@@ -113,6 +114,12 @@ function createYargs(yargs: Argv, envs: string[]) {
     type: 'number',
     default: 10,
     description: 'concurrency of api queries per host to run',
+  });
+
+  yargs.option('limit_queries', {
+    type: 'number',
+    default: 0,
+    description: 'Only run the first N queries from input files. 0 for unlimited.',
   });
 
   yargs.option('key_map', {

@@ -20,6 +20,7 @@ type QueryReaderArgs = Pick<
   | 'input_csv'
   | 'key_map'
   | 'extra_params'
+  | 'limit_queries'
 >;
 
 /**
@@ -146,6 +147,10 @@ export default function readQueries(argv: QueryReaderArgs): Query[] {
     // eslint-disable-next-line no-param-reassign
     query.params = { ...query.params, ...extraParams };
   });
+
+  if (argv.limit_queries > 0) {
+    return queries.slice(0, argv.limit_queries);
+  }
 
   return queries;
 }
