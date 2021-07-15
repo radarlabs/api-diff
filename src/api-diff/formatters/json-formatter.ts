@@ -17,13 +17,17 @@ type ApiEnvResponse = {
 /** One compare output entry in json */
 export type JsonChange = {
   id: string;
+  deltaCount: Number;
   old: ApiEnvResponse;
   new?: ApiEnvResponse;
 } & Pick<Change, 'delta' | 'query'>;
 
+var flatten = require('flat');
+
 /** Outputs compare run as json. HTML output is built on top of this format */
 export default class JsonFormatter extends CompareFormatter {
   changes: JsonChange[] = [];
+  
 
   logChange(change: Change): void {
     this.changes.push({
@@ -32,6 +36,7 @@ export default class JsonFormatter extends CompareFormatter {
       ),
       query: change.query,
       delta: change.delta,
+      deltaCount : (Object.keys(flatten(change.delta)).length - 1) ,
       old: {
         response: change.oldResponse.data,
         status: change.oldResponse.status,

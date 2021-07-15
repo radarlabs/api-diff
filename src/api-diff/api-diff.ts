@@ -28,6 +28,9 @@ type CompareArgs = Pick<
   | 'retries'
   | 'response_filter'
   | 'response_filter_function'
+  | 'sort'
+  | 'remove_null'
+  | 'convert_type'
 >;
 
 /**
@@ -86,6 +89,8 @@ async function compareQuery({
     })
     : undefined;
 
+   
+
   if (argv.response_filter || argv.response_filter_function) {
     const hadData = !_.isEmpty(oldResponse.data) || !_.isEmpty(newResponse.data);
 
@@ -112,6 +117,66 @@ async function compareQuery({
       );
     }
   }
+
+  if (argv.sort) {
+    const hadData = !_.isEmpty(oldResponse.data) || !_.isEmpty(newResponse.data);
+
+    try {
+      const sortDeepObjectArrays = require('sort-deep-object-arrays');
+      oldResponse.data = sortDeepObjectArrays(oldResponse.data);
+      newResponse.data = sortDeepObjectArrays(newResponse.data);
+    } catch (e) {
+      console.error(e);
+    }
+
+    if (hadData && _.isEmpty(oldResponse.data) && _.isEmpty(newResponse.data)) {
+      console.error(
+        chalk.yellow(
+          `\nAfter filtering, old and new response are both falsy. Are you sure your sort is correct? ${argv.response_filter}`,
+        ),
+      );
+    }
+  }
+
+  if (argv.remove_null) {
+    const hadData = !_.isEmpty(oldResponse.data) || !_.isEmpty(newResponse.data);
+
+    try {
+      /* eslint-disable import/no-dynamic-require, global-require,
+            @typescript-eslint/no-var-requires */
+      var groom = require('groom');
+      oldResponse.data = groom(oldResponse.data);
+      newResponse.data = groom(newResponse.data);
+    } catch (e) {
+      console.error(e);
+    }
+
+    if (hadData && _.isEmpty(oldResponse.data) && _.isEmpty(newResponse.data)) {
+      console.error(
+        chalk.yellow(
+          `\nAfter filtering, old and new response are both falsy. Are you sure your sort is correct? ${argv.response_filter}`,
+        ),
+      );
+    }
+  }
+
+  if (argv.convert_type) {
+    const hadData = !_.isEmpty(oldResponse.data) || !_.isEmpty(newResponse.data);
+    try {
+
+
+    } catch (e) {
+      console.error(e);
+    }
+    if (hadData && _.isEmpty(oldResponse.data) && _.isEmpty(newResponse.data)) {
+      console.error(
+        chalk.yellow(
+          `\nAfter filtering, old and new response are both falsy. Are you sure your sort is correct? ${argv.response_filter}`,
+        ),
+      );
+    }
+  }
+     
 
   const differ = jsondiffpatch.create({
     propertyFilter(name) {
@@ -182,6 +247,7 @@ async function compareQueries({
       if (!change) {
         return;
       }
+
 
       formatter.queryCompleted(change);
 

@@ -16,6 +16,9 @@ export type ParsedArgs = {
   ignored_fields: string[];
   response_filter: string;
   response_filter_function: string;
+  sort: string;
+  remove_null: string;
+  convert_type: string;
   concurrency: number;
   unchanged: boolean;
   key_map: string[];
@@ -108,6 +111,24 @@ function createYargs(yargs: Argv, envs: string[]) {
     type: 'string',
     description:
       'path to a .ts or .js file to load (using default export) to filter the api response',
+  });
+
+  yargs.option('sort', {
+    type: 'string',
+    description:
+      'sort the API response by keys',
+  });
+
+  yargs.option('remove_null', {
+    type: 'string',
+    description:
+      'removes the keys will null values',
+  });
+
+  yargs.option('convert_type', {
+    type: 'string',
+    description:
+      'convert all the integer values in JSON to String',
   });
 
   yargs.option('concurrency', {

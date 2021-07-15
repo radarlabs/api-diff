@@ -443,7 +443,7 @@
             </div>
 
             <div class="card">
-              <div class="card-header">Delta</div>
+              <div class="card-header">Delta : {{deltaCount}}</div>
               <div class="card-text p-2"><div class="delta-visual"></div></div>
             </div>
           </div>
@@ -604,6 +604,7 @@
               params: JSON.stringify(change.query.params, null, 2),
               oldUrl: change.old?.url,
               newUrl: change.new?.url,
+              deltaCount: change.deltaCount,
               oldHost: json.old.apiEnv.host,
               newHost: json.new.apiEnv.host,
               id: change.id,
