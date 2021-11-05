@@ -120,3 +120,4 @@ dist/
 !./docs/compare.html
 !./src/api-diff/formatters/compare.html
 .metals
+api-diff-output*

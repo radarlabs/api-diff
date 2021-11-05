@@ -7,6 +7,7 @@ import { AxiosResponse } from 'axios';
 import jp from 'jsonpath';
 import * as _ from 'lodash';
 import chalk from 'chalk';
+import * as tty from 'tty';
 
 import { ApiEnv, argvToApiEnv } from '../apiEnv';
 import runQuery, { AxiosResponseWithDuration } from '../run-query';
@@ -245,6 +246,17 @@ function main(): Promise<void> {
   } else {
     argv.output_mode = 'json';
     argv.unchanged = true;
+  }
+
+  if (
+    !argv.output_file
+    && argv.output_mode !== 'text'
+    && tty.isatty(process.stdout.fd)
+  ) {
+    argv.output_file = `api-diff-output-${new Date().toISOString()}.${
+      argv.output_mode
+    }`;
+    console.log(`\n\nOutputting to ${argv.output_file}\n\n`);
   }
 
   const formatter = getFormatter(argv.output_mode, {

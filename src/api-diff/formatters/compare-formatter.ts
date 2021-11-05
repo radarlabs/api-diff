@@ -7,7 +7,10 @@ import { Change } from '../change';
 import { ApiEnv } from '../../apiEnv';
 import { ParsedArgs } from '../argv';
 
-export type FormatterArgv = Pick<ParsedArgs, 'output_mode' | 'output_file' | 'unchanged'>;
+export type FormatterArgv = Pick<
+  ParsedArgs,
+  'output_mode' | 'output_file' | 'unchanged'
+>;
 
 export type FormatterConstructorParams = {
   oldApiEnv: ApiEnv;
@@ -32,7 +35,9 @@ export type FinishedStats = {
  * @param {number[]} responseTimes list of response times in milliseconds to analyze
  * @returns {Record<string, number>} map of stats names to value
  */
-export function makeResponseTimesHistogram(responseTimes: number[]): Record<string, number> {
+export function makeResponseTimesHistogram(
+  responseTimes: number[],
+): Record<string, number> {
   return {
     p99: stats.percentile(responseTimes, 0.99),
     p95: stats.percentile(responseTimes, 0.95),
@@ -104,7 +109,9 @@ export abstract class CompareFormatter {
    */
   finished(finishedStats: FinishedStats): Promise<void> {
     this.progressBar.stop();
-    console.error(`DONE. ${this.numQueriesChanged}/${this.numQueriesRun} changed`);
+    console.error(
+      `DONE. ${this.numQueriesChanged}/${this.numQueriesRun} changed`,
+    );
     return this.onFinished(finishedStats);
   }
 
@@ -128,7 +135,10 @@ export abstract class CompareFormatter {
   }
 
   constructor({
-    oldApiEnv, newApiEnv, totalQueries, argv,
+    oldApiEnv,
+    newApiEnv,
+    totalQueries,
+    argv,
   }: FormatterConstructorParams) {
     this.oldApiEnv = oldApiEnv;
     this.newApiEnv = newApiEnv;
@@ -146,6 +156,7 @@ export abstract class CompareFormatter {
     });
 
     const outputFilename = argv.output_file;
+
     if (outputFilename && outputFilename !== '-') {
       this.outputStream = fs.createWriteStream(outputFilename);
     }

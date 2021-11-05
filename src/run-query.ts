@@ -57,10 +57,18 @@ export default async function runQuery(
   query: Query,
   options: RunQueryOptions,
 ): Promise<AxiosResponse> {
-  const { params, method, endpoint } = query;
+  let { endpoint } = query;
+  const { params, method } = query;
   const { timeout, retries } = options;
 
   axiosRetry(axios, { retries });
+
+  if (apiEnv.host.endsWith('/') && endpoint.startsWith('/')) {
+    endpoint = endpoint.substring(1);
+  }
+  if (!apiEnv.host.endsWith('/') && !endpoint.startsWith('/')) {
+    endpoint = `/${endpoint}`;
+  }
 
   const url = `${apiEnv.protocol}://${apiEnv.host}${endpoint}`;
 
@@ -71,7 +79,7 @@ export default async function runQuery(
   };
 
   if (config.authStyle === 'header') {
-    headers.Authorization = [config.authType, apiEnv.key]
+    headers[config.authParam || 'Authorization'] = [config.authType, apiEnv.key]
       .filter((u) => !_.isEmpty(u))
       .join(' ');
   } else if (config.authStyle === 'param') {
@@ -100,7 +108,7 @@ export default async function runQuery(
       return error.response;
     }
     if (error.request) {
-      const axiosError = error as AxiosError<any>;
+      const axiosError = error as AxiosError;
       console.error(
         `Error ${axiosError.code} on ${url}?${querystring.stringify(params)}`,
       );

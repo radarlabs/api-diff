@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import yargs from 'yargs';
 
 /**
- * @param msg
+ * @param {string} msg exit message to be displayed
  */
 export function failedExit(msg: string): void {
   console.error(chalk.red('PROCESS FAILED'));

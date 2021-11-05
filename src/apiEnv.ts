@@ -132,10 +132,7 @@ export function findApiKey(
  * @param exitOnFailure
  * @returns {ApiEnv} filled in ApiEnv
  */
-export function argvToApiEnv(
-  argv?: any,
-  exitOnFailure?: boolean,
-): ApiEnv {
+export function argvToApiEnv(argv?: any, exitOnFailure?: boolean): ApiEnv {
   let apiEnv: Partial<ApiEnv> = {};
 
   if (argv.key) {
@@ -151,7 +148,16 @@ export function argvToApiEnv(
     apiEnv.keyType = argv.key_type;
   }
   if (argv.extra_params) {
-    apiEnv.extraParams = queryString.parse(argv.extra_params.join('&')) as Record<string, string>;
+    if (argv.extra_params.every((p) => p.startsWith('{'))) {
+      apiEnv.extraParams = _.merge(
+        {},
+        ...argv.extra_params.map((p) => JSON.parse(p)),
+      );
+    } else {
+      apiEnv.extraParams = queryString.parse(
+        argv.extra_params.join('&'),
+      ) as Record<string, string>;
+    }
   }
 
   let aliasedHostEntry: ConfigHostEntry;

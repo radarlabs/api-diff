@@ -18,6 +18,7 @@ type QueryReaderArgs = Pick<
   | 'endpoint'
   | 'input_params'
   | 'input_csv'
+  | 'input_json'
   | 'key_map'
   | 'extra_params'
   | 'limit_queries'
@@ -41,6 +42,20 @@ function readQueriesHelper(argv: QueryReaderArgs): Query[] {
     return {
       endpoint,
       params: queryString.parse(paramString) as Record<string, string>,
+      method: argv.method,
+    };
+  }
+
+  /**
+   * Convert a json string string to a Query
+   *
+   * @param {string} line json params string
+   * @returns {Query} parsed query
+   */
+  function jsonLineToQuery(line: string): Query {
+    return {
+      endpoint: argv.endpoint,
+      params: JSON.parse(line),
       method: argv.method,
     };
   }
@@ -76,7 +91,9 @@ function readQueriesHelper(argv: QueryReaderArgs): Query[] {
       argv.key_map.forEach((str: string) => {
         const parts = str.split('=');
         if (parts.length !== 2) {
-          failedExit(`invalid keymap ${str}, must be of form csv_column_name=param_name`);
+          failedExit(
+            `invalid keymap ${str}, must be of form csv_column_name=param_name`,
+          );
         }
         const [csvHeader, paramName] = parts;
         keyMap[csvHeader] = paramName;
@@ -84,7 +101,8 @@ function readQueriesHelper(argv: QueryReaderArgs): Query[] {
 
       // if the key mapping is all from numbers, assume the user is trying
       // to tell us that the input csv doesn't have named headers
-      const hasNumericKeyMap = _.keys(keyMap).length > 0 && _.every(_.keys(keyMap), (k) => /^\d+$/.test(k));
+      const hasNumericKeyMap = _.keys(keyMap).length > 0
+        && _.every(_.keys(keyMap), (k) => /^\d+$/.test(k));
 
       const records = parseCsvSync(fileLines, {
         columns: !hasNumericKeyMap,
@@ -124,6 +142,14 @@ function readQueriesHelper(argv: QueryReaderArgs): Query[] {
       .filter((line) => !!line)).map(lineToQuery);
   }
 
+  if (argv.input_json) {
+    return _.flatMap(argv.input_json, (input_queries_file: string) => fs
+      .readFileSync(input_queries_file)
+      .toString()
+      .split('\n')
+      .filter((line) => !!line)).map(jsonLineToQuery);
+  }
+
   return [];
 }
 
@@ -138,11 +164,14 @@ export default function readQueries(argv: QueryReaderArgs): Query[] {
 
   if (!queries || queries.length === 0) {
     failedExit(
-      'No queries found, did you specify one of: --input_params, --input_csv, --input_queries?',
+      'No queries found, did you specify one of: --input_params, --input_csv, --input_queries, --input_json?',
     );
   }
 
-  const extraParams = queryString.parse(argv.extra_params.join('&')) as Record<string, string>;
+  const extraParams = queryString.parse(argv.extra_params.join('&')) as Record<
+    string,
+    string
+  >;
   queries.forEach((query) => {
     // eslint-disable-next-line no-param-reassign
     query.params = { ...query.params, ...extraParams };

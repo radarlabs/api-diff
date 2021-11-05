@@ -5,7 +5,9 @@ import * as queryString from 'querystring';
 import * as chalk from 'chalk';
 import { failedExit, globalCommandLineOptions } from './cli-utils';
 import {
-  argvToApiEnv, getApiEnvCommandLineOptions, findApiKey,
+  argvToApiEnv,
+  getApiEnvCommandLineOptions,
+  findApiKey,
 } from './apiEnv';
 import runQuery from './run-query';
 import config, { API_DIFF_CONFIG_FILE } from './config';
@@ -77,7 +79,8 @@ if (_.last(argv._)?.toString().startsWith('http')) {
     apiEnv.keyType = hostEntry.keyType || _.first(config.keyTypes);
   }
 
-  apiEnv.key = apiEnv.key || findApiKey({ keyEnv: apiEnv.keyEnv, keyType: apiEnv.keyType });
+  apiEnv.key = apiEnv.key
+    || findApiKey({ keyEnv: apiEnv.keyEnv, keyType: apiEnv.keyType });
 
   endpoint = url.pathname;
   params = queryString.parse(url.search.substring(1)) as Record<string, string>;
@@ -95,7 +98,9 @@ if (_.last(argv._)?.toString().startsWith('http')) {
 }
 
 if (!endpoint) {
-  failedExit('no --endpoint specified and argument was not a full http url with endpoint, exiting');
+  failedExit(
+    'no --endpoint specified and argument was not a full http url with endpoint, exiting',
+  );
 }
 
 runQuery(
@@ -108,5 +113,6 @@ runQuery(
   },
   { timeout: argv.timeout, retries: argv.retries },
 ).then(({ data }) => {
+  // eslint-disable-next-line no-console
   console.dir(data, { depth: null, colors: chalk.level > 0 });
 });

@@ -13,6 +13,7 @@ It also includes a script for talking to json http services with saved configura
 ![start of text diff](https://radarlabs.github.io/api-diff/text-output-2.png)
 
 ### [html output](https://radarlabs.github.io/api-diff/diff.html)
+
 ![html diff](http://images.ctfassets.net/f2vbu16fzuly/2izT1q1tXM4UO5VmaLAcnB/f47165fe0bd1c3a01abca54d975b6938/Screen_Shot_2020-11-13_at_8.55.29_AM.png)
 
 Note that this is an interactive evaluation form for figuring out which queries improved and which got worse. Each result is assigned an id based on the md5 hash of the query params + delta, and scores are saved to local storage. in your web browser. This means if you're doing a lot of compares, where many of the diffs are the same between runs, you won't need to re-rank them.
@@ -23,10 +24,10 @@ Note that this is an interactive evaluation form for figuring out which queries 
 
 This is a contrived example because our old and new servers are the same, but they return random data, so it is a good way to quickly see diffs.
 
-
 From CSV input:
+
 ```
-api-diff \                                 ✔ 
+api-diff \
   --old.host http://names.drycodes.com/ \
   --new.host http://names.drycodes.com/ \
   --endpoint "/10" \
@@ -85,16 +86,18 @@ api-diff \
 ```
 
 ### Compare against a baseline
+
 ```
  api-diff \
   --new.host https://pelias-staging.apicom.com \
   --input_json_baseline addresses-baseline.json \
-  --ignored_fields bbox geometry attribution timestamp \ 
-  --output_mode html \ 
+  --ignored_fields bbox geometry attribution timestamp \
+  --output_mode html \
   > diffs.html
 ```
 
 ### Use api tool with a [config file](#configuration)
+
 ```
 # use config.hjson which defines staging & local envs
 API_DIFF_CONFIG=config.hjson api-tool \
@@ -105,6 +108,7 @@ API_DIFF_CONFIG=config.hjson api-tool \
 ```
 
 ### Use compare tool with a [config file](#configuration)
+
 ```
 # use config.hjson which defines staging & local envs
 API_DIFF_CONFIG=config.hjson api-diff
@@ -143,20 +147,23 @@ All of the tools in this repo can load a configuration file that makes it easy t
 The config file is specified in [hjson](https://hjson.github.io/) which allows for comments and trailing commas.
 
 An example config looks like this
+
 ```
 {
   # this will be uppercased as the prefix to api key env variables
   name: "apicom",
 
   # "param" or "header"
-  # param means the key will be sent as a cgi param with 
-  #     the key authParam defined below 
-  # header means the key will be sent in the http 
+  # param means the key will be sent as a cgi param with
+  #     the key authParam defined below
+  # header means the key will be sent in the http
   #     Authorization header. If your server expects a header like "Bearer XXXXXXX",
   #     then set the api key to that entire string.
   authStyle: "header",
 
-  # only required if using authStyle="param"
+  # required if using authStyle="param"
+  # optional if using authStyle="header", default to "Authorization"
+  #
   # authParam: "api_key",
 
   # optional, if using authStyle="header"
@@ -202,11 +209,12 @@ APICOM_STAGING_TEST_KEY=XXXX
 APICOM_STAGING_LIVE_KEY=XXXX
 ```
 
-If your server requires authorization in request params, set authStyle="param" and authParam to the request parameter name the server expects. If your server uses the HTTP Authoization header, then set authStyle="header" and (optionally) authType to what auth type prefix the server expects, such as "Basic" or "Bearer" - this can be omitted if your server takes bare keys in the Authoization header.
+If your server requires authorization in request params, set authStyle="param" and authParam to the request parameter name the server expects. If your server uses the HTTP headers for auth, then set authStyle="header", (optionally) authParam to whatever header your auth is sent in (defaults to "Authorization") (optionally) authType to what auth type prefix the server expects, such as "Basic" or "Bearer" - this can be omitted if your server takes bare keys in the Authorization header.
 
 Our config defines two types of keys - test and live. It also defines two key environments. One for "prod" and one for "staging," the host configs for "local" and "user" are both configured to look in the "staging" key env"
 
 ### Specifying a server
+
 For compare, two servers must be specified, with --new.X and --old.X options. For the api tool, the server is specifed in the same way but without the "new/old." prefix.
 
 Servers can be specified in two ways:
@@ -214,25 +222,26 @@ Servers can be specified in two ways:
 - by using host entries from our config file. So `--old.prod`, `--old.staging`, `--old.user blackmad` etc would all work based on our examples (similarly, `--new.staging`, `--new.prod`, etc)
 - a combination of `--old.host` (required), `--old.key` (only if auth is needed). And similarly, `--new.host`, and `--new.key`
 
-These can be mixed! 
-
+These can be mixed!
 
 ### Reading queries
 
 - `--input_params` - the input file has one query per line, of the form `param1=A%20B&param2=Z`. requires `--endpoint` argument. `--method` used, defaults to GET.
 - `--input_queries` - the input file has one path + params per line, like `/endpoint?param1=A%20&p2=Z`. `--method` used, defaults to GET.
 - `--input_csv` - for reading csvs. Combined with `--endpoint` and `--method`
-  - Assumes that the first line of the file is column headings, unless `--key_map` is used with *all numeric keys*
+  - Assumes that the first line of the file is column headings, unless `--key_map` is used with _all numeric keys_
   - Column headings are used as parameter names
   - `--key_map` remaps column headings. `--key_map query=text` remaps the csv heading "query" to the query param "text". `--key_map 0=text 1=near` will cause the parser to assume the csv does not have named column headings (because all the keys are numbers), and will use the first column as the query param "text", the second as the query param "near"
 
 ### other options
+
 - `--concurrency` - how many queries to run at a time per host
 - `--timeout` - per query timeout, defaults to 30s
 - `--unchanged` - whether or not to output unchanged queries, defaults to false
 - `--ignored_fields` - fields to leave out when computing differences from server responses
 
 ### output options
+
 - `--color` - text mode only. whether or not to colorize the output. Defaults to true if sending to stdout, false if redirecting output. Use this option to force colorized output. Suggest always using it.
 - `--output_mode` - json, html or text (console output)
-- `--output_file` - defaults to stdout, where to output to
+- `--output_file` - where to output to - defaults to stdout for text, a file for json/html
