@@ -66,7 +66,7 @@ function readQueriesHelper(argv: QueryReaderArgs): Query[] {
       const json = JSON.parse(contents);
       return json.changes.map(
         (change: JsonChange): Query => ({
-          ...change.query,
+          ...change.oldQuery,
           baselineResponse: change.old.response,
         }),
       );

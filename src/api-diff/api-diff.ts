@@ -53,14 +53,15 @@ async function compareQuery({
 }): Promise<Change | undefined> {
   // if the query has a baseline response (running from a golden json file), use that
   // otherwise run it against the old server
+  const oldQuery = {
+    ...query,
+    params: { ...query.params, ...oldApiEnv.extraParams },
+  };
   const oldResponse = query.baselineResponse
     ? ({ data: query.baselineResponse } as AxiosResponse<unknown>)
     : await runQuery(
       oldApiEnv,
-      {
-        ...query,
-        params: { ...query.params, ...oldApiEnv.extraParams },
-      },
+      oldQuery,
       {
         timeout: argv.timeout,
         retries: argv.retries,
@@ -70,13 +71,14 @@ async function compareQuery({
       throw e;
     });
 
+  const newQuery = {
+    ...query,
+    params: { ...query.params, ...newApiEnv.extraParams },
+  };
   const newResponse = newApiEnv
     ? await runQuery(
       newApiEnv,
-      {
-        ...query,
-        params: { ...query.params, ...newApiEnv.extraParams },
-      },
+      newQuery,
       {
         timeout: argv.timeout,
         retries: argv.retries,
@@ -125,7 +127,8 @@ async function compareQuery({
     : undefined;
 
   return {
-    query,
+    oldQuery,
+    newQuery,
     delta,
     oldResponse,
     newResponse,

@@ -19,7 +19,7 @@ export type JsonChange = {
   id: string;
   old: ApiEnvResponse;
   new?: ApiEnvResponse;
-} & Pick<Change, 'delta' | 'query'>;
+} & Pick<Change, 'delta' | 'newQuery' | 'oldQuery'>;
 
 /** Outputs compare run as json. HTML output is built on top of this format */
 export default class JsonFormatter extends CompareFormatter {
@@ -28,9 +28,14 @@ export default class JsonFormatter extends CompareFormatter {
   logChange(change: Change): void {
     this.changes.push({
       id: md5(
-        JSON.stringify({ delta: change.delta, params: change.query.params }),
+        JSON.stringify({
+          delta: change.delta,
+          newQueryParams: change.newQuery.params,
+          oldQueryParams: change.oldQuery.params,
+        }),
       ),
-      query: change.query,
+      newQuery: change.newQuery,
+      oldQuery: change.oldQuery,
       delta: change.delta,
       old: {
         response: change.oldResponse.data,

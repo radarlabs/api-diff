@@ -42,7 +42,8 @@ export default class ConsoleFormatter extends CompareFormatter {
       }
       return commandParts.join(' ');
     };
-    const outputLines = `${JSON.stringify(change.query.params)}
+    const outputLines = `${JSON.stringify(change.newQuery.params)}
+    ${JSON.stringify(change.oldQuery.params)}
     ${apiEnvToApiSh(this.oldApiEnv)} ${
       change.oldResponse.request?.res?.responseUrl
 }

@@ -3,7 +3,8 @@ import { AxiosResponse } from 'axios';
 import { Query } from './query';
 
 export type Change = {
-  query: Query,
+  oldQuery: Query,
+  newQuery: Query,
   delta?: unknown;
   oldResponse: AxiosResponse;
   newResponse?: AxiosResponse;
