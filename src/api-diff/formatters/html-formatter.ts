@@ -6,7 +6,7 @@ import JsonFormatter from './json-formatter';
 
 export default class HtmlFormatter extends JsonFormatter {
   async onFinished(finishedStats: FinishedStats): Promise<void> {
-    const filePath = path.join(__dirname, 'compare.template');
+    const filePath = path.join(__dirname, 'compare.html');
     const html = fs.readFileSync(filePath).toString();
     this.write(
       html.replace('let json = {};', `let json = ${JSON.stringify(this.finishedDict(finishedStats), null, 2)};`),

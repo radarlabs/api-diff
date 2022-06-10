@@ -5,8 +5,10 @@
         "camelcase",
         "jsondiffpatch",
         "jsonpath",
+        "keymap",
         "NOTOK",
-        "runquery"
+        "runquery",
+        "unscored"
     ],
     "editor.formatOnSave": true
 }
