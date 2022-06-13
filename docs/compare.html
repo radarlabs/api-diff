@@ -438,7 +438,13 @@
                 >
               </div>
               <div class="card-text p-2">
-                <b><pre>{{params}}</pre></b>
+                {{#if sameParams}}
+                  <b><pre>params: {{oldParams}}</pre></b>
+                {{else}}
+                  TODO: make this a better diff
+                  <b><pre>oldParams: {{oldParams}}</pre></b>
+                  <b><pre>newParams: {{newParams}}</pre></b>
+                {{/if}}
               </div>
             </div>
 
@@ -601,7 +607,9 @@
             renderChangeTemplate({
               index: index + 1,
               total: changes.length,
-              params: JSON.stringify(change.query.params, null, 2),
+              sameParams: _.isEqual(change.oldQuery.params, change.newQuery.params),
+              oldParams: JSON.stringify(change.oldQuery.params, null, 2),
+              newParams: JSON.stringify(change.newQuery.params, null, 2),
               oldUrl: change.old?.url,
               newUrl: change.new?.url,
               oldHost: json.old.apiEnv.host,
@@ -610,12 +618,13 @@
             })
           );
 
-          changeNode.querySelector(
-            ".delta-visual"
-          ).innerHTML = jsondiffpatch.formatters.html.format(
-            change.delta,
-            change.old.response
-          );
+          // TODO: replace
+          // changeNode.querySelector(
+          //   ".delta-visual"
+          // ).innerHTML = jsondiffpatch.formatters.html.format(
+          //   change.delta,
+          //   change.old.response
+          // );
 
           changeNode.addEventListener("click", () => {
             selectedDiffIndex = index;
@@ -630,8 +639,14 @@
             "unscored";
           changeNode.dataset.quality = change.eval.quality;
           changeNode.dataset.id = change.id;
-          changeNode.dataset.params = JSON.stringify(
-            change.query.params,
+
+          changeNode.dataset.oldParams = JSON.stringify(
+            change.oldQuery.params,
+            null,
+            2
+          );
+          changeNode.dataset.newParams = JSON.stringify(
+            change.newQuery.params,
             null,
             2
           );
@@ -735,10 +750,46 @@
         renderScoreboardAndSummary();
       }
 
+      async function tryLoadFromUrlParams() {
+        const isFileProtocol = window.location.protocol === "file:"
+
+        const urlParams = new URLSearchParams(window.location.search)
+        const jsonParam = urlParams.get("json")
+
+        if (!jsonParam) {
+          // No file to try
+          return
+        }
+
+        if (jsonParam && isFileProtocol) {
+          window.alert("cannot load json file via file protocol, please use load file or use a local http server");
+          return
+        }
+
+        try {
+          const response = await fetch(jsonParam)
+
+          if (!response.ok) {
+            window.alert(`Error fetching: ${response.statusText}`)
+          }
+
+          json = await response.json()
+          console.log(json)
+        } catch (e) {
+          window.alert(`Error fetching: ${e}`)
+        }
+      }
+
       let selectedDiffIndex = 0;
 
-      attachListeners();
-      rerender();
+      async function init() {
+        attachListeners();
+        await tryLoadFromUrlParams()
+        rerender();
+      }
+
+      init()
+
     </script>
   </body>
 </html>
