@@ -33,8 +33,8 @@ export const OLD_KEY = 'old';
 export const NEW_KEY = 'new';
 
 /**
- * @param yargs
- * @param envs
+ * @param {Argv} yargs basic argument definitions
+ * @param {string[]} envs list of environments to generate sub-key definitions for
  */
 function createYargs(yargs: Argv, envs: string[]) {
   _.forEach(globalCommandLineOptions, (val, key) => {

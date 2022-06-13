@@ -1,13 +1,19 @@
 {
     "prettier.requireConfig": true,
     "cSpell.words": [
+        "Bitstream",
         "blackmad",
         "camelcase",
+        "commandline",
         "jsondiffpatch",
+        "jsonl",
         "jsonpath",
         "keymap",
+        "luxon",
+        "movedestination",
         "NOTOK",
         "runquery",
+        "textdiff",
         "unscored"
     ],
     "editor.formatOnSave": true
